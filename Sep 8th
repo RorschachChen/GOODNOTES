@@ -48,3 +48,8 @@ No trick, 'sorted' and calculate the sum of metric with odd index
 [::2] with 2 steps
 
 942. DI String Match
+Given a string contains only "ID", return a list with 0->N(N+1 in total), if there is a "I" in the given string, then the 
+same index, the later one should be greater than this one, D otherwise. 
+One solution:
+First counter I, put the smallest one to it, and next time put a bigger one. For D, first put the largest one and then smaller. 
+
