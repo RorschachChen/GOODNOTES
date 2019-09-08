@@ -44,3 +44,7 @@ Directly do ^ between two inputs, and find the 1 in the returned str
 find the index of the maximum in list.
 
 561. Array Partition I
+No trick, 'sorted' and calculate the sum of metric with odd index
+[::2] with 2 steps
+
+942. DI String Match
