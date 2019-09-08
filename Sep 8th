@@ -12,3 +12,6 @@ if correct find out if there is another same value in the list, return.
 else delete the first from the list, and continue until we find the pair and return.
 Upgraded:
 Don't use delete, otherwise requires a lot calculation about the index later. use enumurate to find the overall index.
+Upgraded:
+enumerate the list, calculate the difference between the target and the value, if not exist, put the index of value in another
+dict, until find, return both of the index from dict. 
