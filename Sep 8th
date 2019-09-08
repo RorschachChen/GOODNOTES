@@ -30,4 +30,5 @@ list 的 sort 方法返回的是对已经存在的列表进行操作，无返回
 728. Self Dividing Numbers
 find all the numbers between left and right that can self-dividing each digit in it. 
 just do judge and append to the return list. 
-
+But, when it comes to situation like jump out two loops, it better to set a outside flag or function to judge whether it should
+jump out of the big loop.
