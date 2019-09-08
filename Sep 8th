@@ -15,3 +15,8 @@ Don't use delete, otherwise requires a lot calculation about the index later. us
 Upgraded:
 enumerate the list, calculate the difference between the target and the value, if not exist, put the index of value in another
 dict, until find, return both of the index from dict. 
+
+977, Squares of a Sorted Array
+return the square of the list value in a decreasing sequence.
+bubble will run out of time...
+Solution:
