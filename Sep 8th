@@ -53,3 +53,7 @@ same index, the later one should be greater than this one, D otherwise.
 One solution:
 First counter I, put the smallest one to it, and next time put a bigger one. For D, first put the largest one and then smaller. 
 
+944. Delete Columns to Make Sorted
+Test all the column if it is in increasing order, return true and the counter add 1, finnaly return the len(A[0])-counter
+
+933. Number of Recent Calls
