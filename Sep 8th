@@ -36,3 +36,11 @@ jump out of the big loop.
 617. Merge Two Binary Trees
 merge two binary trees, sum when two nodes are existed.
 If the nodes are both provided, use the self mergeTree to create new node. If only one is given, use that as node.
+
+461. Hamming Distance
+Directly do ^ between two inputs, and find the 1 in the returned str
+
+852. Peak Index in a Mountain Array
+find the index of the maximum in list.
+
+561. Array Partition I
