@@ -32,3 +32,7 @@ find all the numbers between left and right that can self-dividing each digit in
 just do judge and append to the return list. 
 But, when it comes to situation like jump out two loops, it better to set a outside flag or function to judge whether it should
 jump out of the big loop.
+
+617. Merge Two Binary Trees
+merge two binary trees, sum when two nodes are existed.
+If the nodes are both provided, use the self mergeTree to create new node. If only one is given, use that as node.
