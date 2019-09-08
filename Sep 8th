@@ -4,3 +4,9 @@ len(), len() and use ord()-ord('a') to get the index for the morse table
 1. add transformed word to set() and find the length of set
 2. use {} and join to concatenate the char in word (there are no two or more same key in dict)
 3. 
+
+1, Two Sum
+find the two indexes for which the sum of the two values are equal to the target
+first check out if the pair is in the list, then check if the target is twice of the first value, 
+if correct find out if there is another same value in the list, return.
+else delete the first from the list, and continue until we find the pair and return.
