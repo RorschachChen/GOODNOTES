@@ -1,0 +1,6 @@
+804, Unique Morse Code Words
+count the unique morse composition of all the given words.
+len(), len() and use ord()-ord('a') to get the index for the morse table
+1. add transformed word to set() and find the length of set
+2. use {} and join to concatenate the char in word (there are no two or more same key in dict)
+3. 
