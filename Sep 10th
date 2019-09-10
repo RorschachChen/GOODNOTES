@@ -1,0 +1,18 @@
+717. 1-bit and 2-bit Characters
+Two kinds of characters, 0 and "11" or "10". To check if the given string follows this rule. 
+Solution: Meet "1" means 2-bit character, jump two steps, "0" then 1 step. Finally check if the point stays at the last position.
+
+383. Ransom Note
+Check if B string can be constructed from A. letter can only be used once. 
+Solution: count each characters in A and B, if each of B is smaller than A, return true.
+Legendary: return [Counter(magazine)[ch] >= Counter(ransomNote)[ch] 
+          for ch in Counter(ransomNote)].count(True) == len(Counter(ransomNote))
+          
+67. Add Binary
+No description. 
+Solution: bin(int(a, 2)+int(b, 2)).replace('0b', '')
+
+258. Add Digits
+Given a non-negative integer num, repeatedly add all its digits until the result has only one digit.
+Solution: return num % 9 or 9
+
