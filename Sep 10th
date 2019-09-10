@@ -23,3 +23,5 @@ Solution: return str(eval('{} + {}'.format(num1, num2))) 将字符串str当成�
 989. Add to Array-Form of Integer
 1234->[1,2,3,4], then add K, at last transfer back to [1, 2, 3, 4]-like.
 Solution: return list(str(int(str(A).replace('[', '').replace(']', '').replace(',', '').replace(' ', ''))+K))
+
+441. Arranging Coins
