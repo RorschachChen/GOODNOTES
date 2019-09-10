@@ -1,2 +1,10 @@
 Apple realease new iPad, iPhone, Macbook, Watch today! Happy coding. 
 
+455. Assign Cookies
+A series of g, another series of s, find as more as possible g that let g<s. 
+Solution: use two pointers, one for g, another for s. if g<=s, two step forward, if g>s, until find the satisfied. return the final destination of g.
+
+999. Available Captures for Rook
+没意义，就遍历找到R，再往四个方向进行寻找碰到到是否是小兵或者主教
+
+637. Average of Levels in Binary Tree
