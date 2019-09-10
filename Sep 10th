@@ -16,3 +16,6 @@ Solution: bin(int(a, 2)+int(b, 2)).replace('0b', '')
 Given a non-negative integer num, repeatedly add all its digits until the result has only one digit.
 Solution: return num % 9 or 9
 
+415. Add Strings
+Given two non-negative integers num1 and num2 represented as string, return the sum of num1 and num2.
+Solution: 
