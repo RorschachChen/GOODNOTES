@@ -25,3 +25,4 @@ Solution: return str(eval('{} + {}'.format(num1, num2))) 将字符串str当成�
 Solution: return list(str(int(str(A).replace('[', '').replace(']', '').replace(',', '').replace(' ', ''))+K))
 
 441. Arranging Coins
+Solution: (n+1)(n+2)/2>m>(1+n)n/2
