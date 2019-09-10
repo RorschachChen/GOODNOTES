@@ -18,4 +18,8 @@ Solution: return num % 9 or 9
 
 415. Add Strings
 Given two non-negative integers num1 and num2 represented as string, return the sum of num1 and num2.
-Solution: 
+Solution: return str(eval('{} + {}'.format(num1, num2))) 将字符串str当成有效的表达式来求值并返回计算结果
+
+989. Add to Array-Form of Integer
+1234->[1,2,3,4], then add K, at last transfer back to [1, 2, 3, 4]-like.
+Solution: return list(str(int(str(A).replace('[', '').replace(']', '').replace(',', '').replace(' ', ''))+K))
