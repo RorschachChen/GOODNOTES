@@ -8,3 +8,5 @@ Solution: use two pointers, one for g, another for s. if g<=s, two step forward,
 没意义，就遍历找到R，再往四个方向进行寻找碰到到是否是小兵或者主教
 
 637. Average of Levels in Binary Tree
+calculate the average of each layers in a BT.
+Solution: 
