@@ -1,0 +1,9 @@
+7. Reverse Integer
+keep the negative sign and remember not overflow
+Solution: int(str())
+
+9. Palindrome Number
+discriminate. 
+Solution: take out each logit of x, and put it into a new 'copy' from the lower logit. Finally, check if this two equal.
+
+13. Roman to Integer
