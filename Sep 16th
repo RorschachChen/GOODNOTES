@@ -9,3 +9,4 @@ Solution: take out each logit of x, and put it into a new 'copy' from the lower 
 13. Roman to Integer
 At first, count all the numbers, then detect if there is reversed pairs, then delete twice of the first character number.
 
+14. Longest Common Prefix
