@@ -22,3 +22,8 @@ Input: root = [1,null,3,2,4,null,5,6]不过好像和root是list无关，就是�
 extend() 函数用于在列表末尾一次性追加另一个序列中的多个值
 (2)(iteratively)把root放进list中，把list中的值pop出，直到为空。每次pop出val的同时把children extend到stack中
 
+590. N-ary Tree Postorder Traversal <<tree>>
+Postorder
+Solution:
+(1)递归：先判断是否为空，否则返回。再对children递归调用postorder，把返回的list extend到返回list中。
+(2)循环：
