@@ -8,3 +8,17 @@ For each pair of [ri, ci] you have to increment all cells in row ri and column c
 values in the matrix after applying the increment to all indices.
 Not suitable for Python, need cell to store.
 
+700. Search in a Binary Search Tree <<tree>>
+Given the root node of a binary search tree (BST) and a value. You need to find the node in the BST that the node's value 
+equals the given value. Return the subtree rooted with that node. If such node doesn't exist, you should return NULL.
+Solution: just search.
+
+589. N-ary Tree Preorder Traversal <<tree>>
+Given an n-ary tree, return the preorder traversal of its nodes' values. Nary-Tree input serialization is represented
+in their level order traversal, each group of children is separated by the null value (See examples).
+Solution: 
+Input: root = [1,null,3,2,4,null,5,6]不过好像和root是list无关，就是直接把root想象成tree结构就行了
+(1)Decide if the node has value, otherwise recursively preorder the child, use list.extend to add all the child in a time.
+extend() 函数用于在列表末尾一次性追加另一个序列中的多个值
+(2)(iteratively)把root放进list中，把list中的值pop出，直到为空。每次pop出val的同时把children extend到stack中
+
