@@ -77,3 +77,25 @@ for i in range(n):
             ans += 1
 return ans
 
+1207. Unique Number of Occurrences
+Solution:
+def uniqueOccurrences(self, arr: List[int]) -> bool:
+        from collections import Counter
+        result = Counter(arr)
+        #result = [result.values()]
+        ans = []
+        for i in result:
+            ans.append(result[i])
+        return len(ans)==len(set(ans))
+        
+1051. Height Checker
+需要数字从小到大排列，问站错的人的数量
+Solution:
+直接sorted后和原来的一个位置一个位置比。统计数量
+def heightChecker(self, heights: List[int]) -> int:
+        count = 0
+        for i,j in zip(heights,sorted(heights)):
+            if i != j:
+                count += 1
+        return count
+
