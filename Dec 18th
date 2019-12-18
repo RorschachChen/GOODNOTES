@@ -1,0 +1,27 @@
+965. Univalued Binary Tree <<Tree>>
+判断树中值是否全部相等
+Solution:
+def isUnivalTree(self, root: TreeNode) -> bool:
+        if not root: return
+        stack = [root]
+        res = []
+        while stack:
+            node = stack.pop()
+            res.append(node.val)
+            if node.left:
+                stack.append(node.left)
+            if node.right:
+                stack.append(node.right)
+        return len(sorted(set(res)))==1
+使用栈
+
+559. Maximum Depth of N-ary Tree <<Tree>><<DFS>><<BFS>>
+def maxDepth(self, root: 'Node') -> int:
+        if not root:
+            return 0
+        if not root.children:
+            return 1
+        depth = 1 + max(self.maxDepth(child) for child in root.children)
+        return depth
+Solution:一直返回节点的最大的深度，然后回上一层后加1.
+
