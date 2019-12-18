@@ -64,4 +64,16 @@ for r, c in indices:
     for j in range(m): matrix[r][j] ^= 1  
     for i in range(n): matrix[i][c] ^= 1
 return sum(sum(matrix, []))
+（2）
+row = [0] * n
+col = [0] * m
+for i, j in indices:
+    row[i] += 1
+    col[j] += 1
+ans = 0
+for i in range(n):
+    for j in range(m):
+        if (row[i] + col[j]) % 2:
+            ans += 1
+return ans
 
