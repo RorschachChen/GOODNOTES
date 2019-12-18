@@ -136,3 +136,5 @@ def subdomainVisits(self, cpdomains: List[str]) -> List[str]:
                 if c=='.':
                     count[domain[i+1:]]+=time
         return [str(time) + " " + domain for domain, time in count.items()]
+
+1237. Find Positive Integer Solution for a Given Equation
