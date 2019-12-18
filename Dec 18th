@@ -29,3 +29,39 @@ Solution:一直返回节点的最大的深度，然后回上一层后加1.
 Given a binary search tree, rearrange the tree in in-order so that the leftmost node in the tree is now the root
 of the tree, and every node has no left child and only 1 right child.
 Solution:
+
+1290. Convert Binary Number in a Linked List to Integer
+二进制放在链表里，得到十进制结果
+Solution: 
+def getDecimalValue(self, head: ListNode) -> int:
+        stack = [head]
+        res = []
+        while stack:
+            node = stack.pop()
+            res.append(node.val)
+            if node.next:
+                stack.append(node.next)
+        ans = 0
+        import math
+        for i in range(len(res)):
+            ans += int(math.pow(2, i)*res[len(res)-1-i])
+            
+        return ans
+ 
+1281. Subtract the Product and Sum of Digits of an Integer
+Solution: too easy.
+
+1221. Split a String in Balanced Strings
+Given a balanced string s split it in the maximum amount of balanced strings.
+Return the maximum amount of splitted balanced strings.
+Solution: 用一个flag和count，L：+1，R：-1。 统计flag=0的次数
+
+1252. Cells with Odd Values in a Matrix
+Dec17里又碰到了
+Solution:
+matrix = [[0]*m for _ in range(n)]
+for r, c in indices:
+    for j in range(m): matrix[r][j] ^= 1  
+    for i in range(n): matrix[i][c] ^= 1
+return sum(sum(matrix, []))
+
