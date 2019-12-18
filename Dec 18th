@@ -99,3 +99,40 @@ def heightChecker(self, heights: List[int]) -> int:
                 count += 1
         return count
 
+929. Unique Email Addresses
+@前的带.的视为一样，+后的不考虑，@后的视为不一样
+Solution:
+def numUniqueEmails(self, emails: List[str]) -> int:
+        res = []
+        for email in emails:
+            res.append(email.split('@')[0].split('+')[0].replace('.', '')+'@'+email.split('@')[1])
+        return len(set(res))
+
+922. Sort Array By Parity II
+A一半奇数一半偶数，重新排好后的奇数位置是奇数。
+Solution:
+def sortArrayByParityII(self, A: List[int]) -> List[int]:
+        odd = [i for i in A if i%2==1]
+        even = [i for i in A if i%2==0]
+        res = []
+        for i in range(len(A)):
+            if i%2==1:
+                res.append(odd[i//2])
+            else:
+                res.append(even[i//2])
+        return res
+
+811. Subdomain Visit Count
+给["9001 discuss.leetcode.com"]，每个"."后面的都是一个domain，统计所有domain的数量
+Solution:
+用collections.Counter来统计，不需要考虑collections中是否有记录，直接加。
+def subdomainVisits(self, cpdomains: List[str]) -> List[str]:
+        count = collections.Counter()
+        for cpdomain in cpdomains:
+            time, domain = cpdomain.split(" ")
+            time = int(time)
+            count[domain] += time
+            for i, c in enumerate(domain):
+                if c=='.':
+                    count[domain[i+1:]]+=time
+        return [str(time) + " " + domain for domain, time in count.items()]
