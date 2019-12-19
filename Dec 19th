@@ -180,3 +180,58 @@ def shortestToChar(self, S: str, C: str) -> List[int]:
                 back.append(min(abs(i-start), abs(end-i)))
         return back
 
+1078. Occurrences After Bigram
+匹配1，2后返回3
+侮辱智商
+Solution:
+def findOcurrences(self, text: str, first: str, second: str) -> List[str]:
+        lis = text.split(" ")
+        back = []
+        for i in range(len(lis)-2):
+            if lis[i]==first and lis[i+1]==second:
+                back.append(lis[i+2])
+        return back
+
+344. Reverse String
+i和length-i-1交换
+Solution:
+def reverseString(self, s: List[str]) -> None:
+        """
+        Do not return anything, modify s in-place instead.
+        """
+        length = len(s)
+        middle = length//2+1
+        for i in range(middle-1):
+            temp = s[length-i-1]
+            s[length-i-1] = s[i]
+            s[i] = temp
+
+1030. Matrix Cells in Distance Order
+Solution:
+暴力计算
+return sorted([[i, ii] for i in range(R) for ii in range(C)], key=lambda a: abs(a[0]-r0)+abs(a[1]-c0))
+
+872. Leaf-Similar Trees
+寻找所有叶node的值，对比两个tree
+Solution:
+(1)栈
+def test(root):
+            if not root:
+                return
+            stack = [root]
+            back = []
+            while stack:
+                node = stack.pop()
+                if node.left:
+                    stack.append(node.left)
+                if node.right:
+                    stack.append(node.right)
+                if not node.left and not node.right:
+                    back.append(node.val)
+            return back
+        back1 = test(root1)
+        back2 = test(root2)
+        return back1==back2
+（2）TBD
+
+893. Groups of Special-Equivalent Strings
