@@ -113,3 +113,36 @@ def removeDuplicates(self, S: str) -> str:
                 continue
             stack.append(s)
         return "".join(stack)
+
+1200. Minimum Absolute Difference
+RT. ascending
+Solution:
+def minimumAbsDifference(self, arr: List[int]) -> List[List[int]]:
+        arr2 = sorted(arr)
+        res = []
+        for i in range(len(arr2)-1):
+            res.append(abs(arr2[i]-arr2[i+1]))
+        mini = min(res)
+        back = []
+        for i in range(len(arr2)-1):
+            if abs(arr2[i]-arr2[i+1])==mini:
+                back.append([arr2[i],arr2[i+1]])
+        return back
+
+876. Middle of the Linked List
+Solution:
+def middleNode(self, head: ListNode) -> ListNode:
+        count = 1
+        node = head
+        while node.next!=None:
+            node = node.next
+            count += 1
+        middle = count//2+1
+        i = 0
+        node = head
+        while i<=middle-2:
+            node = node.next
+            i += 1
+        return node
+
+908. Smallest Range I
