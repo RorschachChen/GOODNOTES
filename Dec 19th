@@ -70,3 +70,46 @@ def relativeSortArray(self, arr1: List[int], arr2: List[int]) -> List[int]:
         back.extend(arr3)
         return back
 
+1002. Find Common Characters
+Solution:
+def commonChars(self, A: List[str]) -> List[str]:
+        res = set(A[0])
+        tmp = [[l] * min([a.count(l) for a in A]) for l in res]
+        result = []
+        for i in tmp:
+            result+=i
+        return result
+
+883. Projection Area of 3D Shapes
+俯视正视侧视记录每一行每一列最大值，俯视记录非零数量
+Solution:
+def projectionArea(self, grid: List[List[int]]) -> int:
+        res1 = []
+        for i in grid:
+            res1.append(max(i))
+        
+        res2 = []
+        for i in range(len(grid[0])):
+            temp = []
+            for j in grid:
+                temp.append(j[i])
+            res2.append(max(temp))
+
+        res3 = 0
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if grid[i][j]!=0:
+                    res3+=1
+        return sum(res1)+res3+sum(res2)
+
+1047. Remove All Adjacent Duplicates In String
+消消乐
+Solution: 用栈，如果栈非空然后上一个和下一个相同，pop。直接对S进行处理就行了，第一次做的时候还另外创建的了一个stack进行递归
+def removeDuplicates(self, S: str) -> str:
+        stack = []
+        for s in S:
+            if stack and s==stack[-1]:
+                stack.pop()
+                continue
+            stack.append(s)
+        return "".join(stack)
