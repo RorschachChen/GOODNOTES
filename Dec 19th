@@ -146,3 +146,21 @@ def middleNode(self, head: ListNode) -> ListNode:
         return node
 
 908. Smallest Range I
+侮辱智商
+def smallestRangeI(self, A: List[int], K: int) -> int:
+        return max(max(A)-min(A)-2*K, 0)
+
+1025. Divisor Game
+Initially, there is a number N on the chalkboard.  On each player's turn, that player makes a move consisting of:
+Choosing any x with 0 < x < N and N % x == 0.
+Replacing the number N on the chalkboard with N - x.
+Also, if a player cannot make a move, they lose the game.
+Return True if and only if Alice wins the game, assuming both players play optimally.
+Solution:
+return True if N % 2 == 0 else False
+
+821. Shortest Distance to a Character
+Given a string S and a character C, return an array of integers representing the shortest distance from the 
+character C in the string.
+
+
