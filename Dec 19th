@@ -1,0 +1,72 @@
+1160. Find Words That Can Be Formed by Characters
+给一组string和一个string，求能用string拼成的长度和。
+Solution:
+用Counter统计
+def countCharacters(self, words: List[str], chars: str) -> int:
+        from collections import Counter
+        charcount = Counter(chars)
+        result = []
+        for string in words:
+            stringcount = Counter(string)
+            flag = 0
+            for key in stringcount.keys():
+                if charcount[key]>=stringcount[key]:
+                    continue
+                else:
+                    flag = 1
+                    break
+            if flag == 0:
+                result.append(len(string))
+        return sum(result)
+
+557. Reverse Words in a String III
+把每个string倒过来，保留space:
+Solution:
+def reverseWords(self, s: str) -> str:
+        li = s.split(' ')
+        res = [word[::-1] + " " for word in li]
+        back = ""
+        for i in res:
+            back+=i
+        return back.rstrip(" ")
+
+509. Fibonacci Number
+递归
+Solution:
+(1)
+def fib(self, N: int) -> int:
+        if N==0:
+            return 0
+        elif N==1:
+            return 1
+        while N>0:
+            return self.fib(N-1)+self.fib(N-2)
+(2)
+def F(N, memo):
+        if N in memo:
+            return memo[N]
+        else:
+            fib_N = F(N-1, memo) + F(N-2, memo)
+            memo[N] = fib_N
+            return F(N, memo)
+        
+    return F(N, {0:0, 1:1, 2:1})
+
+1122. Relative Sort Array
+A中含B，按B中顺序排，剩下升序
+def relativeSortArray(self, arr1: List[int], arr2: List[int]) -> List[int]:
+        from collections import Counter
+        res = Counter(arr1)
+        back = []
+        for i in arr2:
+            for _ in range(res[i]):
+                back.append(i)
+        arr3 = []
+        for i in arr1:
+            if i not in arr2:
+                arr3.append(i)
+                
+        arr3 = sorted(arr3)
+        back.extend(arr3)
+        return back
+
