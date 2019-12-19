@@ -162,5 +162,21 @@ return True if N % 2 == 0 else False
 821. Shortest Distance to a Character
 Given a string S and a character C, return an array of integers representing the shortest distance from the 
 character C in the string.
-
+Solution:
+每次记录start和end，然后对中间的进行比较计算distance
+def shortestToChar(self, S: str, C: str) -> List[int]:
+        back  = []
+        end = S.index(C)
+        start = float("Inf")
+        for i in range(len(S)):
+            if S[i] == C:
+                back.append(0)
+                start = end
+                try:
+                    end = S[i+1:].index(C)+i+1
+                except:
+                    end = float("Inf")
+            else:
+                back.append(min(abs(i-start), abs(end-i)))
+        return back
 
