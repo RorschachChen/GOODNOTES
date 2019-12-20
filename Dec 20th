@@ -175,3 +175,106 @@ def lastStoneWeight(self, stones: List[int]) -> int:
 ————————————————
 版权声明：本文为CSDN博主「负雪明烛」的原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。
 原文链接：https://blog.csdn.net/fuxuemingzhu/article/details/91348483
+
+463. Island Perimeter
+求全1的岛屿周长
+Solution:
+本来想搞些dfs的，结果发现这种暴力方法击败了98%的，那还搞个锤子
+def islandPerimeter(self, grid: List[List[int]]) -> int:
+        row = len(grid)
+        col = len(grid[0])
+        counts = 0
+        neighbors = 0
+        for i in range(row):
+            for j in range(col):
+                if grid[i][j] == 1:
+                    counts += 1
+                    if i < row - 1:
+                        if grid[i + 1][j] == 1:
+                            neighbors += 1
+                    if j < col - 1:
+                        if grid[i][j + 1] == 1:
+                            neighbors += 1
+        return 4 * counts - 2 * neighbors
+
+985. Sum of Even Numbers After Queries
+把queries中的val加到A中，每次加完后把A中偶数和返回
+Solution:
+（暴力解法）68.30% 5.88% 
+def sumEvenAfterQueries(self, A: List[int], queries: List[List[int]]) -> List[int]:
+        back = []
+        index = queries[0][1]
+        A[index] += queries[0][0]
+        summ = 0
+        for i in A:
+            if i%2==0:
+                summ += i
+        back.append(summ)
+        for i in range(1, len(queries)):
+            index = queries[i][1]
+            temp = A[index]
+            A[index] += queries[i][0]
+            if A[index]%2==0 and temp%2==0:
+                back.append(back[-1]+queries[i][0])
+            elif A[index]%2==0 and temp%2==1:
+                back.append(back[-1]+A[index])
+            elif A[index]%2==1 and temp%2==0:
+                back.append(back[-1]-temp)
+            else:
+                back.append(back[-1])
+        return back
+
+136. Single Number
+找到单个元素
+Solution:
+（暴力解法）
+def singleNumber(self, nums: List[int]) -> int:
+        news = sorted(set(nums))
+        news.extend(news)
+        nums = sorted(nums)
+        news = sorted(news)
+        nums.append(0)
+        for i in range(len(nums)):
+            if nums[i] != news[i]:
+                return news[i]
+（异或解法）50.53% 8.20%
+def singleNumber(self, nums: List[int]) -> int:
+        result = 0;
+        for i in range(len(nums)):
+            result ^= nums[i]
+        return result;
+（利用全和）98.04% 
+return(2*sum(set(nums))-sum(nums))
+
+682. Baseball Game
+if满天飞
+Solution:
+def calPoints(self, ops: List[str]) -> int:
+        score = []
+        for string in ops:
+            if string == "C":
+                _ = score.pop()
+            elif string == "D":
+                score.append(score[-1]*2)
+            elif string == "+":
+                score.append(score[-1]+score[-2])
+            else:
+                score.append(int(string))
+        return sum(score)
+
+884. Uncommon Words from Two Sentences
+Solution:
+DUCKLINGS...
+def uncommonFromSentences(self, A: str, B: str) -> List[str]:
+        lis1 = A.split(" ")
+        lis2 = B.split(" ")
+        lis1.extend(lis2)
+        from collections import Counter
+        res = Counter(lis1)
+        back = []
+        for i in res.keys():
+            if res[i] == 1:
+                back.append(i)
+        return back
+
+496. Next Greater Element I
