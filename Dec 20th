@@ -347,3 +347,26 @@ def trimBST(self, root: TreeNode, L: int, R: int) -> TreeNode:
             root.left = self.trimBST(root.left, L, R)
             root.right = self.trimBST(root.right, L, R)
             return root
+
+1189. Maximum Number of Balloons
+给一串字符，问能拼成几个"balloon"
+Solution:
+def maxNumberOfBalloons(self, text: str) -> int:
+        from collections import Counter
+        res = Counter(text)
+        return min(res['b'], res['a'], res['l']//2, res['o']//2, res['n'])
+
+1287. Element Appearing More Than 25% In Sorted Array
+找那个重复了25%以上的数
+Solution:
+def findSpecialInteger(self, arr: List[int]) -> int:
+        length = len(arr)
+        from collections import Counter
+        res = Counter(arr)
+        for key in res.keys():
+            if res[key] > length//4:
+                return key
+
+762. Prime Number of Set Bits in Binary Representation
+
+Solution:
