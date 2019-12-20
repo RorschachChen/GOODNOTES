@@ -89,10 +89,89 @@ def findWords(self, words: List[str]) -> List[str]:
         return back
 
 1022. Sum of Root To Leaf Binary Numbers <<Tree>>
-二叉树，节点0或1。
+二叉树，节点0或1。每条path可组成一个二进制树，求所有的和
 Solution:
-遍历的同时记录层数，两个list逐个元素相乘
-
+【负雪名烛的答案】
+提前设置一个global的sum。遍历所有的节点，每当走到叶的时候，把global sum加上一个目前的。每到下一个节点，把当前的presum*2加上下个节点的val。
+def sumRootToLeaf(self, root: TreeNode) -> int:
+        if not root:
+            return 0
+        self.globalsum = 0
+        self.recur(root, root.val)
+        return self.globalsum
+        
+    def recur(self, node, presum):
+        if not node.left and not node.right:
+            self.globalsum += presum
+            return
+        if node.left:
+            self.recur(node.left, presum*2+node.left.val)
+        if node.right:
+            self.recur(node.right, presum*2+node.right.val)
 
 104. Maximum Depth of Binary Tree
 Solution:
+和上题同样的思想
+def maxDepth(self, root: TreeNode) -> int:
+        if not root:
+            return 0
+        self.maxi = 1
+        self.search(root, 1)
+        return self.maxi
+    
+    def search(self, node, currentmax):
+        if not node.left and not node.right:
+            self.maxi = max(self.maxi,currentmax)
+            return
+        if node.left:
+            self.search(node.left, currentmax+1)
+        if node.right:
+            self.search(node.right, currentmax+1)
+
+766. Toeplitz Matrix
+所有对角线是否相等，从左下角到右上角。
+Solution:
+【负雪名烛的答案】
+return all(matrix[row+1][1:] == matrix[row][:-1] for row in range(len(matrix)-1))
+
+476. Number Complement
+10->2进制，取反
+Solution:
+def findComplement(self, num: int) -> int:
+        def mybin(x):
+	        return bin(x).replace('0b', '')
+        return 2**(len(mybin(num)))-1-num
+
+1046. Last Stone Weight
+最重两块石头相撞，相等团灭，不相等产生新的:
+Solution:
+(dumpbird)
+def lastStoneWeight(self, stones: List[int]) -> int:
+        new = sorted(stones)[::-1]
+        if len(stones)==1:
+            return 1
+        return self.recur(new)
+        
+    def recur(self, lis):
+        if lis[0] == lis[1]:
+            del lis[0]
+            del lis[0]
+        else:
+            lis.append(lis[0]-lis[1])
+            del lis[0]
+            del lis[0]
+        if len(lis)==0:
+            return 0
+        elif len(lis)==1:
+            return lis[0]
+        return self.recur(sorted(lis)[::-1])
+这个题就是我们在数据结构与算法中都学过的哈弗曼树的改变。哈弗曼树是指每次选择最小的两个元素合并成一个更大的元素，然后和剩下的一些元素继续重复这个操作。
+而这个题反其道而行之，每次选择最大的两个元素合并成一个较小的元素，然后和剩下的元素重复这个操作。实现哈弗曼树最简单的方式就是使用堆。显然这个题使用大根
+堆。在python中的堆默认是小根堆，为了实现大根堆，一个方式是把所有的数字进行取反操作，最后的结果再取反即可。C++的堆默认是大根堆，那么我们就直接使用。
+我觉得技术上的难点只有要进行多次的判断。一定要注意在进行pop的时候是否还有元素，特别是这个题要进行两次连续的pop。另外一个注意的点是如果两个石头抵消了，
+那么结果0就不一样放入原来的数组中了。最后一个注意的点事最后可能全部都抵消了，所以如果结果为空则返回0。
+
+时间复杂度是O(NlogN)。
+————————————————
+版权声明：本文为CSDN博主「负雪明烛」的原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/fuxuemingzhu/article/details/91348483
