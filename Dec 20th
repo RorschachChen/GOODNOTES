@@ -278,3 +278,72 @@ def uncommonFromSentences(self, A: str, B: str) -> List[str]:
         return back
 
 496. Next Greater Element I
+You are given two arrays (without duplicates) nums1 and nums2 where nums1’s elements are subset of nums2. 
+Find all the next greater numbers for nums1's elements in the corresponding places of nums2.
+The Next Greater Number of a number x in nums1 is the first greater number to its right in nums2. 
+If it does not exist, output -1 for this number. 
+Solution:
+(暴力解法)
+def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        dd = {}
+        for i in range(len(nums2)):
+            dd[nums2[i]] = i
+        res = []
+        for i in nums1:
+            if dd[i] == len(nums2)-1:
+                res.append(-1)
+                continue
+            for j in range(dd[i]+1, len(nums2)):
+                if nums2[j] > i:
+                    res.append(nums2[j])
+                    break
+                elif j == len(nums2)-1:
+                    res.append(-1)
+                else:
+                    continue
+        return res
+
+1114. Print in Order（这个是Leetcode的新题型，也就是说并发类型）（joy）
+Solution:
+跑1的时候锁住2，2要wait，2跑完锁住3，3等解锁。
+class Foo:
+    def __init__(self):
+        self.second_cv = threading.Event() 
+        self.third_cv = threading.Event() 
+        
+
+    def first(self, printFirst: 'Callable[[], None]') -> None:
+        
+        # printFirst() outputs "first". Do not change or remove this line.
+        printFirst()
+        self.second_cv.set()
+
+
+    def second(self, printSecond: 'Callable[[], None]') -> None:
+        self.second_cv.wait()
+        # printSecond() outputs "second". Do not change or remove this line.
+        printSecond()
+        self.third_cv.set()
+
+
+    def third(self, printThird: 'Callable[[], None]') -> None:
+        self.third_cv.wait()
+        # printThird() outputs "third". Do not change or remove this line.
+        printThird()
+
+669. Trim a Binary Search Tree
+只保留在区间「LR」内的元素，但是不能多剪
+Solution:
+迭代，如果当前节点值小于L就去right节点找，反之亦然。每次调用trimBST都是对输入节点的一次剪枝，返回的是剪好后的node。如果当前值在LR之内，则剪完左边
+剪右边，返回的两个节点赋值给left和right。再返回当前节点。
+def trimBST(self, root: TreeNode, L: int, R: int) -> TreeNode:
+        if not root:
+            return None
+        if root.val < L:
+            return self.trimBST(root.right, L, R)
+        elif root.val > R:
+            return self.trimBST(root.left, L, R)
+        else:
+            root.left = self.trimBST(root.left, L, R)
+            root.right = self.trimBST(root.right, L, R)
+            return root
