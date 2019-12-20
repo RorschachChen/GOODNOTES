@@ -1,0 +1,98 @@
+1185. Day of the Week
+闰年
+Solution:
+就是磨时间
+def dayOfTheWeek(self, day: int, month: int, year: int) -> str:
+        lis = ["Friday", "Saturday","Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"]
+        daysinamonth = [[31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],[31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]]
+        res = 0
+        for yr in range(1971,year):
+            flag = (yr%4 == 0 and yr%100 != 0) or yr%400==0
+            res += 365+flag
+        flag = (year%4 == 0 and year%100 != 0) or year%400==0
+        for mth in range(0, month-1):
+            res += daysinamonth[flag][mth]
+        return lis[(res+day-1)%7]
+
+893. Groups of Special-Equivalent Strings
+奇数位交换，偶数位交换，之后只要能相等就行
+Solution:
+对奇数位和偶数位分别sort，只要含这么多的元素就肯定可以利用交换最后相等
+def minCostToMoveChips(self, chips: List[int]) -> int:
+        s = set()
+        for a in A:
+            odd = ""
+            even = ""
+            for i, c in enumerate(a):
+                if i % 2 == 0:
+                    odd += c
+                else:
+                    even += c      
+            s.add(''.join(sorted(odd) + sorted(even)))
+        return len(s)
+
+1217. Play with Chips
+把奇数位移动到偶数位和反过来的min
+Solution:
+def minCostToMoveChips(self, chips: List[int]) -> int:
+        temp = [0, 0]
+        for i in chips:
+            temp[i%2] += 1
+        return min(temp[0], temp[1])
+
+867. Transpose Matrix
+Solution:
+def transpose(self, A: List[List[int]]) -> List[List[int]]:
+        row = len(A)
+        col = len(A[0])
+        B = [[0]*row for _ in range(col)]
+        for i in range(row):
+            for j in range(col):
+                B[j][i] = A[i][j]
+        return B
+
+806. Number of Lines To Write String
+每个字母一定width，换行
+Solution:
+def numberOfLines(self, widths: List[int], S: str) -> List[int]:
+        line = 1
+        last = 0
+        for s in S:
+            width = widths[ord(s) - ord('a')]
+            last += width
+            if last > 100:
+                lines += 1
+                last = width
+        return [lines, last]
+
+500. Keyboard Row
+Given a List of words, return the words that can be typed using letters of alphabet on only one 
+row's of American keyboard like the image below.
+Solution:
+暴力写进dict
+def findWords(self, words: List[str]) -> List[str]:
+        lis = {'q':0, 'w':0,'e':0,'r':0,'t':0,'y':0,'u':0,'i':0,'o':0,'p':0, 'a':1,'s':1,'d':1,'f':1,'g':1,
+        'h':1,'j':1,'k':1,'l':1,'z':2,'x':2,'c':2,'v':2,'b':2,'n':2,'m':2,'Q':0, 'W':0,'E':0,'R':0,'T':0,
+        'Y':0,'U':0,'I':0,'O':0,'P':0, 'A':1,'S':1,'D':1,'F':1,'G':1,'H':1,'J':1,'K':1,'L':1,'Z':2,'X':2,
+        C':2,'V':2,'B':2,'N':2,'M':2,}
+        back = []
+        for word in words:
+            line = lis[word[0]]
+            flag = 0
+            for string in word:
+                if lis[string] != line:
+                    flag = 1
+                    break
+            if flag == 0:
+                back.append(word)
+                
+        return back
+
+1022. Sum of Root To Leaf Binary Numbers <<Tree>>
+二叉树，节点0或1。
+Solution:
+遍历的同时记录层数，两个list逐个元素相乘
+
+
+104. Maximum Depth of Binary Tree
+Solution:
