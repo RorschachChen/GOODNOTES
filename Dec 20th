@@ -368,5 +368,59 @@ def findSpecialInteger(self, arr: List[int]) -> int:
                 return key
 
 762. Prime Number of Set Bits in Binary Representation
+把一个区间内的数转成2进制，看2进制中1的个数，统计所有1的个数和为素数的
+Solution:
+(暴力解法) 60%
+from collections import Counter
+        dd = {'1':0, '2':1, '3':1, '4':0, '5':1, '6':0, '7':1, '8':0, '9':0, '10':0, '11':1, '12':0, '13':1, '14':0, '15':0, '16':0, '17':1, '18':0, '19':1, '20':0}
+        count = 0
+        for i in range(L, R+1):
+            count += dd[str(bin(i).count('1'))]
+        return count
+100%
+primes = set((2,3,5,7,11,13,17,19))
+count = 0
+for x in range(L,R+1):
+    if bin(x).count("1") in primes:
+	count += 1
+return count
 
+226. Invert Binary Tree
+Invert a binary tree.左右
+Solution:
+换完底下的再换上层的。
+def invertTree(self, root: TreeNode) -> TreeNode:
+        if not root:
+            return 
+        if root.left:
+            root.left = self.invertTree(root.left)
+        if root.right:
+            root.right = self.invertTree(root.right)
+        temp = root.left
+        root.left = root.right
+        root.right = temp
+        return root
+
+412. Fizz Buzz
+3的倍数5的倍数15的倍数
+Solution:
+太无聊了
+def fizzBuzz(self, n: int) -> List[str]:
+        res = []
+        for i in range(1, n+1):
+            if i%3==0 and i%5==0:
+                res.append("FizzBuzz")
+                continue
+            elif i%5 == 0:
+                res.append("Buzz")
+            elif i%3 == 0:
+                res.append("Fizz")
+            else:
+                res.append(str(i))
+                
+        return res
+
+784. Letter Case Permutation
+Given a string S, we can transform every letter individually to be lowercase or uppercase to create another string.  
+Return a list of all possible strings we could create.
 Solution:
