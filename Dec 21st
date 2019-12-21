@@ -1,0 +1,31 @@
+今天天气很好，「顽张れ」（がんばれ）！！
+575. Distribute Candies
+Given an integer array with even length, where different numbers in this array represent different kinds of candies. 
+Each number means one candy of the corresponding kind. You need to distribute these candies equally in number to brother 
+and sister. Return the maximum number of kinds of candies the sister could gain. 
+Solution:
+def distributeCandies(self, candies: List[int]) -> int:
+        return min(int(len(candies)/2), len(set(candies)))
+
+637. Average of Levels in Binary Tree
+BFS
+Solution:
+def averageOfLevels(self, root: TreeNode) -> List[float]:
+        res = collections.deque()
+        res.append(root)
+        back = []
+        while res:
+            length = len(res)
+            inner = []
+            for _ in range(length):
+                node = res.popleft()
+                inner.append(node.val)
+                if node.left:
+                    res.append(node.left)
+                if node.right:
+                    res.append(node.right)
+                
+            if inner:
+                back.append(sum(inner) / len(inner))
+        return back
+
