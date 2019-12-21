@@ -29,3 +29,239 @@ def averageOfLevels(self, root: TreeNode) -> List[float]:
                 back.append(sum(inner) / len(inner))
         return back
 
+784. Letter Case Permutation
+Given a string S, we can transform every letter individually to be lowercase or uppercase to create another string.  
+Return a list of all possible strings we could create.
+Solution:
+def letterCasePermutation(self, S: str) -> List[str]:
+        back = [S]
+        for i in range(len(S)):
+            if S[i].isalpha():
+                if S[i].islower():
+                    another = S[i].upper()
+                    new = back.copy()
+                    for index in range(len(new)):
+                        new[index] = new[index][:i]+another+new[index][i+1:]
+                else:
+                    another = S[i].lower()
+                    new = back.copy()
+                    for index in range(len(new)):
+                        new[index] = new[index][:i]+another+new[index][i+1:]
+                back.extend(new)
+            else:
+                continue
+        return back
+        
+1103. Distribute Candies to People
+1234,5678,...
+Solution:
+def distributeCandies(self, candies: int, num_people: int) -> List[int]:
+        remain = int(candies%((1+num_people)*num_people/2))
+        beishu = candies//((1+num_people)*num_people/2)
+        back = [int((i+1)*beishu) for i in range(num_people)]
+        for i in range(num_people):
+            if remain>=i+1:
+                back[i]+=i+1
+                remain-=i+1
+            else:
+                back[i]+=remain
+        return back
+(2)93.12% 100.00% 
+def distributeCandies(self, candies: int, num_people: int) -> List[int]:
+        nsum = (1+num_people)*num_people/2
+        import math
+        n = num_people
+        upper = int((n**2-2*nsum+math.sqrt((2*nsum-n**2)**2+8*candies*n**2))/2/n**2)
+        back = [max(int((i+1)*upper+n*upper*(upper-1)/2), 0) for i in range(n)]
+        remain = int(candies - upper*nsum - (upper-1)*upper/2*n**2)
+        for i in range(n):
+            if remain>=upper*n+i+1:
+                remain -= upper*n+i+1
+                back[i] += upper*n+i+1;
+            else:
+                back[i] += remain
+                break
+        return back
+        
+868. Binary Gap
+Given a positive integer N, find and return the longest distance between two consecutive 1's in the binary representation 
+of N. If there aren't two consecutive 1's, return 0.
+Solution:
+def binaryGap(self, N: int) -> int:
+        binary = bin(N).replace('0b', '')
+        back = []
+        for i in range(len(binary)):
+            if binary[i] == "1":
+                back.append(i)
+        new = []
+        for i in range(len(back)-1):
+            new.append(back[i+1]-back[i])
+        if new:
+            return max(new)
+        return 0
+
+1260. Shift 2D Grid
+矩阵把元素往后shift
+Solution:
+def shiftGrid(self, grid: List[List[int]], k: int) -> List[List[int]]:
+        rows, cols = len(grid), len(grid[0])
+        remain = k%(rows*cols)
+        new = [[0]*cols for _ in range(rows)]
+        for i in range(rows):
+            for j in range(cols):
+                index = j+i*cols             
+                if index+remain<rows*cols:
+                    inx = index+remain
+                else:
+                    inx = index+remain-rows*cols
+                newrow = int(inx/cols)
+                newcol = int(inx%cols)
+                new[newrow][newcol] = grid[i][j]
+        return new
+
+824. Goat Latin
+一堆规则
+Solution:
+def toGoatLatin(self, S: str) -> str:
+        lis = S.split(" ")
+        vowal = ['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U']
+        for i in range(len(lis)):
+            if lis[i][0] not in vowal:
+                temp = lis[i][0]
+                lis[i] = lis[i][1:]
+                lis[i] += temp
+            lis[i] += "ma"+"a"*(i+1)
+        return " ".join(lis)
+
+1009. Complement of Base 10 Integer
+10转2，取反转回10
+Solution:
+def bitwiseComplement(self, N: int) -> int:
+        return 2**len(str(bin(N))[2:]) - (N + 1)
+
+566. Reshape the Matrix
+今天题都好无聊啊
+Solution:
+def matrixReshape(self, nums: List[List[int]], r: int, c: int) -> List[List[int]]:
+        rows, cols = len(nums), len(nums[0])
+        if rows*cols != r*c:
+            return nums
+        stack = []
+        for i in range(rows):
+            for j in range(cols):
+                stack.append(nums[i][j])
+        back = [[0]*c for _ in range(r)]
+        for i in range(r):
+            for j in range(c):
+                index = j + i*c
+                back[i][j] = stack[index]
+                
+        return back
+
+206. Reverse Linked List
+Reverse a singly linked list.
+Solution:
+
+693. Binary Number with Alternating Bits
+Given a positive integer, check whether it has alternating bits: namely, if two adjacent bits will always have 
+different values.
+Solution:
+def hasAlternatingBits(self, n: int) -> bool:
+        binary = bin(n).replace("0b", "")
+        for i in range(len(binary)-1):
+            if binary[i]==binary[i+1]:
+                return False
+        return True
+        
+1089. Duplicate Zeros
+Solution:
+def duplicateZeros(self, arr: List[int]) -> None:
+        """
+        Do not return anything, modify arr in-place instead.
+        """
+        i=0
+        length = len(arr)
+        while i<=len(arr)-1:
+            if arr[i]==0:
+                arr.insert(i+1, 0)
+                i+=2
+                continue
+            i+=1
+        del arr[length:]
+
+349. Intersection of Two Arrays
+Solution:87.93%(就这样也行，服了)
+def intersection(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        nums1 = set(nums1)
+        nums2 = set(nums2)
+        back = [i for i in nums1 if i in nums2]
+        return back
+       
+1170. Compare Strings by Frequency of the Smallest Character
+Solution:
+def numSmallerByFrequency(self, queries: List[str], words: List[str]) -> List[int]:
+        from collections import Counter
+        back = []
+        for query in queries:
+            new = set(query)
+            temp = 25
+            for n in new:
+                if temp>ord(n)-ord('a'):
+                    temp = ord(n)-ord('a')
+            res = Counter(query)
+            back.append(res[chr(temp+ord('a'))])
+        back2 = []
+        for word in words:
+            new = set(word)
+            temp = 25
+            for n in new:
+                if temp>ord(n)-ord('a'):
+                    temp = ord(n)-ord('a')
+            res = Counter(word)
+            back2.append(res[chr(temp+ord('a'))])
+        retur = []
+        for i in back:
+            count = 0
+            for j in back2:
+                if i<j:
+                    count+=1
+            retur.append(count)
+        return retur
+
+706. Design HashMap
+能取，赋值，删除
+Solution:
+class MyHashMap:
+
+    def __init__(self):
+        """
+        Initialize your data structure here.
+        """
+        self.space = [None]*((10**6)+1)
+        
+
+    def put(self, key: int, value: int) -> None:
+        """
+        value will always be non-negative.
+        """
+        self.space[key] = value
+
+    def get(self, key: int) -> int:
+        """
+        Returns the value to which the specified key is mapped, or -1 if this map contains no mapping for the key
+        """
+        if self.space[key]!=None:
+            return self.space[key]
+        else:
+            return -1
+        
+
+    def remove(self, key: int) -> None:
+        """
+        Removes the mapping of the specified value key if this map contains a mapping for the key
+        """
+        self.space[key] = None
+
+892. Surface Area of 3D Shapes
+
+Solution:
