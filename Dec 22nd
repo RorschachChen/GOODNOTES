@@ -1,0 +1,62 @@
+1013. Partition Array Into Three Parts With Equal Sum
+Solution:
+之前的两个for会超时
+def canThreePartsEqualSum(self, A: List[int]) -> bool:
+        if sum(A)%3!=0: return False
+        count, count_sum, target = 0, 0, sum(A)/3
+        for i in A:
+            count_sum += i
+            if count_sum == target:
+                count+=1
+                if count == 2:
+                    return True
+                count_sum = 0
+        return count>=3
+
+521. Longest Uncommon Subsequence I 
+一样的话就没有uncommon，不一样，就是最长的那个
+Solution:
+def findLUSlength(self, a: str, b: str) -> int:
+    return max(len(a), len(b)) if a != b else -1
+
+896. Monotonic Array
+Solution:
+排序不变化或者是反的
+def isMonotonic(self, A: List[int]) -> bool:
+        sor = sorted(A)
+        if sor==A:
+            return True
+        if sor[::-1] == A:
+            return True
+        return False
+
+917. Reverse Only Letters
+非字符不动为止，字符反向
+Solution:
+def reverseOnlyLetters(self, S: str) -> str:
+        alpha = [i for i in S if i.isalpha()]
+        back = ""
+        count = 0
+        for i in range(len(S)):
+            if S[i].isalpha()!=1:
+                back += S[i]
+            else:
+                back+=alpha[len(alpha)-count-1]
+                count += 1
+        return back
+
+788. Rotated Digits
+翻转180度有效且不与原来相同
+Solution:
+必须先确定没有347，再看有没有2569
+def rotatedDigits(self, N: int) -> int:
+        count = 0
+        for i in range(1, N+1):
+            if any(x in str(i) for x in ["3", "4", "7"]):
+                continue
+            if any(x in str(i) for x in ["2", "5", "6", "9"]):
+                count += 1
+        return count
+
+292. Nim Game
+Solution:
