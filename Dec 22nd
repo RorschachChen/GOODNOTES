@@ -59,4 +59,57 @@ def rotatedDigits(self, N: int) -> int:
         return count
 
 292. Nim Game
+一次移走1-3块间的石头，最后赢
+Solution:
+def canWinNim(self, n: int) -> bool:
+        return n % 4 != 0
+
+485. Max Consecutive Ones
+Solution:
+def findMaxConsecutiveOnes(self, nums: List[int]) -> int:
+        try:
+            start = nums.index(0)
+            first = nums.index(0)
+            last = nums[::-1].index(0)
+        except:
+            return len(nums)
+        maxx = start
+        for i in range(start+1, len(nums)):
+            if nums[i] == 0:
+                end = i
+                maxx = max(maxx, end-start-1)
+                start = end
+        return max(maxx, first, last)
+
+283. Move Zeroes
+Solution:
+def moveZeroes(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        count = len(nums)
+        i=0
+        for _ in range(count):
+            if nums[i] == 0:
+                del nums[i]
+                nums.append(0)
+            else:
+                i+=1
+
+1184. Distance Between Bus Stops
+顺时针逆时针都可以，求最短距离
+Solution:
+def distanceBetweenBusStops(self, distance: List[int], start: int, destination: int) -> int:
+        total = sum(distance)
+        dist = 0
+        if start>destination:
+            destination += len(distance)
+            for i in range(start, destination):
+                dist += distance[i%len(distance)]
+        else:
+            for i in range(start, destination):
+                dist += distance[i]   
+        return min(dist, total-dist)
+
+748. Shortest Completing Word
 Solution:
