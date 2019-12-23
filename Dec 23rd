@@ -1,0 +1,40 @@
+748. Shortest Completing Word
+Find the minimum length word from a given dictionary words, which has all the letters from the string licensePlate. 
+Such a word is said to complete the given string licensePlate
+Here, for letters we ignore case. For example, "P" on the licensePlate still matches "p" on the word.
+
+It is guaranteed an answer exists. If there are multiple answers, return the one that occurs first in the array. 
+Solution:
+把licensePlate中的空格和数字用replace替换成"",统计，再统计words中每一个，对比，没什么技巧。
+def shortestCompletingWord(self, licensePlate: str, words: List[str]) -> str:
+        numbers = "1234567890"
+        licensePlate = licensePlate.replace(" ", "").lower()
+        for i in numbers:
+            licensePlate = licensePlate.replace(i, "")
+        from collections import Counter
+        res = Counter(licensePlate)
+        back = ""
+        for word in words:
+            count = Counter(word)
+            match = True
+            for key in res.keys():
+                if res[key] > count[key]:
+                        match = False
+            if (not back or len(back)>len(word)) and match:
+                back = word
+        return back
+
+690. Employee Importance
+table有员工id，importance和下级id
+Solution:
+def getImportance(self, employees: List['Employee'], id: int) -> int:
+        employee_dict = {employee.id : employee for employee in employees}
+        def sub(id):
+            back = []
+            for employ in employee_dict[id].subordinates:
+                back.append(sub(employ))
+            return sum(back) + employee_dict[id].importance
+        return sub(id)
+
+953. Verifying an Alien Dictionary
+Solution:
