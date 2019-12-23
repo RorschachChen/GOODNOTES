@@ -37,4 +37,49 @@ def getImportance(self, employees: List['Employee'], id: int) -> int:
         return sub(id)
 
 953. Verifying an Alien Dictionary
+alien的字母表不太一样。按新字母表排序word
 Solution:
+def isAlienSorted(self, words: List[str], order: str) -> bool:
+        dd = {}
+        for i in range(len(order)):
+            dd[order[i]] = i
+        for i in range(len(words)-1):
+            minlen = min(len(words[i]), len(words[i+1]))
+            flag = 0
+            for j in range(minlen):
+                if dd[words[i][j]] == dd[words[i+1][j]]:
+                    continue
+                elif dd[words[i][j]] < dd[words[i+1][j]]:
+                    flag = 1
+                    break
+                else:
+                    return False
+            if flag == 1:
+                continue
+            if len(words[i]) > len(words[i+1]):
+                return False
+        return True
+
+1029. Two City Scheduling
+Solution:
+def twoCitySchedCost(self, costs: List[List[int]]) -> int:
+        N = len(costs)
+        diff = [c[0] - c[1] for c in costs]
+        indices =  sorted(range(0,N), key=lambda k:diff[k])
+        result = 0
+        for i in range(int(N/2)):
+            result += costs[indices[i]][0]
+            result += costs[indices[N-i-1]][1]
+        return result
+
+169. Majority Element
+返回出现超过n/2次的数
+Solution:
+def majorityElement(self, nums: List[int]) -> int:
+        from collections import Counter
+        res = Counter(nums)
+        for key in res.keys():
+            if res[key]>len(nums)//2:
+                return key
+
+1275. Find Winner on a Tic Tac Toe Game
