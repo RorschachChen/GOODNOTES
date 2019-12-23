@@ -162,3 +162,36 @@ def containsDuplicate(self, nums: List[int]) -> bool:
 
 653. Two Sum IV - Input is a BST
 Solution:
+def findTarget(self, root: TreeNode, k: int) -> bool:
+        res = self.search(root)
+        resset = set(res)
+        for num in res:
+            if k != 2 * num and k - num in resset:
+                return True
+        return False
+        
+    def search(self, node):
+        if not node:
+            return []
+        res = []
+        res.append(node.val)
+        res.extend(self.search(node.left))
+        res.extend(self.search(node.right))
+        return res
+        
+108. Convert Sorted Array to Binary Search Tree
+Solution:
+def sortedArrayToBST(self, nums: List[int]) -> TreeNode:
+        if not nums:
+            return None
+        if len(nums)==1:
+            return TreeNode(nums[0])
+        so_nums = nums
+        middle = len(so_nums)//2
+        root = TreeNode(so_nums[middle])
+        root.left = self.sortedArrayToBST(nums[:middle])
+        root.right = self.sortedArrayToBST(nums[middle+1:])
+        return root
+
+122. Best Time to Buy and Sell Stock II
+Solution:
