@@ -83,3 +83,82 @@ def majorityElement(self, nums: List[int]) -> int:
                 return key
 
 1275. Find Winner on a Tic Tac Toe Game
+Solution:
+无意义，编程等于在编下棋过程
+
+448. Find All Numbers Disappeared in an Array
+Solution:
+def findDisappearedNumbers(self, nums: List[int]) -> List[int]:
+        from collections import Counter
+        res = Counter(nums)
+        back = []
+        for i in range(1, len(nums)+1):
+            if i not in res.keys():
+                back.append(i)
+        return back
+(2)
+return list(set(range(1, len(nums) + 1)) - set(nums))
+
+696. Count Binary Substrings
+Solution:
+def countBinarySubstrings(self, s: str) -> int:
+        start = 0
+        lenarray = []
+        for i in range(1, len(s)):
+            if s[i]!=s[start]:
+                lenarray.append(i-start)
+                start = i
+            if i==len(s)-1:
+                lenarray.append(i-start+1)
+        back = 0
+        for i in range(len(lenarray)-1):
+            back += min(lenarray[i], lenarray[i+1])
+        return back
+(2)
+def countBinarySubstrings(self, s: str) -> int:
+        p = cc = pp = rv = 0
+        for i in s + ' ':
+            if p != i:#如果不一样了，把邻近的pp和cc数量最小的加到rv中，然后把pp移交cc，pp从1开始记
+                rv += min(cc, pp)
+                cc, pp, p = pp, 1, i
+            else:# 如果下一个和上一个相同就把pp加1
+                pp += 1
+        return rv
+
+242. Valid Anagram
+Given two strings s and t , write a function to determine if t is an anagram of s.
+Solution:
+def isAnagram(self, s: str, t: str) -> bool:
+        from collections import Counter
+        s1 = Counter(s)
+        t1 = Counter(t)
+        return s1==t1
+
+389. Find the Difference
+Solution:
+def findTheDifference(self, s: str, t: str) -> str:
+        s1 = sorted(s)
+        t1 = sorted(t)
+        for i in range(min(len(s1), len(t1))):
+            if s1[i]==t1[i]:
+                continue
+            else:
+                return t1[i]
+        return t1[-1]
+
+217. Contains Duplicate
+Solution:
+def containsDuplicate(self, nums: List[int]) -> bool:
+        d = {}
+        for num in nums:
+            d[num] = d.get(num, 0)+1
+        for key in d.keys():
+            if d[key]>=2:
+                return True
+        return False
+(2)
+def containsDuplicate(self, nums: List[int]) -> bool:
+        return len(set(nums)) != len(nums)
+
+653. Two Sum IV - Input is a BST
+Solution:
