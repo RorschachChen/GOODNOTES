@@ -43,3 +43,17 @@ def gcdOfStrings(self, str1: str, str2: str) -> str:
 Solution:
 Given a Binary Search Tree (BST), convert it to a Greater Tree such that every key of the original BST is changed 
 to the original key plus sum of all keys greater than the original key in BST.
+Solution:
+后序遍历，最大的node不用加，到后面越加越多，最小的要把所有的加上。
+def convertBST(self, root: TreeNode) -> TreeNode:
+        self.sum = 0
+        def search(node):
+            if not node:
+                return 
+            search(node.right)
+            self.sum += node.val
+            node.val = self.sum
+            search(node.left)
+        search(root)
+        return root
+
