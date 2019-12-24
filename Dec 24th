@@ -57,3 +57,26 @@ def convertBST(self, root: TreeNode) -> TreeNode:
         search(root)
         return root
 
+171. Excel Sheet Column Number
+Solution:
+def titleToNumber(self, s: str) -> int:
+        dd = {'A':1, 'B':2, 'C':3, 'D':4, 'E':5, 'F':6, 'G':7, 'H':8, 'I':9, 'J':10, 'K':11, 'L':12, 'M':13, 'N':14, 'O':15, 'P':16, 'Q':17, 'R':18, 'S':19, 'T':20, 'U':21, 'V':22, 'W':23, 'X':24,'Y':25, 'Z':26}
+        length = len(s)
+        ans = 0
+        for i in range(length):
+            ans += dd[s[i]]*26**(length-1-i)
+        return ans
+
+520. Detect Capital
+Solution:
+def detectCapitalUse(self, word: str) -> bool:
+        if len(word)==1:
+            return True
+        if (word[1].isupper() and word.isupper()) or word.islower():
+            return True
+        elif word[0].isupper() and word[1:].islower():
+            return True
+        return False
+
+606. Construct String from Binary Tree
+Solution:
