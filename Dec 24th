@@ -26,3 +26,20 @@ def reorderLogFiles(self, logs: List[str]) -> List[str]:
 
 1071. Greatest Common Divisor of Strings
 Solution:
+递归，缩减长度到相等。
+def gcdOfStrings(self, str1: str, str2: str) -> str:
+        if not str1 or not str2:
+            return ""
+        if str1 == str2:
+            return str1
+        if len(str1)<len(str2):
+            return self.gcdOfStrings(str2,str1)
+        if str1[:len(str2)]==str2:
+            return self.gcdOfStrings(str1[len(str2):],str2)
+        else:
+            return ""
+
+538. Convert BST to Greater Tree
+Solution:
+Given a Binary Search Tree (BST), convert it to a Greater Tree such that every key of the original BST is changed 
+to the original key plus sum of all keys greater than the original key in BST.
