@@ -1,0 +1,28 @@
+122. Best Time to Buy and Sell Stock II
+Solution:
+只要循环一次，每次判断，更高就加差值
+def maxProfit(self, prices: List[int]) -> int:
+        ans = 0
+        for i in range(len(prices)-1):
+            if prices[i+1]>prices[i]:
+                ans += prices[i+1] - prices[i]
+        return ans
+
+937. Reorder Data in Log Files
+logs，每个log第一个是identifier, 后面可能是数字也可能是字母，数字在最后放后面，字母排序。
+Solution:
+trick:把从log第二段字母开始先append，然后直接sort
+def reorderLogFiles(self, logs: List[str]) -> List[str]:
+        logit = []
+        letter = []
+        for log in logs:
+            res = log.split(" ")
+            if res[1][0].isalpha():
+                letter.append((" ".join(res[1:]), res[0]))
+            else:
+                logit.append(log)
+        letter.sort()
+        return [let[1]+" "+let[0] for let in letter]+logit
+
+1071. Greatest Common Divisor of Strings
+Solution:
