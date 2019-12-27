@@ -596,5 +596,83 @@ Say you have an array for which the ith element is the price of a given stock on
 If you were only permitted to complete at most one transaction (i.e., buy one and sell one share of the stock), 
 design an algorithm to find the maximum profit. Note that you cannot sell a stock before you buy one.
 Solution:
+def maxProfit(self, prices: List[int]) -> int:
+        next = sorted(prices)[::-1]
+        if next == prices:
+            return 0
+        Max = prices[0]
+        Min = prices[0]
+        gP = 0
+        for price in prices[1:]:
+            if price > Max:
+                Max = price
+                profit = price - Min
+                if profit > gP:
+                    gP = profit
+            if price < Min:
+                Min = price
+                Max = price
+        return gP
+        
+746. Min Cost Climbing Stairs （动态规划）
+On a staircase, the i-th step has some non-negative cost cost[i] assigned (0 indexed). 
+Once you pay the cost, you can either climb one or two steps. You need to find minimum cost to reach the top of the floor, 
+and you can either start from the step with index 0, or the step with index 1. 
+Solution:
+(负雪)
+有两种办法到达某一层，一种是从-2层直接跳上来，一种是-1层直接跳上来，min（）
+def minCostClimbingStairs(self, cost: List[int]) -> int:
+        N = len(cost)
+        res = [0]*(N+1)
+        cost.append(0)
+        res[0] = cost[0]
+        res[1] = cost[1]
+        for i in range(2, N+1):
+            res[i] = min(res[0], res[1])+cost[i]
+        return res[-1]
 
+830. Positions of Large Groups
+Solution:
+别问，这道题我不会解释的。
+def largeGroupPositions(self, S: str) -> List[List[int]]:
+        if len(S)==1 or len(S)==2:
+            return []
+        flag = 0
+        for i in range(len(S)-1):
+            if S[i] != S[i+1]:
+                flag = 1
+        if flag == 0:
+            return [[0, len(S)-1]]
+                
+        this = []
+        ans =  []
+        consec = 1
+        for i in range(len(S)-1):
+            if i==len(S)-2:
+                if len(this) == 1:
+                    if S[i]==S[i+1]:
+                        this.append(i+1)
+                        ans.append(this)
+                        break
+                    else: 
+                        this.append(i)
+                        ans.append(this)
+                        break
+                break
+            
+            if S[i+1] == S[i]:
+                consec += 1
+                if consec == 2 and S[i+1] == S[i+2]:
+                    this = [i]
+                    
+            if S[i+1] != S[i]:
+                consec = 1
+                if len(this)==1:
+                    this.append(i)
+                    ans.append(this)
+                    this = []
+        return ans
 
+257. Binary Tree Paths
+Given a binary tree, return all root-to-leaf paths.
+Solution:
