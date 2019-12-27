@@ -690,3 +690,6 @@ def binaryTreePaths(self, root: TreeNode) -> List[str]:
             if node.right:
                 stack.append((node.right, path+"->"+str(node.right.val)))
         return ans
+
+836. Rectangle Overlap
+Solution:
