@@ -1,0 +1,266 @@
+733. Flood Fill
+把原先grid中的相连的并且number相同的地方涂成新的number
+Solution:
+def floodFill(self, image: List[List[int]], sr: int, sc: int, newColor: int) -> List[List[int]]:
+        rows, cols = len(image), len(image[0])
+        stack = [[sr, sc]]
+        while stack:
+            node = stack.pop()
+            nodecolor = image[node[0]][node[1]]
+            if image[node[0]][node[1]] != newColor:
+                if node[0]>=1 and image[node[0]-1][node[1]] == nodecolor:
+                    stack.append([node[0]-1, node[1]])
+                if node[0]<=rows-2 and image[node[0]+1][node[1]] == nodecolor:
+                    stack.append([node[0]+1, node[1]])
+                if node[1]>=1 and image[node[0]][node[1]-1] == nodecolor:
+                    stack.append([node[0], node[1]-1])
+                if node[1]<=cols-2 and image[node[0]][node[1]+1] == nodecolor:
+                    stack.append([node[0], node[1]+1])
+                image[node[0]][node[1]] = newColor
+        return image
+
+697. Degree of an Array
+The degree of this array is defined as the maximum frequency of any one of its elements. 
+Your task is to find the smallest possible length of a (contiguous) subarray of nums, that has the same degree as nums.
+Solution:
+(1)统计最频繁的两个，计算他们在list中的首尾位置长度 7%
+def findShortestSubArray(self, nums: List[int]) -> int:
+        from collections import Counter
+        res = Counter(nums)        
+        maximum = max(res.values()) 
+        maxkey = [key for key, value in res.items() if value == maximum] 
+        lengthlist = []
+        length = len(nums)
+        for key in maxkey:
+            lengthlist.append(length-nums[::-1].index(key)-nums.index(key))
+        return min(lengthlist)
+
+167. Two Sum II - Input array is sorted
+Solution: 5%???
+(1)
+def twoSum(self, numbers: List[int], target: int) -> List[int]:
+        import bisect
+        findsearchposition = bisect.bisect(numbers, target)
+        for i in range(findsearchposition):
+            if target - numbers[i] in numbers:
+                return [i+1, i+1+numbers[i+1:].index(target - numbers[i])+1]
+(2)直接暴力找都比上面的快 84%
+def twoSum(self, numbers: List[int], target: int) -> List[int]:
+        h = {}
+        for i, num in enumerate(numbers):
+            if target - num in h:
+                return(h[target - num]+1, i+1)
+            else:
+                h[num] = i
+
+530. Minimum Absolute Difference in BST
+Given a binary search tree with non-negative values, find the minimum absolute difference between values of any two nodes.
+Solution:
+遍历就van事了
+def getMinimumDifference(self, root: TreeNode) -> int:
+        if not root:
+            return 
+        stack = [root]
+        res = []
+        while stack:
+            node = stack.pop()
+            res.append(node.val)
+            if node.left:
+                stack.append(node.left)
+            if node.right:
+                stack.append(node.right)
+        newres = sorted(res)
+        ress = []
+        for i in range(len(newres)-1):
+            ress.append(abs(newres[i]-newres[i+1]))
+        return min(ress)
+
+993. Cousins in Binary Tree
+相同depth，不同parent
+Solution:
+（负雪明烛）
+把深度和parent当作value保存，反正节点value唯一
+def isCousins(self, root: TreeNode, x: int, y: int) -> bool:
+        self.m = collections.defaultdict(tuple)
+        self.dfs(root, None, 0)
+        px, dx = self.m[x]
+        py, dy = self.m[y]
+        return dx == dy and px != py
+        
+def dfs(self, root, parent, depth):
+    if not root: return
+    self.m[root.val] = (parent, depth)
+    self.dfs(root.left, root, depth + 1)
+    self.dfs(root.right, root, depth + 1)
+
+100. Same Tree
+全空对，空一方错，val相同看左右，剩False
+Solution:
+def isSameTree(self, p: TreeNode, q: TreeNode) -> bool:
+        if not p and not q:
+            return True
+        if not p or not q:
+            return False
+        if p.val == q.val:
+            return self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right)
+        return False
+
+387. First Unique Character in a String
+Given a string, find the first non-repeating character in it and return it's index. If it doesn't exist, return -1. 
+Solution:
+def firstUniqChar(self, s: str) -> int:
+        from collections import Counter
+        res = Counter(s)
+        targetkey = [key for key in res.keys() if res[key]==1]
+        if not targetkey:
+            return -1
+        return s.index(targetkey[0])
+
+783. Minimum Distance Between BST Nodes
+Given a Binary Search Tree (BST) with the root node root, 
+return the minimum difference between the values of any two different nodes in the tree.
+Solution:
+跟530一样的代码能跑通
+def minDiffInBST(self, root: TreeNode) -> int:
+        if not root:
+            return 
+        stack = [root]
+        res = []
+        while stack:
+            node = stack.pop()
+            res.append(node.val)
+            if node.left:
+                stack.append(node.left)
+            if node.right:
+                stack.append(node.right)
+        newres = sorted(res)
+        ress = []
+        for i in range(len(newres)-1):
+            ress.append(abs(newres[i]-newres[i+1]))
+        return min(ress)
+
+860. Lemonade Change
+Solution:
+def lemonadeChange(self, bills: List[int]) -> bool:
+        if bills[0]!=5:
+            return False
+        five = 1
+        ten = 0
+        for bill in bills[1:]:
+            if bill == 5:
+                five += 1
+            elif bill == 10:
+                ten += 1
+                five -= 1
+                if five == -1:
+                    return False
+            else:
+                if ten >= 1 and five >= 1:
+                    ten -= 1
+                    five -= 1
+                    continue
+                elif five < 3:
+                    return False
+                five -= 3
+        return True
+
+447. Number of Boomerangs
+统计等同距离的三个点，搭配组合
+Solution:
+只出现过一次的distance，ans不变
+def numberOfBoomerangs(self, points: List[List[int]]) -> int:
+        ans = 0
+        for point_a in points:
+            distances = {}
+            for point_b in points:
+                distance = (point_b[0]-point_a[0])**2 + (point_b[1]-point_a[1])**2
+                distances[distance] = distances.get(distance, 0) + 1
+            for value in distances.values():
+                ans += value*(value-1)
+        return ans
+
+371. Sum of Two Integers
+不用+-，有病是吧，sum教你
+Solution:
+def getSum(self, a: int, b: int) -> int:
+        return sum([a, b])
+
+1005. Maximize Sum Of Array After K Negations
+Solution:
+真烦
+def largestSumAfterKNegations(self, A: List[int], K: int) -> int:
+        ans = 0
+        res = sorted(A)
+        if sum(list(map(lambda x: x < 0, A)))>K:
+            return sum(A)-2*sum(res[:K])
+        else:
+            total = sum(list(map(lambda x: x < 0, A)))
+            for i in A:
+                ans += abs(i)
+            if (K-total)%2==0:
+                return ans
+            ress = []
+            for i in A:
+                ress.append(abs(i))
+            ress = sorted(ress)
+            return ans-2*ress[0]
+
+21. Merge Two Sorted Lists
+Solution:
+def mergeTwoLists(self, l1: ListNode, l2: ListNode) -> ListNode:
+        if not l1 and not l2:
+            return None
+        lvalue = []
+        node = l1
+        while node:
+            lvalue.append(node.val)
+            if node.next:
+                node = node.next
+            else:
+                break
+        node = l2
+        while node:
+            lvalue.append(node.val)
+            if node.next:
+                node = node.next
+            else:
+                break
+        lvalue = sorted(lvalue)
+        root = ListNode(lvalue[0])
+        another = root
+        for i in range(1, len(lvalue)):
+            node = ListNode(lvalue[i])
+            another.next = node
+            another = node
+        return root
+
+1175. Prime Arrangements
+Solution:
+就是注意% (10 ** 9 + 7)
+def numPrimeArrangements(self, n: int) -> int:
+        def countPrimes(n):
+            if n<2:
+                return 0
+            output = [True]*(n-1)
+            output[0:1] = [False]*2
+            sqrt_n = int(n**0.5+1)
+            for i in range(sqrt_n):
+                if output[i]:
+                    output[i*i:n:i]=[False]*len(output[i*i:n:i])
+
+            return sum(output)
+        
+        def factorial(n: int) -> int:
+            if n == 0 or n == 1:
+                return 1
+
+            res = 1
+            while n > 1:
+                res *= n
+                n -= 1
+            return res
+        count = countPrimes(n+1)
+        return factorial(count)*factorial(n-count)% (10 ** 9 + 7)
+
+704. Binary Search
+Solution:
