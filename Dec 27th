@@ -419,7 +419,39 @@ def rotateString(self, A: str, B: str) -> bool:
 Given scores of N athletes, find their relative ranks and the people with the top three highest scores, 
 who will be awarded medals: "Gold Medal", "Silver Medal" and "Bronze Medal".
 Solution:
-
+(1)25% 25%
+def findRelativeRanks(self, nums: List[int]) -> List[str]:
+        import numpy as np
+        ranks = np.argsort(np.array(nums))[::-1]
+        N = len(nums)
+        res = list(map(str, ranks))
+        for r in range(N):
+            if r == 0:
+                res[ranks[0]] = "Gold Medal"
+            elif r == 1:
+                res[ranks[1]] = "Silver Medal"
+            elif r == 2:
+                res[ranks[2]] = "Bronze Medal"
+            else:
+                res[ranks[r]] = str(r + 1)
+        return res
+(2)97% 100%
+a = nums.copy()
+        map = {}
+        answer = []
+        places = ["Gold Medal", "Silver Medal", "Bronze Medal"]
+        count = 1  
+        a.sort()
+        a.reverse()
+        for item in a:
+            if count < 4:
+                map[item] = places[count - 1]
+            else:
+                map[item] = count
+            count += 1
+        for players in nums:
+            answer.append(str(map[players]))
+        return answer
 
 599. Minimum Index Sum of Two Lists
 Solution:
@@ -473,3 +505,96 @@ def findJudge(self, N: int, trust: List[List[int]]) -> int:
 Given a binary tree, return the bottom-up level order traversal of its nodes' values. (ie, from left to right, 
 level by level from leaf to root).
 Solution:
+BFS,用list.insert把每层的list插到最前面
+def levelOrderBottom(self, root: TreeNode) -> List[List[int]]:
+        '''
+        BFS
+        '''
+        queue = collections.deque()
+        result = []
+        queue.append(root)
+        res =  []
+        while queue:
+            size = len(queue)
+            this_list = []
+            for _ in range(size):
+                node = queue.popleft()
+                if node:
+                    this_list.append(node.val)
+                    queue.append(node.left)
+                    queue.append(node.right)
+            if this_list:
+                res.insert(0, this_list)
+        return res
+            
+598. Range Addition II
+Solution:
+def maxCount(self, m: int, n: int, ops: List[List[int]]) -> int:
+        # maxvalue = len(ops)
+        if ops == []:
+            return m*n
+        smallx = 999999
+        smally = 999999
+        for i in range(len(ops)):
+            if smallx > ops[i][0]:
+                smallx = ops[i][0]
+            if smally > ops[i][1]:
+                smally = ops[i][1]
+        return smallx*smally
+
+118. Pascal's Triangle
+Given a non-negative integer numRows, generate the first numRows of Pascal's triangle.
+Solution:
+def generate(self, numRows: int) -> List[List[int]]:
+        if numRows == 0 :
+            return []
+        if numRows == 1:
+            return [[1]]
+        if numRows == 2:
+            return [[1], [1, 1]]
+        
+        ans = [[1], [1, 1]]
+        temp = [1, 1]
+        for i in range(numRows-2):
+            this = [1]
+            for j in range(len(temp)-1):
+                this.append(temp[j]+temp[j+1])
+            this.append(1)
+            ans.append(this)
+            temp = this
+        return ans
+
+492. Construct the Rectangle
+So, given a specific rectangular web page’s area, your job by now is to design a rectangular web page, 
+whose length L and width W satisfy the following requirements:
+Solution:
+def constructRectangle(self, area: int) -> List[int]:
+        import math
+        half = math.sqrt(area)
+        if half - int(half)<=0.0001:
+            return [int(half), int(half)]
+        for w in range(int(half), 0, -1):
+            if area % w == 0:
+                return [int(area / w), w]
+        return [area, 1]
+
+1154. Day of the Year
+Given a string date representing a Gregorian calendar date formatted as YYYY-MM-DD, return the day number of the year.
+Solution:
+def dayOfYear(self, date: str) -> int:
+        monthday = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+        les = date.split("-")
+        if (int(les[0])%4==0 and int(les[0])%100!=0) or int(les[0])%400==0:
+            monthday[1] += 1
+        ans = 0
+        for i in range(int(les[1])-1):
+            ans += monthday[i]
+        return ans+int(les[2])
+
+121. Best Time to Buy and Sell Stock
+Say you have an array for which the ith element is the price of a given stock on day i.
+If you were only permitted to complete at most one transaction (i.e., buy one and sell one share of the stock), 
+design an algorithm to find the maximum profit. Note that you cannot sell a stock before you buy one.
+Solution:
+
+
