@@ -264,3 +264,161 @@ def numPrimeArrangements(self, n: int) -> int:
 
 704. Binary Search
 Solution:
+def search(self, nums: List[int], target: int) -> int:
+        if len(nums) == 1:
+            if nums[0] == target:
+                return 0
+            return -1
+        left = 0
+        right = len(nums)-1
+        node = len(nums)//2
+        while nums[node]!=target:
+            if nums[node]>target:
+                right = node-1
+                if right < left:
+                    return -1
+                elif right == left:
+                    if nums[right] == target:
+                        return right
+                    else:
+                        return -1
+                node = (right - left)//2+left
+            else:
+                left = node+1
+                if right < left:
+                    return -1
+                elif right == left:
+                    if nums[right] == target:
+                        return right
+                    else:
+                        return -1
+                node = (right - left)//2+left
+        return node
+
+404. Sum of Left Leaves
+Find the sum of all left leaves in a given binary tree.
+Solution:
+def sumOfLeftLeaves(self, root: TreeNode) -> int:
+        if not root:
+            return 0
+        stack = [root]
+        ans = 0
+        while stack:
+            node = stack.pop()
+            if node.left:
+                stack.append(node.left)
+                if not node.left.left and not node.left.right:
+                    ans+=node.left.val
+            if node.right:
+                stack.append(node.right)
+        return ans
+
+661. Image Smoother
+之前都做过filter
+Solution:
+（暴力）
+from copy import deepcopy as copy
+class Solution(object):
+    def imageSmoother(self, M):
+        """
+        :type M: List[List[int]]
+        :rtype: List[List[int]]
+        """
+        if not M or not M[0]:
+            return M
+        rows = len(M)
+        cols = len(M[0])
+        isValid = lambda i,j: i >=0 and i < rows and j >= 0 and j < cols
+        row, col = 0, 0
+        answer = copy(M)
+        for row in xrange(rows):
+            for col in xrange(cols):
+                _sum, count = 0, 0
+                for i in xrange(-1, 2):
+                    for j in xrange(-1, 2):
+                        if isValid(row + i, col + j):
+                            _sum += M[row + i][col + j]
+                            count += 1
+                answer[row][col] = _sum / count
+        return answer
+（2）
+def imageSmoother(self, M: List[List[int]]) -> List[List[int]]:
+        row, col = len(M), len(M[0])
+        res = [[0]*col for i in range(row)]
+        dirs = [[0,0],[0,1],[0,-1],[1,0],[-1,0],[1,1],[-1,-1],[-1,1],[1,-1]]
+        for i in range(row):
+            for j in range(col):
+                temp = [M[i+m][j+n] for m,n in dirs if 0<=i+m<row and 0<=j+n<col]
+                res[i][j] = sum(temp)//len(temp)
+        return res
+
+350. Intersection of Two Arrays II
+Given two arrays, write a function to compute their intersection.
+Solution:
+def intersect(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        from collections import Counter
+        res1 = Counter(nums1)
+        res2 = Counter(nums2)
+        ans = []
+        for key in res1.keys():
+            if key in res2.keys():
+                for _ in range(min(res1[key], res2[key])):
+                    ans.append(key)
+        return ans
+
+268. Missing Number
+Given an array containing n distinct numbers taken from 0, 1, 2, ..., n, find the one that is missing from the array.
+Solution:
+def missingNumber(self, nums: List[int]) -> int:
+        res = sorted(nums)
+        res2 = [i for i in range(len(nums)+1)]
+        flag = 0
+        for i in range(len(res)):
+            if res[i] != res2[i]:
+                return i
+            flag = 1
+        if flag == 1:
+            return len(nums)
+
+453. Minimum Moves to Equal Array Elements
+Given a non-empty integer array of size n, find the minimum number of moves required to make all array elements equal, 
+where a move is incrementing n - 1 elements by 1.
+Solution:
+'''
+Define move count = move
+Define minimum number of nums = min
+Then Final number = min + move definded as x
+Define sumation of nums = sum
+Define length of nums = length
+Therefore,
+    sum + move*(length-1) = x * length
+Formula Derivation as the following:
+    trans x into min + move->:
+        sum + move*(length-1) = (min + move) * length
+        sum + move * length - move = min * length + move * length
+    minus move * length both side->:
+        sum - move = min * length
+
+        sum - min * length = move _#
+
+'''
+return sum(nums)-len(nums)*min(nums)
+
+796. Rotate String
+Solution:
+切片重组，暴力if
+def rotateString(self, A: str, B: str) -> bool:
+        if len(A)==0 and len(B)==0:
+            return True
+        for i in range(len(A)):
+            if A[i:] + A[:i] == B:
+                return True
+        return False
+
+506. Relative Ranks
+Given scores of N athletes, find their relative ranks and the people with the top three highest scores, 
+who will be awarded medals: "Gold Medal", "Silver Medal" and "Bronze Medal".
+Solution:
+
+599. Minimum Index Sum of Two Lists
+Solution:
