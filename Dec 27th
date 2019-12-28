@@ -731,10 +731,3 @@ def orangesRotting(self, grid: List[List[int]]) -> int:
         if fresh != 0:
             return -1
         return step-1
-
-720. Longest Word in Dictionary
-Given a list of strings words representing an English Dictionary, find the longest word in words that can be 
-built one character at a time by other words in words. If there is more than one possible answer, return the longest 
-word with the smallest lexicographical order.
-Solution:
-首先要确认能拼的，还要是最长的，然后再是比较
