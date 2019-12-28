@@ -20,3 +20,210 @@ Given a binary tree, you need to compute the length of the diameter of the tree.
 The diameter of a binary tree is the length of the longest path between any two nodes in a tree. 
 This path may or may not pass through the root. 
 Solution:
+(负雪)
+analysis:得有一个记录max diameter的self的量。在递归中，如果无节点则直接返回0，每个node左子树和右子树，都要得到它最大的深度，然后再加起来看是不是
+最长的，如果是就更新max diameter
+def diameterOfBinaryTree(self, root: TreeNode) -> int:
+        if not root:
+            return 0
+        self.diameter = 0
+        self.getDepth(root)
+        return self.diameter
+        
+        
+    def getDepth(self, node):
+        if not node:
+            return 0
+        
+        left = self.getDepth(node.left)
+        right = self.getDepth(node.right)
+        self.diameter = max(self.diameter, left + right)
+        return 1+max(left, right)
+
+202. Happy Number
+Starting with any positive integer, replace the number by the sum of the squares of its digits, and repeat the process 
+until the number equals 1 (where it will stay), or it loops endlessly in a cycle which does not include 1. 
+Those numbers for which this process ends in 1 are happy numbers.
+Solution:
+def isHappy(self, n: int) -> bool:
+        res = n
+        lis = []
+        while res != 1:
+            s = str(res)
+            res = 0
+            for i in range(len(s)):
+                res += int(s[i])**2
+            if res in lis:
+                return False
+            lis.append(res)
+        return True
+
+1042. Flower Planting With No Adjacent
+Solution:
+四色图论问题，把涂过的颜色记录，选一个邻近没有涂过的颜色
+def gardenNoAdj(self, N: int, paths: List[List[int]]) -> List[int]:
+        res = [0] * N
+        graph = [[] for i in range(N)]
+        for path in paths:
+            graph[path[0]-1].append(path[1]-1)
+            graph[path[1]-1].append(path[0]-1)
+        for i in range(N):
+            neibor_color = []
+            for j in graph[i]:
+                neibor_color.append(res[j])
+            for k in range(1, 5):
+                if k in neibor_color:
+                    continue
+                res[i] = k
+        return res
+
+703. Kth Largest Element in a Stream
+Solution:
+（讨论区的答案）
+import heapq
+
+class KthLargest:
+
+    def __init__(self, k: int, nums: List[int]):
+        heapq.heapify(nums)
+        self.heap = nums
+        self.k = k
+        while len(self.heap) > k:
+            heapq.heappop(self.heap)
+
+    def add(self, val: int) -> int:
+        if len(self.heap) >= self.k:
+            if val < self.heap[0]:
+                return self.heap[0]
+            else:
+                heapq.heappop(self.heap)
+        heapq.heappush(self.heap, val)
+        return self.heap[0]
+（2）       
+Python的堆是小根堆，不需要对其进行转换，我们想一想，如果一个堆的大小是k的话，那么最小的数字就在其最前面（即为第k大的数字），
+只要维护当新来的数字和最前面的这个数字比较即可。
+
+563. Binary Tree Tilt
+Solution:
+(负雪)
+在cal函数中每次得到left和right后就把绝对差值加到self.sum中，但是cal函数的目的是记录某个节点下面所有节点的和，这是主要目的。
+def findTilt(self, root: TreeNode) -> int:
+        if not root:
+            return 0
+        self.sum = 0
+        self.cal(root)
+        return self.sum
+        
+    def cal(self, node):
+        if not node:
+            return 0
+        left = self.cal(node.left)
+        right = self.cal(node.right)
+        self.sum += abs(left-right)
+        return left+right+node.val
+
+235. Lowest Common Ancestor of a Binary Search Tree
+Solution:
+如果pq的val都比root大，说明ancestor都在root右边，递归(root.right, p, q)
+def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        if not root:return root;
+        if p.val > q.val:return self.lowestCommonAncestor(root, q, p)
+        if root.val >= p.val and root.val <= q.val: return root;
+        if root.val < p.val:return self.lowestCommonAncestor(root.right, p, q)
+        if root.val > q.val:return self.lowestCommonAncestor(root.left, p, q)
+
+1018. Binary Prefix Divisible By 5
+Solution:
+def prefixesDivBy5(self, A: List[int]) -> List[bool]:
+        next = A[0]
+        ans = [next%5==0]
+        for i in range(len(A)-1):
+            next = next*2+A[i+1]
+            ans.append(next%5==0)
+        return ans
+
+1232. Check If It Is a Straight Line
+Solution:
+def checkStraightLine(self, coordinates: List[List[int]]) -> bool:
+        if coordinates[1][0]!=coordinates[0][0]:
+            k = (coordinates[1][1]-coordinates[0][1])/(coordinates[1][0]-coordinates[0][0])
+        else:
+            for i in range(2, len(coordinates)):
+                if coordinates[i][0] != coordinates[0][0]:
+                    return False
+        flag = 0
+        for i in range(len(coordinates)):
+            if coordinates[i][1] != coordinates[0][1]:
+                flag = 1
+                break
+        if flag ==0:
+            return True
+        for i in range(2, len(coordinates)):
+            if float(coordinates[0][1]+(coordinates[i][0]-coordinates[0][0])*k) != float(coordinates[i][1]):
+                return False
+        return True
+
+844. Backspace String Compare
+Given two strings S and T, return if they are equal when both are typed into empty text editors. 
+# means a backspace character.
+Solution:
+def backspaceCompare(self, S: str, T: str) -> bool:
+        newS = []
+        for i in range(len(S)):
+            if S[i].isalpha():
+                newS.append(S[i])
+            else:
+                if not newS:
+                    continue
+                newS.pop()
+        newT = []
+        for i in range(len(T)):
+            if T[i].isalpha():
+                newT.append(T[i])
+            else:
+                if not newT:
+                    continue
+                newT.pop()
+                
+        return newS==newT
+
+541. Reverse String II
+Solution:
+def reverseStr(self, s: str, k: int) -> str:
+        N = len(s)
+        res = ""
+        pos = 0
+        while pos < N:
+            nx = s[pos : pos + k]
+            res = res + nx[::-1] + s[pos + k : pos + 2 * k]
+            pos += 2 * k
+        return res
+
+628. Maximum Product of Three Numbers
+Given an integer array, find three numbers whose product is maximum and output the maximum product.
+Solution:
+def maximumProduct(self, nums: List[int]) -> int:
+        sort_ = sorted(nums)
+        cand1 = sort_[-1]*sort_[-2]*sort_[-3]
+        cand2 = sort_[0]*sort_[1]*sort_[-1]
+        cand3 = sort_[0]*sort_[-1]*sort_[-2]
+        return max(cand1, cand2, cand3)
+
+1010. Pairs of Songs With Total Durations Divisible by 60
+Solution:
+把每个数余60求出来，余0的直接n*(n-1)/2，余30的同。在1-29的，搭配乘吧
+def numPairsDivisibleBy60(self, time: List[int]) -> int:
+        aux_dict = dict(enumerate([0]*60))
+        for duration in time:
+            aux_dict[duration % 60] += 1
+        n_pairs = 0
+        if aux_dict[0] > 1:
+            n_pairs += aux_dict[0] * (aux_dict[0] - 1) // 2
+        if aux_dict[30] > 1:
+            n_pairs += aux_dict[30] * (aux_dict[30] - 1) // 2
+        for i in range(1, 30):
+            n_pairs += aux_dict[i] * aux_dict[60 - i]
+        return n_pairs
+
+994. Rotting Oranges
+Solution:
