@@ -693,3 +693,48 @@ def binaryTreePaths(self, root: TreeNode) -> List[str]:
 
 836. Rectangle Overlap
 Solution:
+棋盘问题和这种grid问题好像经常用q = collections.deque()，然后每次把一轮的size确定,for _in range(size)一次性取出popleft，然后再添加
+def orangesRotting(self, grid: List[List[int]]) -> int:
+        rows, cols = len(grid), len(grid[0])
+        rotten = collections.deque()
+        fresh = 0
+        for row in range(rows):
+            for col in range(cols):
+                if grid[row][col] == 2:
+                    rotten.append([row, col])
+                elif grid[row][col] == 1:
+                    fresh += 1
+        if fresh == 0:
+            return 0
+        step = 0
+        while rotten:
+            size = len(rotten)
+            for _ in range(size):
+                cell = rotten.popleft()
+                if cell[0]>=1 and grid[cell[0]-1][cell[1]] == 1:
+                    grid[cell[0]-1][cell[1]] = 2
+                    rotten.append([cell[0]-1, cell[1]])
+                    fresh -= 1
+                if cell[0]<=rows-2 and grid[cell[0]+1][cell[1]] == 1:
+                    grid[cell[0]+1][cell[1]] = 2
+                    rotten.append([cell[0]+1, cell[1]])
+                    fresh -= 1
+                if cell[1]>=1 and grid[cell[0]][cell[1]-1] == 1:
+                    grid[cell[0]][cell[1]-1] = 2
+                    rotten.append([cell[0], cell[1]-1])
+                    fresh -= 1
+                if cell[1]<=cols-2 and grid[cell[0]][cell[1]+1] == 1:
+                    grid[cell[0]][cell[1]+1] = 2
+                    rotten.append([cell[0], cell[1]+1])
+                    fresh -= 1
+            step += 1
+        if fresh != 0:
+            return -1
+        return step-1
+
+720. Longest Word in Dictionary
+Given a list of strings words representing an English Dictionary, find the longest word in words that can be 
+built one character at a time by other words in words. If there is more than one possible answer, return the longest 
+word with the smallest lexicographical order.
+Solution:
+首先要确认能拼的，还要是最长的，然后再是比较
