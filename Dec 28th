@@ -1,0 +1,22 @@
+可惜leetcode不能贴图，又是蔚蓝的一天，一起加油吧
+
+836. Rectangle Overlap
+Solution:
+def isRectangleOverlap(self, rec1: List[int], rec2: List[int]) -> bool:
+        left=rec2[0]<=rec1[0] and rec2[2]<=rec1[0]
+        right=rec2[0]>=rec1[2] and rec2[2]>=rec1[2]
+        
+        ymin=min(rec1[1],rec1[3])
+        ymax=max(rec1[1],rec1[3])
+        
+        up=rec2[1]>=ymax and rec2[3]>=ymax
+        down=rec2[1]<=ymin and rec2[3]<=ymin
+
+        if left or right or up or down: return False
+        return True
+
+543. Diameter of Binary Tree
+Given a binary tree, you need to compute the length of the diameter of the tree. 
+The diameter of a binary tree is the length of the longest path between any two nodes in a tree. 
+This path may or may not pass through the root. 
+Solution:
