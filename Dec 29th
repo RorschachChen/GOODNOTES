@@ -87,3 +87,162 @@ def numEquivDominoPairs(self, dominoes: List[List[int]]) -> int:
 119. Pascal's Triangle II
 Given a non-negative index k where k ≤ 33, return the kth index row of the Pascal's triangle.
 Solution:
+def getRow(self, rowIndex: int) -> List[int]:
+        numRows = rowIndex
+        if numRows == 0 :
+            return [1]
+        if numRows == 1:
+            return [1,1]
+        if numRows == 2:
+            return [1, 2, 1]
+        
+        ans = [[1], [1, 1]]
+        temp = [1, 1]
+        for i in range(numRows-1):
+            this = [1]
+            for j in range(len(temp)-1):
+                this.append(temp[j]+temp[j+1])
+            this.append(1)
+            ans.append(this)
+            temp = this
+        return ans[-1]
+
+551. Student Attendance Record I
+Solution:
+偶尔写点冗余代码，嘿嘿
+def checkRecord(self, s: str) -> bool:
+        Acount = 0
+        for i in range(len(s)-2):
+            if s[i] == "L" and s[i+1] == "L" and s[i+2] == "L":
+                return False
+            elif s[i]=="A":
+                Acount += 1
+                if Acount > 1:
+                    return False
+        if s[-1] == "A":
+            Acount += 1
+        if len(s) > 1:
+            if s[-2] == "A":
+                Acount += 1
+        if Acount > 1:
+            return False
+        return True
+
+232. Implement Queue using Stacks
+Solution:
+class MyQueue:
+
+    def __init__(self):
+        """
+        Initialize your data structure here.
+        """
+        self.s = []
+
+    def push(self, x: int) -> None:
+        """
+        Push element x to the back of queue.
+        """
+        self.s.insert(0, x)
+
+    def pop(self) -> int:
+        """
+        Removes the element from in front of queue and returns that element.
+        """
+        return self.s.pop()
+
+    def peek(self) -> int:
+        """
+        Get the front element.
+        """
+        return self.s[-1]
+
+    def empty(self) -> bool:
+        """
+        Returns whether the queue is empty.
+        """
+        return len(self.s)==0
+
+
+# Your MyQueue object will be instantiated and called as such:
+# obj = MyQueue()
+# obj.push(x)
+# param_2 = obj.pop()
+# param_3 = obj.peek()
+# param_4 = obj.empty()
+
+401. Binary Watch
+Solution:
+def readBinaryWatch(self, num: int) -> List[str]:
+        if num == 0:
+            return ["0:00"]
+        
+        return_list = []
+        hours = [8,4,2,1]
+        minutes = [32,16,8,4,2,1]
+        
+        for i in range(min(num, 4)+1):
+            possible_minutes = list(itertools.combinations(minutes,num-i))
+            possible_hours = list(itertools.combinations(hours, i))
+            
+            possible_hours = list(map(lambda y: str(sum(y)), filter(lambda x: sum(x) <= 11, possible_hours)))
+            
+            possible_minutes = list(map(lambda y: str(sum(y)), filter(lambda x: sum(x) <= 59, possible_minutes)))
+            
+            possible_minutes = ["0"+minute if int(minute) < 10 else minute for minute in possible_minutes]
+            
+            return_list.extend(hour+":"+minute for hour in possible_hours for minute in possible_minutes)
+        
+        return return_list
+
+191. Number of 1 Bits
+Write a function that takes an unsigned integer and return the number of '1' bits it has (also known as the Hamming weight).
+Solution:
+这题在python里好简单
+def hammingWeight(self, n: int) -> int:
+        from collections import Counter
+        # print(bin(n).replace('0b', ""))
+        res = Counter(str(bin(n)))
+        return res['1']
+
+70. Climbing Stairs
+It takes n steps to reach to the top.
+Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?
+Solution:
+(超时)
+def climbStairs(self, n: int) -> int:
+        if n==1:
+            return 1
+        if n==2:
+            return 2
+        return self.climbStairs(n-1)+self.climbStairs(n-2)
+（2）        
+def climbStairs(self, n: int) -> int:
+        li=[0,1]
+        for x in range(2,n+1):
+            li.append(li[x-1] + li[x-2])      
+        return sum(li[-2:])              
+
+504. Base 7
+Given an integer, return its base 7 string representation.
+Solution:
+def convertToBase7(self, num: int) -> str:
+        if num == 0:
+            return 0
+        temp = abs(num)
+        maxbit = int(math.log(temp, 7))+1
+        if num>0:
+            ans = ""
+        else:
+            ans = "-"
+        for i in range(maxbit):
+            if i==maxbit-1:
+                ans+=str(temp)
+                break
+            ans+=str(temp//(7**(maxbit-i-1)))
+            temp=temp%(7**(maxbit-i-1))
+        return ans
+
+53. Maximum Subarray
+Given an integer array nums, find the contiguous subarray (containing at least one number) which has the largest sum and 
+return its sum.
+Solution:
