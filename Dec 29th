@@ -246,3 +246,53 @@ def convertToBase7(self, num: int) -> str:
 Given an integer array nums, find the contiguous subarray (containing at least one number) which has the largest sum and 
 return its sum.
 Solution:
+def maxSubArray(self, nums: List[int]) -> int:
+        if len(nums)==0:
+            return 0
+        if len(nums)==1:
+            return nums[0]
+        this = res = nums[0]
+        for i in range(1, len(nums)):
+            this = max(this+nums[i], nums[i])
+            res = max(this, res)
+        return res
+
+674. Longest Continuous Increasing Subsequence
+Solution:
+def findLengthOfLCIS(self, nums: List[int]) -> int:
+        if len(nums)==0:
+            return 0
+        if len(nums)==1:
+            return 1
+        res = []
+        thislen = 1
+        for i in range(len(nums)-1):
+            if i == len(nums)-2:
+                if nums[i]<nums[i+1]:
+                    thislen += 1
+                res.append(thislen)
+            if nums[i]<nums[i+1]:
+                thislen += 1
+            else:
+                res.append(thislen)
+                thislen = 1
+        return max(res)
+
+594. Longest Harmonious Subsequence
+Solution:
+def findLHS(self, nums: List[int]) -> int:
+        if len(nums)==0 or len(nums)==1:
+            return 0
+        so = sorted(nums)
+        from collections import Counter
+        res = Counter(so)
+        ans = []
+        for key in res.keys():
+            if key+1 in res.keys():
+                ans.append(res[key]+res[key+1])
+            if key-1 in res.keys():
+                ans.append(res[key]+res[key-1])
+        if len(ans) == 0:
+            return 0
+        return max(ans)
+
