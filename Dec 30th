@@ -1,0 +1,21 @@
+925. Long Pressed Name
+Solution:
+两个齐头并进的pointer，检测typed是否含盖name，最后再检查一下pointer到没到最后，还有两个的长度
+def isLongPressedName(self, name: str, typed: str) -> bool:
+        nameP = 0
+        checkP = 0
+        for i in range(len(typed)):
+            if typed[i] == name[nameP]:
+                nameP += 1
+                if nameP>=len(name):
+                    break
+        if nameP != len(name) and len(name)!=len(typed):
+            return False
+        return True
+
+437. Path Sum III
+在树中找到和为某个数的节点
+Solution:
+肯定要用i，然后sum-i，不然-2和+2还是和为0
+mistake:本来想遍历，但是节点要相连
+“发现那种在中间找到某段符合条件的题很弱”
