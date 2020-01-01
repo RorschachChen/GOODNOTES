@@ -1,0 +1,69 @@
+Last day of this year, of these ten years, this decade!
+
+437. Path Sum III
+搜索二叉树上路径等于sum的数量
+Solution:
+def pathSum(self, root: TreeNode, sum: int) -> int:
+        if not root:
+            return 0
+        return self.dfs(root, sum)+self.pathSum(root.left, sum)+self.pathSum(root.right, sum)
+    
+    def dfs(self, root, sum):
+        res = 0
+        if not root: return res
+        sum -= root.val
+        if sum == 0: #sum碰到一次0就说明有一条途径可以是sum
+            res += 1
+        res += self.dfs(root.left, sum)
+        res += self.dfs(root.right, sum)
+        return res
+(2)还有一种很多solution用的方法是用dict记录中间sum
+        
+744. Find Smallest Letter Greater Than Target        
+Solution:
+def nextGreatestLetter(self, letters: List[str], target: str) -> str:
+        letters = list(set(letters))
+        letters.sort()
+        for char in letters:
+            if char > target:
+                return char
+        return min(letters)
+
+101. Symmetric Tree
+Solution:
+def isSymmetric(self, root: TreeNode) -> bool:
+        if not root:
+            return True
+        return(self.isMirror(root.left, root.right))
+    
+def isMirror(self, left, right):
+    if not left and not right:
+        return True
+    elif left and right:
+        return(left.val==right.val and self.isMirror(left.left, right.right) and self.isMirror(left.right, right.left))
+    else:
+        return False
+
+83. Remove Duplicates from Sorted List
+Solution:
+def deleteDuplicates(self, head: ListNode) -> ListNode:
+        if not head:
+            return 
+        dict = [head.val]
+        node = head
+        while node.next:
+            if node.next.val not in dict:
+                dict.append(node.next.val)
+            else:
+                node.next = node.next.next
+                continue
+            node = node.next
+            # node2=  node.next
+            # if node2==None:
+            #     if node.val in dict:
+            #         node.next == None
+            #         break
+        return head
+
+572. Subtree of Another Tree
+Solution:
