@@ -81,5 +81,164 @@ def findSecondMinimumValue(self, root: TreeNode) -> int:
         
 405. Convert a Number to Hexadecimal
 Solution:
+def toHex(self, num: int) -> str:
+        dic = {10:'a', 11:'b', 12:'c', 13:'d', 14:'e', 15:'f'}
+        if num == 0:
+            return "0"
+        if num<0:
+            num+=2**32
+        if num>0:
+            bit = int(math.log(num, 16))+1
+            ans = ""
+            res = num
+            for i in range(bit):
+                if i == bit-1:
+                    if res in dic.keys():
+                        ans += dic[res]
+                    else:
+                        ans+=str(res)
+                    break
+                high = int(res//16**(bit-1-i))
+                if high in dic.keys():
+                    ans += dic[high]
+                else:
+                    ans+=str(high)
+                res = int(num%(16**(bit-1-i)))
+        return ans
 
+26. Remove Duplicates from Sorted Array
+Given a sorted array nums, remove the duplicates in-place such that each element appear only once and return the new length.
+Do not allocate extra space for another array, you must do this by modifying the input array in-place with O(1) extra memory.
+Solution:
+def removeDuplicates(self, nums: List[int]) -> int:
+        if len(nums)==0:
+            return 0
+        if len(nums)==1:
+            return 1
+        flag = nums[0]
+        i = 1
+        while 1:
+            try:
+                if nums[i] == flag:
+                    del nums[i]
+                else:
+                    flag = nums[i]
+                    i += 1
+                
+            except:
+                break
+        return len(nums)+1
 
+345. Reverse Vowels of a String
+Write a function that takes a string as input and reverse only the vowels of a string.
+Solution:
+def reverseVowels(self, s: str) -> str:
+        if s == "":
+            return ""
+        if s == " ":
+            return " "
+        res = []
+        dic = ["a", "e", "i", "o", "u", 'A','E','I','O','U']
+        for string in s:
+            if string in dic:
+                res.append(string)
+        revres = res[::-1]
+        for i in dic:
+            s = s.replace(i, "+")
+        flag = 0
+        for i in range(len(s)):
+            if s[i] == "+":
+                if i == len(s)-1:
+                    s = s[:i]+revres[flag]
+                    break
+                else:
+                    s = s[:i]+revres[flag]+s[i+1:]
+                    flag += 1
+        return s
+
+231. Power of Two
+Given an integer, write a function to determine if it is a power of two.
+Solution:
+ASSHOLE.
+def isPowerOfTwo(self, n: int) -> bool:
+        if n <= 0:
+            return False
+        return math.log(n,2)-int(math.log(n,2))<=0.000000001
+
+38. Count and Say
+Solution:
+统计重复的字母count+字母本身
+def countAndSay(self, n: int) -> str:
+        res = "1"
+        for i in range(n - 1):
+            prev = res[0]
+            count = 1
+            ans = ""
+            for j in range(1, len(res)):
+                cur = res[j]
+                if cur != prev:
+                    ans+=str(count)+str(prev)
+                    prev = cur
+                    count = 0
+                count+=1
+            res = ans+str(count)+str(prev)
+        return res
+
+724. Find Pivot Index
+左边和和后边和相等
+Solution:
+nmd一开始写超时了。从两头往中间走，只需要走一趟就可以完成，而一直sum的话会用很长时间
+def pivotIndex(self, nums: List[int]) -> int:
+        if len(nums) == 0:
+            return -1
+        
+        left = 0
+        right = sum(nums)
+        for idx, num in enumerate(nums):
+            right -= num
+            if left == right:
+                return idx
+            left += num
+        return -1
+
+482. License Key Formatting
+The string is separated into N+1 groups by N dashes.
+Given a number K, we would want to reformat the strings such that each group contains exactly K characters, except for the 
+first group which could be shorter than K, but still must contain at least one character. Furthermore, there must be a dash 
+inserted between two groups and all lowercase letters should be converted to uppercase.
+Solution:
+def licenseKeyFormatting(self, S: str, K: int) -> str:
+        temp = ""
+        ans = []
+        for i in range(len(S)-1, -1, -1):
+            if i == 0:
+                if S[0]!='-':
+                    if S[0].islower():
+                        aka = S[0].upper()
+                    else:
+                        aka = S[0]
+                    temp+=aka
+                    ans.append(temp)
+                    break
+                elif len(temp)!=0:
+                    ans.append(temp)
+                    break
+                else:
+                    break
+                
+            if S[i]!="-":
+                if S[i].islower():
+                    aka = S[i].upper()
+                else:
+                    aka = S[i]
+                temp+=aka
+                if len(temp)==K:
+                    ans.append(temp)
+                    temp = ""
+        return "-".join(ans)[::-1]
+
+110. Balanced Binary Tree
+Given a binary tree, determine if it is height-balanced.
+For this problem, a height-balanced binary tree is defined as:
+a binary tree in which the left and right subtrees of every node differ in height by no more than 1.
+Solution:
