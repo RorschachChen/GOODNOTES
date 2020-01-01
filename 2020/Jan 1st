@@ -1,1 +1,85 @@
 Happy New Year!!!!!
+572. Subtree of Another Tree
+Solution:
+感觉二叉树的题很多都是把逻辑整出来就行，就递归的部分应该是按照什么规则递归的。这里就是对s,t调用函数判断，有3种情况返回True，st相同，t和s的子树相同。
+在函数中，如果ss和tt都不存在了，直接返回True，如果只有一个肯定是False，ss和tt点val不相同肯定返回False。（这里有个很奇怪的bug，就是如果不把第一函数的
+倒数第一个判断写到or一起的话，就要在判断val相等的时候加try，不然就提示t没有val，except直接返回False，可能or里面某个判断引发了错误会直接跳过去判断下一
+个）
+def isSubtree(self, s: TreeNode, t: TreeNode) -> bool:
+        if not s:
+            return
+        if self.isSame(s, t):
+            return True
+        return self.isSubtree(s.left, t) or self.isSubtree(s.right, t)
+    
+def isSame(self, ss, tt):
+    if not ss and not tt:
+        return True
+    if not ss and not tt:
+        return False
+    if ss and not tt:
+        return False
+    try: 
+        if ss.val!=tt.val:
+            return False
+    except:
+        return False
+    return self.isSame(ss.left, tt.left) and self.isSame(ss.right, tt.right)
+    
+819. Most Common Word
+Solution:
+用re找字母然后小写
+def mostCommonWord(self, paragraph: str, banned: List[str]) -> str:
+        words = [token for token in re.findall(r"([a-zA-Z]+)", paragraph.lower())]
+        count = {}
+        for word in words: 
+            if word not in banned: 
+                count[word] = count.get(word, 0) + 1
+            else: 
+                continue
+
+        freq = max(count.values())
+        return ''.join([k for k, v in count.items() if v == freq])
+
+558. Quad Tree Intersection
+Solution:
+(fuxue)
+def intersect(self, quadTree1: 'Node', quadTree2: 'Node') -> 'Node':
+        if q1.isLeaf:
+            return q1 if q1.val else q2
+        if q2.isLeaf:
+            return q2 if q2.val else q1
+        
+        q1.topLeft = self.intersect(q1.topLeft, q2.topLeft)
+        q1.topRight = self.intersect(q1.topRight, q2.topRight)
+        q1.bottomLeft = self.intersect(q1.bottomLeft, q2.bottomLeft)
+        q1.bottomRight = self.intersect(q1.bottomRight, q2.bottomRight)
+        
+        if q1.topLeft.isLeaf and q1.topRight.isLeaf and q1.bottomLeft.isLeaf and q1.bottomRight.isLeaf:
+            if q1.topLeft.val == q1.topRight.val == q1.bottomLeft.val == q1.bottomRight.val:
+                q1.isLeaf = True
+                q1.val = q1.topLeft.val
+        return q1
+
+671. Second Minimum Node In a Binary Tree
+Solution:
+def findSecondMinimumValue(self, root: TreeNode) -> int:
+        if not root: 
+            return -1
+        self.res = float("inf")
+        self.min = root.val
+        self.search(root)
+        return self.res if self.res != float("inf") else -1
+    
+    def search(self, root):
+        if not root:
+            return
+        self.search(root.left)
+        if self.min<root.val<self.res:
+            self.res = root.val
+        self.search(root.right)
+        
+405. Convert a Number to Hexadecimal
+Solution:
+
+
