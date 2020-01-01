@@ -318,3 +318,14 @@ def isPowerOfThree(self, n: int) -> bool:
             return False
         res = round(math.log(n, 3))
         return 3**res == n
+
+198. House Robber
+邻近的不能再打劫
+Solution:
+每次判断是否值得加上，跨一步和跨两步比较
+def rob(self, nums: List[int]) -> int:
+        prev, cur = 0, 0
+        for i in range(len(nums)):
+            prev, cur = cur, max(prev+nums[i], cur)
+        return cur
+
