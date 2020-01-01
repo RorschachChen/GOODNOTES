@@ -306,9 +306,24 @@ class MyStack:
 # param_3 = obj.top()
 # param_4 = obj.empty()
 
-849. Maximize Distance to Closest Person
+849. Maximize Distance to Closest Person (类似821)
 Solution:
-
+从左往右，记录下每个0和它左边第一个1的距离，再从右往左，记录右边第一个的距离
+def maxDistToClosest(self, seats: List[int]) -> int:
+        index = -9999
+        ans = [0]*len(seats)
+        for i in range(len(seats)):
+            if seats[i] == 1:
+                index = i
+            else:
+                ans[i] = i-index
+        index = -9999
+        for i in range(len(seats)-1, -1, -1):
+            if seats[i] == 1:
+                index = i
+            else:
+                ans[i] = min(abs(i-index), ans[i]) # closest person
+        return max(ans) # maximum distance
 
 326. Power of Three
 Given an integer, write a function to determine if it is a power of three.
@@ -329,3 +344,69 @@ def rob(self, nums: List[int]) -> int:
             prev, cur = cur, max(prev+nums[i], cur)
         return cur
 
+35. Search Insert Position
+Given a sorted array and a target value, return the index if the target is found. If not, return the index where it would 
+be if it were inserted in order.
+You may assume no duplicates in the array.
+Solution:
+def searchInsert(self, nums: List[int], target: int) -> int:
+        if len(nums)==0:
+            return 0
+        try:
+            ans = nums.index(target)
+            return ans
+        except:
+            if nums[-1]<target:
+                return len(nums)
+            elif nums[0]>target:
+                return 0
+            for i in range(len(nums)):
+                if nums[i]>target:
+                    return i
+
+263. Ugly Number
+Ugly numbers are positive numbers whose prime factors only include 2, 3, 5.
+Solution:
+ef isUgly(self, num: int) -> bool:
+        if num<=0:
+            return False
+        else:
+            while(num%2==0):
+                num=num/2
+            while(num%3==0):   
+                num=num/3
+            while(num%5==0):
+                num=num/5
+        
+            return num==1
+
+303. Range Sum Query - Immutable
+Given an integer array nums, find the sum of the elements between indices i and j (i ≤ j), inclusive.
+Solution:
+class NumArray:
+
+    def __init__(self, nums: List[int]):
+        self.m = nums
+
+    def sumRange(self, i: int, j: int) -> int:
+        return sum(self.m[i:j+1])
+
+
+# Your NumArray object will be instantiated and called as such:
+# obj = NumArray(nums)
+# param_1 = obj.sumRange(i,j)
+(这题可以用integral image的想法做，然后只需要相减就可以)
+
+645. Set Mismatch
+ The set S originally contains numbers from 1 to n. But unfortunately, due to the data error, one of the numbers in the set 
+ got duplicated to another number in the set, which results in repetition of one number and loss of another number.
+Given an array nums representing the data status of this set after the error. Your task is to firstly find the number 
+occurs twice and then find the number that is missing. Return them in the form of an array.
+Solution:
+def findErrorNums(self, nums: List[int]) -> List[int]:
+        du = sum(nums)-sum(set(nums))
+        los = int(len(nums)*(len(nums)+1)/2)-sum(nums)+du
+        return [du,los]
+
+66. Plus One
+Solution:
