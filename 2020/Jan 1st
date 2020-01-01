@@ -426,3 +426,112 @@ Given a non-empty string check if it can be constructed by taking a substring of
 substring together. You may assume the given string consists of lowercase English letters only and its length will not 
 exceed 10000
 Solution:
+直接增倍看等于等于原string就行
+def repeatedSubstringPattern(self, s: str) -> bool:
+        for i in range(1, len(s)//2+1):
+            if len(s)%i==0:
+                sub = s[:i]
+                if sub*int(len(s)//i) == s:
+                    return True
+        return False
+
+299. Bulls and Cows
+Solution:
+def getHint(self, secret: str, guess: str) -> str:
+        A = 0
+        for i in range(len(guess)):
+            if guess[i]==secret[i]:
+                A += 1
+        from collections import Counter
+        res1 = Counter(guess)
+        res2 = Counter(secret)
+        total = 0
+        for key in res2.keys():
+            if key in res1.keys():
+                total+=min(res2[key], res1[key])
+        ans = ""
+        ans += str(A)
+        ans += "A"
+        ans += str(total-A)
+        ans += "B"
+        return ans
+
+747. Largest Number At Least Twice of Others
+Solution:
+def dominantIndex(self, nums: List[int]) -> int:
+        if len(nums)==1:
+            return 0
+        if len(nums)==0:
+            return
+        so = sorted(nums)
+        if so[-1]>=2*so[-2]:
+            return nums.index(so[-1])
+        else:
+            return -1
+
+374. Guess Number Higher or Lower
+Solution:
+def guessNumber(self, n: int) -> int:
+        left = 1
+        right = n
+        ans = 2
+        while ans!=0 and left<=right:
+            this = (left+right)//2
+            ans = guess(this)
+            if ans == 1:
+                left = this+1
+            if ans == -1:
+                right = this-1
+        return this
+
+342. Power of Four
+Solution:
+def isPowerOfFour(self, num: int) -> bool:
+        n = num
+        if n <= 0:
+            return False
+        res = round(math.log(n, 4))
+        return 4**res == n
+
+501. Find Mode in Binary Search Tree
+Solution:
+def findMode(self, root: TreeNode) -> List[int]:
+        if not root:
+            return []
+        self.m  = []
+        self.inorder(root)
+        if len(self.m)==1:
+            return self.m
+        ans = []
+        res = collections.Counter(self.m)
+        count = 0
+        maxx = max(res.values())
+        for key in res.keys():
+            if res[key]==maxx:
+                ans.append(key)
+                
+        return ans
+                
+    def inorder(self, root):
+        if not root:
+            return 
+        self.m.append(root.val)
+        self.inorder(root.left)
+        self.inorder(root.right)
+
+367. Valid Perfect Square
+Given a positive integer num, write a function which returns True if num is a perfect square else False.
+Solution:
+def isPerfectSquare(self, num: int) -> bool:
+        if num == 1:
+            return True
+        for i in range(num):
+            if i**2>num:
+                return False
+            if i**2==num:
+                return True
+
+643. Maximum Average Subarray I
+Given an array consisting of n integers, find the contiguous subarray of given length k that has the maximum average value. 
+And you need to output the maximum average value.
+Solution:
