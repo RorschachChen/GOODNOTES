@@ -239,5 +239,65 @@ def numMagicSquaresInside(self, grid: List[List[int]]) -> int:
 Given an array of integers and an integer k, find out whether there are two distinct indices i and j in the array such that 
 nums[i] = nums[j] and the absolute difference between i and j is at most k.
 Soltuion:
+(讨论区答案)
+只要有i-j的值小于等于k就返回True，不然就更新i的位置
+def containsNearbyDuplicate(self, nums: List[int], k: int) -> bool:
+        dt = {}
+        for i,val in enumerate(nums):
+            if val not in dt:
+                dt[val] = i
+            else:
+                if i - dt[val] <= k:
+                    return True
+                else:
+                    tmp = {val:i}
+                    dt.update(tmp)
+        return False
 
+111. Minimum Depth of Binary Tree
+Solution:
+def minDepth(self, root: TreeNode) -> int:
+        if not root:
+            return 0
+        depth = 1
+        deq = collections.deque()
+        deq.append(root)
+        while deq:
+            size = len(deq)
+            for _ in range(size):
+                node = deq.popleft()
+                if node.left==None and node.right==None:
+                    return depth
+                if node.left:
+                    deq.append(node.left)
+                if node.right:
+                    deq.append(node.right)
+            depth+=1
+            
+        return depth
 
+290. Word Pattern
+Given a pattern and a string str, find if str follows the same pattern.
+Here follow means a full match, such that there is a bijection between a letter in pattern and a non-empty word in str.
+Solution:
+def wordPattern(self, pattern: str, str: str) -> bool:
+        d1 = {}
+        count = 1
+        lis1 = []
+        for p in range(len(pattern)):
+            if pattern[p] not in d1:
+                d1[pattern[p]] = count
+                count += 1
+            lis1.append(d1[pattern[p]])
+        
+        d2 = {}
+        count = 1
+        lis2 = []
+        str = str.split(" ")
+        for p in str:
+            if p not in d2:
+                d2[p] = count
+                count += 1
+            lis2.append(d2[p])
+        return  lis1==lis2
+        
