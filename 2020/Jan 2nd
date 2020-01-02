@@ -88,7 +88,41 @@ def trailingZeroes(self, n: int) -> int:
 
 88. Merge Sorted Array
 Solution:
-
+def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
+        """
+        Do not return anything, modify nums1 in-place instead.
+        """
+        while len(nums1) > m:
+            nums1.pop()
+        while len(nums2) > n:
+            nums2.pop()
+        if nums1 and nums2:
+            if nums2[0] >= nums1[-1]:
+                while nums2:
+                    nums1.append(nums2.pop(0))
+            else:
+                nums2_add = nums2[:]
+                nums3 = []
+                for i in range(len(nums2)):
+                    if nums2[i] >= nums1[-1]:
+                        nums3 = nums2[i:]
+                        nums2_add = nums2[0:i]
+                        break
+                        
+                nums1_index = 0
+                for number2 in nums2_add:
+                    for index in range(nums1_index, len(nums1)):
+                        if number2 <= nums1[index]:
+                            nums1.insert(index, number2)
+                            nums1_index = index+1
+                            break
+                            
+                for number3 in nums3:
+                    nums1.append(number3)
+        else:
+            if not nums1:
+                for number in nums2:
+                    nums1.append(number)
 
 234. Palindrome Linked List
 Solution:
@@ -124,6 +158,86 @@ def countSegments(self, s: str) -> int:
         res = s.split(" ")
         return len(res)
 
+434. Number of Segments in a String
+Count the number of segments in a string, where a segment is defined to be a contiguous sequence of non-space characters.
+Solution:
+def countSegments(self, s: str) -> int:
+        if len(s)==0:
+            return 0
+        count = 0
+        if s[0]!=" ":
+            flag = 1
+            count = 1
+        for i in range(1, len(s)):
+            if s[i]==" ":
+                flag = 0
+            if s[i]!=" " and not flag:
+                flag = 1
+                count += 1
+        return count
 
-        
+160. Intersection of Two Linked Lists
+Solution:
+这道题不是因为值相同而交集的，而是问你交集。直接把A所有节点放到集合中，一个个判断B的节点
+def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> ListNode:
+        S = set()
+        while headA != None:headA, _ = headA.next, S.add(headA) 
+        while headB != None:
+            if headB in S: return headB
+            headB = headB.next
+            
+
+203. Remove Linked List Elements
+Solution:
+(1) 8%
+def removeElements(self, head: ListNode, val: int) -> ListNode:
+        if not head:
+            return  
+        node = head
+        while (node != None and node.val == val):
+            node = node.next
+        node2 = node
+        if node==None:
+            return 
+        while node!= None:
+            if node.next==None:
+                if node.val==val:
+                    return 
+                else:
+                    return node2
+            if node.next.val == val:
+                if node.next.next!=None:
+                    node.next = node.next.next
+                    continue
+                else:
+                    node.next = None
+            node = node.next
+        return node2
+(2)可以先创造一个-1的节点，指向第一个节点，然后遍历。可以不用考虑很多情况，高效很多
+
+840. Magic Squares In Grid（毫无意义的一道题）
+Solution:
+def numMagicSquaresInside(self, grid: List[List[int]]) -> int:
+        if len(grid) < 3 or len(grid[0]) < 3:
+            return 0
+        counter = 0
+        for row in range(len(grid) - 2):
+            for col in range(len(grid[0]) - 2):
+                sub_matrix = [[grid[row + i][col + j] for j in range(3)] for i in range(3)]
+                if self.magic_square(sub_matrix):
+                    counter += 1
+        return counter
+
+    def magic_square(self, matrix):
+        is_number_right = all(1 <= matrix[i][j] <= 9 for i in range(3) for j in range(3))
+        is_row_right = all(sum(row) == 15 for row in matrix)
+        is_col_right = all(sum(col) == 15 for col in [[matrix[i][j] for i in range(3)] for j in range(3)])
+        is_diagonal_right = matrix[1][1] == 5 and matrix[0][0] + matrix[-1][-1] == 10 and matrix[0][-1] + matrix[-1][0] == 10
+        return is_number_right and is_row_right and is_col_right and is_diagonal_right
+
+219. Contains Duplicate II
+Given an array of integers and an integer k, find out whether there are two distinct indices i and j in the array such that 
+nums[i] = nums[j] and the absolute difference between i and j is at most k.
+Soltuion:
+
 
