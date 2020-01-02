@@ -1,0 +1,107 @@
+680. Valid Palindrome II
+Given a non-empty string s, you may delete at most one character. Judge whether you can make it a palindrome. 
+Solution:
+(1)
+def validPalindrome(self, s: str) -> bool:
+        if len(s)==2:
+            return True
+        left = 0
+        right = len(s)-1
+        flag = 0
+        while left<=right:
+            if left == right-1:
+                return True
+                
+            if s[left]==s[right]:
+                left += 1
+                right -= 1
+                continue
+            elif flag == 0:
+                if s[left+1] != s[right] and s[left] != s[right-1]:
+                    return False
+                elif s[left+1] == s[right] and s[left] != s[right-1]:
+                    left += 2
+                    right -= 1
+                    flag = 1
+                elif s[left] == s[right-1] and s[left+1] != s[right]:
+                    left += 1
+                    right -= 2
+                    flag = 1
+                else:
+                    if s[left+2]==s[right-3]:
+                        left += 1
+                        right -= 2
+                        flag = 1
+                    elif s[left+3]==s[right-2]:
+                        left += 2
+                        right -= 1
+                        flag = 1                    
+            else:
+                return False
+        return True
+这么喜欢写if？        
+(2)
+def validPalindrome(self, s: str) -> bool:
+        isPalindrome = lambda s: s == s[::-1]
+        strPart = lambda s, x: s[:x] + s[x + 1:]
+        low = 0
+        high = len(s) - 1
+        while low < high:
+            if s[low] != s[high]:
+                return isPalindrome(strPart(s, low)) or isPalindrome(strPart(s, high))
+            low += 1
+            high -= 1
+        return True
+
+941. Valid Mountain Array
+Solution:
+def validMountainArray(self, A: List[int]) -> bool:
+        if sorted(A) == A[::-1]:
+            return False
+        if len(A)<3:
+            return False
+        ans = []
+        for i in range(len(A)-1):
+            ans.append(A[i+1]-A[i])
+        if 0 in ans:
+            return False
+        index = -1
+        for i in range(len(ans)):
+            if ans[i]<0:
+                index = i
+                break
+        if index == -1:
+            return False
+        for i in range(index):
+            if ans[i]<0:
+                return False
+        for i in range(index, len(ans)):
+            if ans[i]>0:
+                return False
+        return True
+
+507. Perfect Number
+Solution:
+def checkPerfectNumber(self, num: int) -> bool:
+        if num <= 1: return False
+        res,sq=0,int(num**0.5)
+        for i in range(2,sq+1):
+            if num % i == 0:
+                res += i + num//i
+        res += 1
+        return res == num
+
+949. Largest Time for Given Digits
+Solution:
+def largestTimeFromDigits(self, A: List[int]) -> str:
+        A.sort()
+		if A[0] >= 3 or A[1]>=6:
+			return ""
+		for p in itertools.permutations(A[::-1]):
+			if (p[0] * 10 + p[1]) < 24 and (p[2]*10 + p[3]) < 60:
+				return str(p[0])+str(p[1])+":"+str(p[2])+str(p[3])
+		return ""
+
+687. Longest Univalue Path
+Solution:
+
