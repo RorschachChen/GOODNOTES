@@ -105,3 +105,89 @@ def largestTimeFromDigits(self, A: List[int]) -> str:
 687. Longest Univalue Path
 Solution:
 
+190. Reverse Bits
+Solution:
+def reverseBits(self, n: int) -> int:
+        binary = int('0b'+bin(n).replace("0b", "").zfill(32)[::-1], 2)
+        return int(binary)
+
+914. X of a Kind in a Deck of Cards
+Solution:
+求所有数频率的最大公约数
+def hasGroupsSizeX(self, deck: List[int]) -> bool:
+        count = collections.Counter(deck)
+        X = min(count.values())
+        for x in range(2, X + 1):
+            if all(v % x == 0 for v in count.values()):
+                return True
+        return False
+
+125. Valid Palindrome
+Solution:
+def isPalindrome(self, s: str) -> bool:
+        if not s:
+            return True
+        ans = ""
+        for i in range(len(s)):
+            if s[i].isalpha():
+                ans+=s[i].lower()
+            elif s[i].isdigit():
+                ans+=s[i]
+        left = 0
+        right = len(ans)-1
+        while left<=right:
+            if ans[left]==ans[right]:
+                left += 1
+                right -= 1
+            else:
+                return False
+        return True
+
+28. Implement strStr()
+Solution:
+def strStr(self, haystack: str, needle: str) -> int:
+        if not haystack and not needle:
+            return 0
+        if not haystack and needle:
+            return -1
+        if haystack and not needle:
+            return 0
+        tar = len(needle)
+        for i in range(len(haystack)-tar+1):
+            if haystack[i] == needle[0]:
+                if haystack[i:i+tar] == needle:
+                    return i
+        return -1
+
+874. Walking Robot Simulation
+Solution:
+
+
+69. Sqrt(x)
+(其实可以在1到x之间用半法解)
+Solution:
+def mySqrt(self, x: int) -> int:
+        return int(x**0.5)
+
+633. Sum of Square Numbers
+Solution:
+def judgeSquareSum(self, c: int) -> bool:
+        ma = int(c**0.5)
+        for i in range(ma+1):
+            if int((c-i**2)**0.5)**2 == c-i**2:
+                return True
+        return False
+(2)
+def judgeSquareSum(self, c: int) -> bool:
+        ma = int(c**0.5)
+        left = 0
+        right = ma
+        while left<=right:
+            if left**2+right**2 == c:
+                return True
+            if left**2+right**2 < c:
+                left += 1
+            else:
+                right -= 1
+        return False
+
