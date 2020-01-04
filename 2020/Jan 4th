@@ -1,0 +1,182 @@
+687. Longest Univalue Path
+(Fx)
+def longestUnivaluePath(self, root: TreeNode) -> int:
+        if not root:
+            return 0
+        self.m = 0
+        self.recur(root)
+        return self.m
+    
+    def recur(self, root):
+        if not root:
+            return 
+        left = self.recur(root.left)
+        right = self.recur(root.right)
+        pl, pr = 0, 0
+        if root.left and root.left.val == root.val:
+            pl = 1 + left
+        if root.right and root.right.val == root.val:
+            pr = 1 + right
+        self.m = max(self.m, pl + pr)
+        return max(pl, pr)
+
+475. Heaters
+Solution:
+def findRadius(self, houses: List[int], heaters: List[int]) -> int:
+        houses = sorted(houses)
+        heaters = sorted(heaters)
+        m = len(houses)
+        n = len(heaters)
+        j = 0
+        mini = 0
+        for i in range(m):
+            while (j<n-1 and abs(houses[i]-heaters[j])>=abs(houses[i]-heaters[j+1])):
+                j+=1
+            mini = max(mini, abs(houses[i]-heaters[j]))
+        return mini
+        
+189. Rotate Array
+Given an array, rotate the array to the right by k steps, where k is non-negative.
+Solution:
+(1)5% 7%
+def rotate(self, nums: List[int], k: int) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        leng = len(nums)
+        for i in range(-1, -k-1, -1):
+            nums.insert(0,nums[i])
+        del nums[leng:]
+(2)93% 7%
+def rotate(self, nums: List[int], k: int) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        if k!=0:
+            k=k%len(nums)
+            if k>0:
+                temp = nums[-k:]
+                nums[k:] = nums[0:len(nums)-k]
+                nums[0:k] = temp
+(3)98%
+def rotate(self, nums: List[int], k: int) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        if k>len(nums):
+            k = k%len(nums)
+        temp = nums[-k:]+nums[:-k]
+        nums[:] = temp
+
+58. Length of Last Word
+Solution:
+def lengthOfLastWord(self, s: str) -> int:
+        if not s:
+            return 0
+        s = s.strip()
+        res = s.split(" ")
+        return len(res[-1])
+
+278. First Bad Version
+Solution:
+(2fen)5.56%
+def firstBadVersion(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        if isBadVersion(1):
+            return 1
+        left = 1
+        right = n
+        ans = False
+        while left<=right:
+            middle = (left+right)//2
+            if isBadVersion(middle):
+                right = middle-1
+            else:
+                if isBadVersion(middle+1):
+                    return middle+1
+                left = middle+1
+(2)
+
+686. Repeated String Match
+Solution:
+def repeatedStringMatch(self, A: str, B: str) -> int:
+        na, nb = len(A), len(B)
+        times = int(nb / na) + 3
+        for i in range(1, times):
+            if B in A * i:
+                return i
+        return -1
+
+605. Can Place Flowers
+Solution:
+(5%)
+def canPlaceFlowers(self, flowerbed: List[int], n: int) -> bool:
+        count = n
+        if 1 not in flowerbed:
+            if (len(flowerbed)+1)//2 < n:
+                return False
+            else:
+                return True
+        left = flowerbed.index(1)
+        count -= left//2
+        if count<=0:
+            return True
+        right = left
+        while right<=len(flowerbed)-1:
+            count-=(max(right-left-2, 0))//2
+            if count<=0:
+                return True
+            left = right
+            try:
+                right += flowerbed[right+1:].index(1)+1
+            except:
+                count-=(len(flowerbed)-1-right)//2
+                if count<=0:
+                    return True
+                else:
+                    return False
+                break
+        return False
+
+532. K-diff Pairs in an Array
+Solution:
+def findPairs(self, nums: List[int], k: int) -> int:
+        if k < 0:
+            return 0		
+        import collections
+        n_frq_dict = collections.Counter(nums)
+        ans = 0
+        for n, frq in n_frq_dict.items():
+            m = n + k
+            if n == m:
+                if n_frq_dict[m] > 1:
+                    ans += 1
+            else:
+                if m in n_frq_dict:
+                    ans += 1
+        
+        return ans
+        
+581. Shortest Unsorted Continuous Subarray
+Solution:
+def findUnsortedSubarray(self, nums: List[int]) -> int:
+        res = sorted(nums)
+        if res == nums:
+            return 0
+        for i in range(len(nums)):
+            if nums[i]!=res[i]:
+                first = i
+                break
+        for i in range(len(nums)-1, -1, -1):
+            if nums[i]!=res[i]:
+                last = i
+                break
+        return -first+last+1
+
+204. Count Primes
+Count the number of prime numbers less than a non-negative number, n.
+Solution:
+In mathematics, the Sieve of Eratosthenes is a simple, ancient algorithm for finding all prime numbers up to any given limit.
