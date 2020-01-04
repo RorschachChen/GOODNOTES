@@ -179,4 +179,81 @@ def findUnsortedSubarray(self, nums: List[int]) -> int:
 204. Count Primes
 Count the number of prime numbers less than a non-negative number, n.
 Solution:
+把素数的所有倍数都标记为0，剩下的就是素数的个数
 In mathematics, the Sieve of Eratosthenes is a simple, ancient algorithm for finding all prime numbers up to any given limit.
+def countPrimes(self, n: int) -> int:
+        if n<=2:
+            return 0
+        ans = [1] * n
+        ans[0] = 0
+        ans[1] = 0
+        for i in range(2, int(n**0.5)+1):
+            if ans[i] == 1:
+                for j in range(2*i, n, i):
+                    ans[j] = 0
+        return sum(ans)
+
+168. Excel Sheet Column Title
+Solution:
+def convertToTitle(self, n: int) -> str:
+        if n <=26:
+            # base case
+            return chr(64+n)
+        
+        else:
+            if n % 26 == 0:
+                # corner case handle for multiple of 26
+                return self.convertToTitle( (n-1)//26 ) + self.convertToTitle( 26 )
+            
+            else:
+                # general case
+                return self.convertToTitle( (n-1)//26 ) + self.convertToTitle( (n) % 26 )
+
+414. Third Maximum Number
+Solution:
+def thirdMax(self, nums: List[int]) -> int:
+        res = sorted(set(nums))
+        if len(res)<3:
+            return res[-1]
+        return res[-3]
+
+859. Buddy Strings
+Given two strings A and B of lowercase letters, return true if and only if we can swap two letters in A so that the result 
+equals B.
+Solution:
+没意思，if乱飞
+def buddyStrings(self, A: str, B: str) -> bool:
+        diff = []         
+        
+        # 1. two length
+        if len(A)==2 and len(B)==2:
+            if A[0]==B[1] and A[1]==B[0]:
+                return True
+            else:
+                return False
+        if len(A) != len(B) or (len(A)==0 or len(B)==0):
+            return False
+        
+        # 2. diff
+        for i, j in zip(A, B):            
+            if ( i!=j ):
+                diff.append((i,j))
+            if len(diff)>2:
+                return False
+            
+        if len(diff)==1:
+            return False
+        elif len(diff)==2 and (diff[0][0] == diff[1][1] and diff[0][1] == diff[1][0]):            
+            return True      
+        
+        # 3. same but can swap and identical
+        if len(diff)==0:
+            for i,a in enumerate(A[:-1]):                
+                if A[i+1:].find(a)>=0:                                 
+                    return True
+        
+        return False
+
+665. Non-decreasing Array
+Solution：
+最后一个easy题！！！！！！！！！！！
