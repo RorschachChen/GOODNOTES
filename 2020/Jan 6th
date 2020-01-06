@@ -1,0 +1,111 @@
+Begin again. Be responsible for self.
+665. Non-decreasing Array
+Solution:
+考虑i-1和i+1的大小，如果是增加，就把中间的放两者之间，否则修改后面那个
+def checkPossibility(self, nums: List[int]) -> bool:
+        count = 0
+        i = 0
+        while (i<=len(nums)-2 and count<2):
+            if (nums[i] > nums[i+1]):
+                count+=1
+                if (i<1 or nums[i-1]<=nums[i+1]):
+                    nums[i] = nums[i+1]
+                else:
+                    nums[i+1] = nums[i]  
+            i+=1
+        return count<=1
+
+1302. Deepest Leaves Sum
+Solution:
+两次遍历，一次得到深度，一次得到和
+class Solution:
+    def deepestLeavesSum(self, root: TreeNode) -> int:
+        self.sum = 0
+        self.maxdepth = 0
+        self.GetDepth(root, 0)
+        self.GetSum(root, 0)
+        return self.sum
+    
+    def GetDepth(self, root, level):
+        self.maxdepth = max(self.maxdepth, level)
+        if not root:
+            return 
+        if root.left!=None:
+            self.GetDepth(root.left, level+1)
+        if root.right!=None:
+            self.GetDepth(root.right, level+1)
+            
+    def GetSum(self, root, level):
+        if level == self.maxdepth:
+            self.sum += root.val
+        if not root:
+            return
+        if root.left != None:
+            self.GetSum(root.left,level + 1)
+        if root.right != None:
+            self.GetSum(root.right,level + 1)
+（2）
+def deepestLeavesSum(self, root: TreeNode) -> int:
+        result = []
+        self.deep(root, 0, result)
+        return result[-1] if root else 0
+        
+    
+def deep(self, node, level, result):
+    if not node:
+        return
+
+    if level > len(result)-1: # 说明出现新的深度了，之前那个不是最深的
+        result.append(0)
+
+    result[level] += node.val
+
+    if node.left:
+        self.deep(node.left, level+1, result)
+
+    if node.right:
+        self.deep(node.right, level+1, result)
+(3)
+def deepestLeavesSum(self, root: TreeNode) -> int:
+        B = [root]
+        while B: #B最后肯定是空了，说明所有最深的一片叶子也被找到了，然后把历史B，也就是A中记录下来
+            A, B = B, [c for n in B for c in [n.left,n.right] if c != None]
+        return sum(a.val for a in A if a.val != None)
+
+1282. Group the People Given the Group Size They Belong To
+Solution:
+把groupsize相同的，比如都是3的放到dict里key为3的list中，最后分割一下
+def groupThePeople(self, groupSizes: List[int]) -> List[List[int]]:
+        ids_by_size = dict()
+        
+        # Generate dictionary of size to ids
+        for i, s in enumerate(groupSizes):
+            ids = ids_by_size.get(s, [])
+            ids.append(i)
+            ids_by_size[s] = ids
+            
+        res = []
+        
+        # Loop through created dictionary
+        for s in ids_by_size:
+            # For each size get "size" ids and append it to result
+            for i in range(0, len(ids_by_size[s]), s):
+                res.append(ids_by_size[s][i:i + s])
+        
+        return res
+
+701. Insert into a Binary Search Tree
+Solution:
+def insertIntoBST(self, root: TreeNode, val: int) -> TreeNode:
+        if not root:
+            node = TreeNode(val)
+            return node
+        if val<root.val:
+            root.left = self.insertIntoBST(root.left, val)
+        elif val>root.val:
+            root.right = self.insertIntoBST(root.right, val)
+        return root
+
+1038. Binary Search Tree to Greater Sum Tree
+Solution:
+感觉要从最右边最大的node开始，不断累加，好像有一道类似的题，easy
