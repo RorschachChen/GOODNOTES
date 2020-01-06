@@ -109,3 +109,51 @@ def insertIntoBST(self, root: TreeNode, val: int) -> TreeNode:
 1038. Binary Search Tree to Greater Sum Tree
 Solution:
 感觉要从最右边最大的node开始，不断累加，好像有一道类似的题，easy
+def bstToGst(self, root: TreeNode) -> TreeNode:
+        self.sum = 0
+        self.bina(root)
+        return root
+    
+    def bina(self, root):
+        if not root:
+            return
+        self.bina(root.right)
+        self.sum+=root.val
+        root.val = self.sum
+        self.bina(root.left)
+
+654. Maximum Binary Tree
+Solution:
+一开始没看到左右都要是maximum的树
+def constructMaximumBinaryTree(self, nums: List[int]) -> TreeNode:
+        if len(nums)==0:
+            return 
+        maxx = nums.index(max(nums))
+        root = TreeNode(max(nums))
+        arr1 = nums[:maxx]
+        arr2 = nums[maxx+1:]
+        root = TreeNode(nums[maxx])
+        root.left = self.constructMaximumBinaryTree(arr1)
+        root.right = self.constructMaximumBinaryTree(arr2)
+        return root
+
+1305. All Elements in Two Binary Search Trees
+Solution:
+def getAllElements(self, root1: TreeNode, root2: TreeNode) -> List[int]:
+        self.ans = []
+        self.inorder(root1)
+        self.inorder(root2)
+        return sorted(self.ans)
+    
+    def inorder(self, node):
+        if not node:
+            return 
+        self.ans.append(node.val)
+        self.inorder(node.left)
+        self.inorder(node.right)
+
+1008. Construct Binary Search Tree from Preorder Traversal
+Solution:
+
+1079. Letter Tile Possibilities
+Solution:
