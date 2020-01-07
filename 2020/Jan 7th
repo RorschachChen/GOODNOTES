@@ -97,6 +97,7 @@ def pruneTree(self, root: TreeNode) -> TreeNode:
 894. All Possible Full Binary Trees
 Solution:
 
+
 861. Score After Flipping Matrix
 Solution:
 先判断第一位，因为最大，然后再针对每一列看最多能保留几个1
@@ -114,5 +115,52 @@ def matrixScore(self, A: List[List[int]]) -> int:
                 if A[j][i] == 1:
                     count += 1
             ans += max(count, rows-count) * 2 ** (cols-1-i)
+        return ans
+
+1261. Find Elements in a Contaminated Binary Tree
+Solution:
+class FindElements:
+
+    def __init__(self, root: TreeNode):
+        if not root:
+            return
+        self.ans = []
+        root.val = 0
+        self.change(root)
+        
+    def change(self, node):
+        if not node:
+            return
+        self.ans.append(node.val)
+        if node.left:
+            node.left.val = 2 * node.val + 1
+            self.change(node.left)
+        if node.right:
+            node.right.val = 2 * node.val + 2
+            self.change(node.right)
+
+    def find(self, target: int) -> bool:
+        return (target in self.ans)
+
+890. Find and Replace Pattern
+Solution:
+def findAndReplacePattern(self, words: List[str], pattern: str) -> List[str]:
+        ans = []
+        for i in range(len(words)):
+            dd = {}
+            flag = 0
+            for j in range(len(words[i])):
+                if words[i][j] not in dd:
+                    dd[words[i][j]] = pattern[j]
+                else:
+                    if dd[words[i][j]] != pattern[j]:
+                        flag = 1
+                        break
+            if len(dd.values())!= len(set(dd.values())):
+                flag = 1
+            if flag == 1:
+                continue
+            else:
+                ans.append(words[i])
         return ans
 300大关啊～～～～
