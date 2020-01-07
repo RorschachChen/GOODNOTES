@@ -1,0 +1,57 @@
+1008. Construct Binary Search Tree from Preorder Traversal
+Solution:
+def bstFromPreorder(self, preorder: List[int]) -> TreeNode:
+        if not preorder:
+            return
+        if len(preorder) == 1:
+            return TreeNode(preorder[0])
+        root = TreeNode(preorder[0])
+        index = 0
+        for i in range(1, len(preorder)):
+            if preorder[i]>preorder[0]:
+                index = i
+                break
+        if index == 0:
+            root.left = self.bstFromPreorder(preorder[index+1:])        
+        elif index==1:
+            root.right = self.bstFromPreorder(preorder[index:])
+        else:
+            root.left = self.bstFromPreorder(preorder[1:index])
+            root.right = self.bstFromPreorder(preorder[index:])
+        return root
+(2)
+def bstFromPreorder(self, preorder: List[int]) -> TreeNode:
+        if preorder:
+            val = preorder[0]
+            root = TreeNode(val)
+            i = 1
+            while i < len(preorder) and preorder[i] < val:
+                i += 1
+            root.left = self.bstFromPreorder(preorder[1:i])
+            root.right = self.bstFromPreorder(preorder[i:])
+            return root
+
+1079. Letter Tile Possibilities
+Solution:
+def numTilePossibilities(self, tiles: str) -> int:
+        res = 0
+        for i in range(1,len(tiles)+1):
+            res += len(set(itertools.permutations(tiles,i)))
+        return res
+
+763. Partition Labels
+Solution:
+从头开始找，j一直是字母中最大的，当有i和j相同时，说明左边的所有最大都囊括了，可以划分了
+def partitionLabels(self, S: str) -> List[int]:
+        lindex = {c: i for i, c in enumerate(S)}
+        j = anchor = 0
+        ans = []
+        for i, c in enumerate(S):
+            j = max(j, lindex[c])
+            if i == j:
+                ans.append(j - anchor + 1)
+                anchor = j + 1
+        return ans
+
+950. Reveal Cards In Increasing Order
+Solution:
