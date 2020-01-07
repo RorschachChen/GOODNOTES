@@ -55,3 +55,46 @@ def partitionLabels(self, S: str) -> List[int]:
 
 950. Reveal Cards In Increasing Order
 Solution:
+每次把底下的翻到最上面，然后再把deck中最大的加到顶上就行
+def deckRevealedIncreasing(self, deck: List[int]) -> List[int]:
+        deck.sort()
+        que = collections.deque()
+        for i in range(len(deck)):
+            if que:
+                que.appendleft(que.pop())
+            que.appendleft(deck[len(deck)-1-i])
+        return list(que)
+
+797. All Paths From Source to Target
+Solution:
+def allPathsSourceTarget(self, graph: List[List[int]]) -> List[List[int]]:
+        res = []
+        self.dfs(graph, res, 0, [0])
+        return res
+    
+    def dfs(self, graph, res, pos, path):
+        if pos == len(graph)-1:
+            res.append(path)
+            return
+        else:
+            for n in graph[pos]:
+                self.dfs(graph, res, n, path + [n]) #已经把下一个node[n]写进去了，所以当到最后一个node的时候只要append(path)就行
+(2)
+
+814. Binary Tree Pruning
+Solution:
+一直会走到最叶的节点，然后会开始，如果是叶子，说明无左右子树，再加上如果值不为1，就return，删掉，不然就返回叶子，这样，返回的叶子能保证上一级是有效的
+def pruneTree(self, root: TreeNode) -> TreeNode:
+        if not root:
+            return
+        root.left = self.pruneTree(root.left)
+        root.right = self.pruneTree(root.right)
+        if not root.left and not root.right and root.val!=1:
+            return 
+        else:
+            return root
+
+894. All Possible Full Binary Trees
+Solution:
+
+300大关啊～～～～
