@@ -163,4 +163,22 @@ def findAndReplacePattern(self, words: List[str], pattern: str) -> List[str]:
             else:
                 ans.append(words[i])
         return ans
+
+921. Minimum Add to Make Parentheses Valid
+Solution:
+(fuxue)
+直接把左括号进栈，遇到右括号时，如果栈里有左括号就弹出，否则需要加上右括号的个数。最后还要加上栈里面左括号的个数。
+def minAddToMakeValid(self, S: str) -> int:
+        res = 0
+        stack = []
+        for i in range(len(S)):
+            if S[i] == '(':
+                stack.append(S[i])
+            else:
+                if stack:
+                    stack.pop()
+                else:
+                    res+=1
+        return res+len(stack)
+
 300大关啊～～～～
