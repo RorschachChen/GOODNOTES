@@ -1,0 +1,2 @@
+conda install cudatoolkit=10.0
+One '='
