@@ -20,3 +20,23 @@ No need：
 （1）手动初始化或从checkpoint中加载数据
 （2）不需要创建Saver，使用sv内部的就可以
 （3）不需要创建summary writer
+
+class Resnet(Model):
+    def __init__(self, num_classes=40, is_training=True, update_batch_stats=True, stochastic=True, seed=1234):
+        super(Resnet, self).__init__()
+
+        input_shape = (448, 448, 3)
+        resnet50 = ResNet50(input_shape=input_shape, weights='imagenet', include_top=True)
+        print(resnet50.summary())
+        exit()
+        self.base = resnet50
+        self.base.trainable = is_training
+        self.fc = tf.layers.Dense(40, activation=None, trainable=is_training)
+
+    def call(self, x):
+        x2 = self.base(x)
+        x2 = tf.squeeze(x2, axis=[1,2])
+        x = self.fc(x2)
+        print(self.base.summary())
+        exit()
+        return x, x2
