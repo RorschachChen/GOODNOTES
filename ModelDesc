@@ -1,0 +1,12 @@
+class MyModel(ModelDesc):
+  def inputs(self):
+    return [tf.TensorSpec(shape, dtype, name), tf.TensorSpec(shape, dtype, name), ... ]
+
+  def build_graph(self, tensorA, tensorB, ...):  # inputs
+    # build the graph
+    return cost   # returns the cost tensor
+
+  def optimizer(self):
+    return tf.train.GradientDescentOptimizer(0.1)
+    
+expects 4 arguments to setup the graph: input signatures, InputSource, get_cost function, and an optimizer.
