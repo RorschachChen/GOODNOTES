@@ -10,3 +10,9 @@ class MyModel(ModelDesc):
     return tf.train.GradientDescentOptimizer(0.1)
     
 expects 4 arguments to setup the graph: input signatures, InputSource, get_cost function, and an optimizer.
+
+
+SyncMultiGPUTrainerReplicated
+Data-parallel training in “replicated” mode, where each GPU contains a replicate of the whole model. 
+It will build one tower on each GPU under its own variable scope. Each gradient update is averaged or summed across or GPUs 
+through NCCL.
