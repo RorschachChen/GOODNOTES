@@ -16,3 +16,9 @@ SyncMultiGPUTrainerReplicated
 Data-parallel training in “replicated” mode, where each GPU contains a replicate of the whole model. 
 It will build one tower on each GPU under its own variable scope. Each gradient update is averaged or summed across or GPUs 
 through NCCL.
+
+
+launch_train_with_config
+1. Setup the input with automatic prefetching heuristics, from config.data or config.dataflow.
+2. Call trainer.setup_graph with the input as well as config.model.
+3. Call trainer.train with rest of the attributes of config.
