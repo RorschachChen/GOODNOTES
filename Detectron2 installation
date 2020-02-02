@@ -1,0 +1,5 @@
+cuda10.0
+
+python>3.6, 3.6.1即可
+
+注释掉jit_handles中所有的return的注释，貌似是python2的写法，注释掉无影响，不然typing报错
