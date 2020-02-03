@@ -1,0 +1,6 @@
+Class to hold a set of hyperparameters as name-value pairs.
+
+example: 
+hparams = tf.HParams(learning_rate=0.1, num_hidden_units=100,
+                       activations=['relu', 'tanh'])
+hparams.add_hparam(name, value)
