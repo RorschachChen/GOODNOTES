@@ -1,0 +1,7 @@
+tf.logging.set_verbosity(tf.logging.INFO)
+
+tensorflow使用5个不同级别的日志消息。按照上升的顺序，他们是debug，info,warn,error和fatal。
+在跟踪模型训练时，将级别调整为info，将提供适合操作正在进行的其他反馈。
+tf.logging.info('Image size:%dx%d'%(width,height))
+在运行后可以生成：
+INFO:tensorflow：Image size:64*64
