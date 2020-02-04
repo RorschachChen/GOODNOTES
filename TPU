@@ -1,0 +1,21 @@
+estimator = tf.contrib.tpu.TPUEstimator(
+      model_fn=model_fn,
+      use_tpu=FLAGS.use_tpu,
+      config=run_config,
+      params={"model_dir": model_dir or FLAGS.model_dir},
+      train_batch_size=FLAGS.train_batch_size, # 64
+      eval_batch_size=FLAGS.eval_batch_size) # 8
+
+estimator.train(input_fn, steps=None,)
+no return 
+input_fn: 
+A function that provides input data for training as minibatches.
+Thie function should construct: 
+A tuple (features, labels): Where features is a tf.Tensor or a dictionary of string feature name to Tensor and labels is a 
+Tensor or a dictionary of string label name to Tensor. Both features and labels are consumed by model_fn. 
+They should satisfy the expectation of model_fn from inputs.
+
+estimator.evaluate(input_fn, steps=None,)
+Return:
+A dict containing the evaluation metrics specified in model_fn keyed by name, as well as an entry global_step which contains 
+the value of the global step for which this evaluation was performed.
