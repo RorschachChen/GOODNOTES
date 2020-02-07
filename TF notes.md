@@ -40,3 +40,18 @@ class Resnet(Model):
         print(self.base.summary())
         exit()
         return x, x2
+
+tf.cast: Casts a tensor to a new type.
+tf.cast(
+    x,
+    dtype,
+    name=None
+)
+
+tf.math.greater: Returns the truth value of (x > y) element-wise.
+tf.math.greater(
+    x,
+    y,
+    name=None
+)
+
