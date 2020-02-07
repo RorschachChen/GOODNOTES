@@ -55,3 +55,5 @@ tf.math.greater(
     name=None
 )
 
+tf.stop_gradient: 只需要训练网络的特定部分, 然后网络的其余部分则保持未之前的状态(不进行梯度更新).
+对被调用的部分，网络不通过这条途径进行更新weight。
