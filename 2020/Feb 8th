@@ -102,3 +102,22 @@ class Codec:
 
 1325. Delete Leaves With a Given Value
 Solution:
+class Solution:
+    def removeLeafNodes(self, root: TreeNode, target: int) -> TreeNode:
+        return self.dfs(root, target)
+    
+    def dfs(self, root, target) -> TreeNode:
+        if not root:
+            return 
+        left = self.dfs(root.left, target)
+        right = self.dfs(root.right, target)
+
+        root.left = left
+        root.right = right
+
+        if left or right:
+            return root
+        elif root.val == target:
+            return
+        else:
+            return root
