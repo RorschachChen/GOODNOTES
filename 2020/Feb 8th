@@ -1,0 +1,104 @@
+1329. Sort the Matrix Diagonally
+Given a m * n matrix mat of integers, sort it diagonally in ascending order from the top-left to the bottom-right then return 
+the sorted array.
+Solution:
+def diagonalSort(self, mat: List[List[int]]) -> List[List[int]]:
+        rows, cols = len(mat), len(mat[0])
+        D = collections.defaultdict(list)
+        for row in range(rows):
+            for col in range(cols):
+                D[row-col].append(mat[row][col])
+        for k in D:
+            D[k].sort(reverse=True)
+        ans = [[D[row-col].pop() for col in range(cols)] for row in range(rows)]
+        return ans
+
+1313. Decompress Run-Length Encoded List
+Solution:
+def decompressRLElist(self, nums: List[int]) -> List[int]:
+        ans = []
+        for i in range(len(nums)//2):
+            for j in range(nums[i*2]):
+                ans.append(nums[i*2+1])
+        return ans
+
+1323. Maximum 69 Number
+Solution:
+def maximum69Number (self, num: int) -> int:
+        temp = str(num)
+        try:
+            ind = temp.index('6')
+        except:
+            return num
+        if ind!=-1:
+            temp = temp[:ind]+'9'+temp[ind+1:]
+        # else:
+        return int(temp)
+
+1315. Sum of Nodes with Even-Valued Grandparent
+Solution:
+def sumEvenGrandparent(self, root: TreeNode) -> int:
+        if not root:
+            return 0
+        sum = 0
+        kidnaper = [(root, -1, -1)]
+        while kidnaper:
+            node, grandparent, parent = kidnaper.pop()
+            if grandparent % 2 == 0:
+                sum += node.val
+            if node.left:
+                kidnaper.append((node.left, parent, node.val))
+            if node.right:
+                kidnaper.append((node.right, parent, node.val))            
+        return sum
+       
+807. Max Increase to Keep City Skyline
+Solution:
+def maxIncreaseKeepingSkyline(self, grid: List[List[int]]) -> int:
+        row_max = [max(grid[i]) for i in range(len(grid))]
+        import itertools
+        rotated = list(map(list, zip(*grid)))#这一行做的是pertumate list
+        col_max = [max(rotated[i]) for i in range(len(rotated))]
+        ans = 0
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                ans+=min(row_max[i], col_max[j])-grid[i][j]
+        return ans
+Analysis:
+对于list a=[1, 2, 3]和list b=[4, 5, 6]来说，zip(a,b)把list a和list b对应元素打包成元组，得到[(1, 4), (2, 5), (3, 6)]。
+因此对于一个二维矩阵[[1, 4], [2, 5], [3, 6]]，我们可以看成它是[(1, 2, 3), (4, 5, 6)]经过打包而得，我们如果对[[1, 4], [2, 5], [3, 6]]
+进行解压unzip，就回实现矩阵行列转换。
+
+535. Encode and Decode TinyURL
+Solution:
+class Codec:
+    SHORT_URL_LENGTH = 8
+    FIRST_VALID_CHAR = 50
+    mappings = {}
+    def generate(self, length: int = SHORT_URL_LENGTH) -> str:
+        random.seed()
+        key = ""
+        for _ in range(length):
+            key += chr(int(random.random() + self.FIRST_VALID_CHAR) % 128)
+        return key
+    
+    def encode(self, longUrl: str) -> str:
+        """Encodes a URL to a shortened URL.
+        """
+        key = self.generate()
+        self.mappings[key] = longUrl
+        return key
+        
+
+    def decode(self, shortUrl: str) -> str:
+        """Decodes a shortened URL to its original URL.
+        """
+        return self.mappings.get(shortUrl, None)
+        
+
+# Your Codec object will be instantiated and called as such:
+# codec = Codec()
+# codec.decode(codec.encode(url))
+
+1325. Delete Leaves With a Given Value
+Solution:
