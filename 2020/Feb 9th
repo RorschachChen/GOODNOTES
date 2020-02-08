@@ -1,0 +1,29 @@
+1314. Matrix Block Sum
+Solution:
+def matrixBlockSum(self, mat: List[List[int]], K: int) -> List[List[int]]:
+        rowSum = [[0]*len(mat[0]) for _ in range(len(mat))]
+        ans = [[0]*len(mat[0]) for _ in range(len(mat))]
+        k=K
+        rows, cols = len(mat), len(mat[0])
+        for i in range(rows):
+            for j in range(cols):
+                if j>0:
+                    rowSum[i][j] = rowSum[i][j-1]
+                    a = mat[i][j-k-1] if j-k>0 else 0
+                    b = mat[i][j+k] if j+k<cols else 0
+                    rowSum[i][j] += b-a
+                else:
+                    for kk in range(0, min(j+k+1, cols)):
+                        rowSum[i][j] += mat[i][kk]
+                        
+        for i in range(rows):
+            for j in range(cols):
+                if i>0:
+                    ans[i][j] = ans[i-1][j]
+                    a = rowSum[i-k-1][j] if i-k>0 else 0
+                    b = rowSum[i+k][j] if i+k<rows else 0
+                    ans[i][j] += b-a
+                else:
+                    for kk in range(0, min(i+k+1, rows)):
+                        ans[i][j] += rowSum[kk][j]
+        return ans
