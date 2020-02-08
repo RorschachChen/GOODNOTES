@@ -121,3 +121,5 @@ class Solution:
             return
         else:
             return root
+分析：
+自底而上的dfs，需要先返回修改好后的左右节点。然后再判断当前节点是否为叶，若为叶，则再判断等于不等于target值，否则都直接返回该节点，不删除该节点。
