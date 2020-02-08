@@ -1,5 +1,6 @@
 1314. Matrix Block Sum
-Solution:
+Solution:'
+https://leetcode.com/problems/matrix-block-sum/discuss/499970/Problem-explanation-in-Python-Step-by-Step-O(m*n)-98-speed-and-100-memory
 def matrixBlockSum(self, mat: List[List[int]], K: int) -> List[List[int]]:
         rowSum = [[0]*len(mat[0]) for _ in range(len(mat))]
         ans = [[0]*len(mat[0]) for _ in range(len(mat))]
@@ -27,3 +28,6 @@ def matrixBlockSum(self, mat: List[List[int]], K: int) -> List[List[int]]:
                     for kk in range(0, min(i+k+1, rows)):
                         ans[i][j] += rowSum[kk][j]
         return ans
+
+1104. Path In Zigzag Labelled Binary Tree
+Solution:
