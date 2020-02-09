@@ -59,3 +59,12 @@ tf.stop_gradient: 只需要训练网络的特定部分, 然后网络的其余部
 对被调用的部分，网络不通过这条途径进行更新weight。
 
 tf.nn.l2_loss: 平方和开根
+
+tf.train.Example的用法:
+主要用在将数据处理成二进制方面，一般是为了提升IO效率和方便管理数据。
+tf.train.Int64List tf.train.FloatList对应处理整数和浮点数，tf.train.BytesList用于处理其他类型的数据。
+For example:
+tf.train.Int64List(value=[int(inputs[0])])
+tf.train.Features:
+这个属性的一般设置方法是传入一个字典，字典的key是字符串（feature名），而值是tf.train.Feature对象。
+tf.train.Example有一个属性为features，我们只需要将上一步得到的结果再次当做参数传进来即可。
