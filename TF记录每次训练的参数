@@ -1,0 +1,3 @@
+flags_dict = tf.app.flags.FLAGS.flag_values_dict()
+with tf.gfile.Open(os.path.join(FLAGS.model_dir, "FLAGS.json"), "w") as ouf:
+  json.dump(flags_dict, ouf)
