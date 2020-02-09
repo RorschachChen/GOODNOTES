@@ -69,18 +69,4 @@ tf.train.Features:
 这个属性的一般设置方法是传入一个字典，字典的key是字符串（feature名），而值是tf.train.Feature对象。
 tf.train.Example有一个属性为features，我们只需要将上一步得到的结果再次当做参数传进来即可。
 
-tf.python_io.TFRecordWriter
-TFRecords是一种tensorflow的内定标准文件格式,其后缀一般为tfrecord。适用于大量数据的顺序读取
-步骤
-第一步，生成TFRecord Writer
-writer = tf.python_io.TFRecordWriter(path, options=None)
-path：TFRecord文件的存放路径；
-option：TFRecordOptions对象，定义TFRecord文件保存的压缩格式；
-第四步，将example数据系列化为字符串
-example_str = example.SerializeToString()
-第五步，将系列化为字符串的example数据写入协议缓冲区
-writer.write(example_str)
-第六步，关闭
-writer.close()
-
 CUDA_VISIBLE_DEVICES=XX可以在terminal就默认使用哪块GPU
