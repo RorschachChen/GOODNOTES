@@ -1,0 +1,15 @@
+最近看的UDA的时候发现它的代码是可以在TPU上部署的，但是如果use_tpu==False的话，还能在GPU上面跑。所以总结一下TPU的用法。
+
+TPUEstimator also supports training on CPU and GPU. You don't need to define a separate tf.estimator.Estimator.
+
+TPUEstimator transforms a global batch size in params to a per-shard batch size when calling the input_fn and model_fn. 
+Users should specify global batch size in constructor, and then get the batch size for each shard in input_fn and model_fn by 
+params['batch_size'].
+PARAMS:
+model_fn: Model function as required by Estimator which returns EstimatorSpec or TPUEstimatorSpec. 
+config: An tpu_config.RunConfig configuration object. Cannot be None.
+use_tpu: A bool indicating whether TPU support is enabled. *******也就是这，可以设置为False，然后在GPU上跑
+params: An optional dict of hyper parameters that will be passed into ****input_fn**** and ****model_fn****. 
+train_batch_size: TPUEstimator transforms this global batch size to a per-shard batch size, as params['batch_size'], 
+    when calling input_fn and model_fn. Cannot be None if use_tpu is True. Must be divisible by total number of replicas.
+eval_batch_size: An int representing evaluation batch size. Must be divisible by total number of replicas.    
