@@ -82,3 +82,5 @@ example_str = example.SerializeToString()
 writer.write(example_str)
 第六步，关闭
 writer.close()
+
+CUDA_VISIBLE_DEVICES=0可以在terminal就默认使用哪块GPU
