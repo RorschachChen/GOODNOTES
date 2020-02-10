@@ -1,0 +1,21 @@
+1. 在TeamViewer官网找到合适的TeamViewer资源链接
+2. 安装
+   sudo dpkg -i teamviewer*.deb; sudo apt-get -f install
+3. 停止服务。执行命令: sudo teamviewer --daemon stop
+4. 修改配置文件。 在文件/opt/teamviewer/config/global.conf末尾增加以下内容（由于只读限制，所以可能需要用到管理员权限）
+   接受license。 
+   [int32] EulaAccepted = 1
+   [int32] EulaAcceptedRevision = 6
+5. 重新启动服务
+   sudo teamviewer --daemon start
+6. 获取id并设置密码 
+   teamviewer --info print id
+   设置登录密码
+   sudo teamviewer --passwd [NEWPASSWORD]
+
+备注：在接受license的步骤存在一个坑，在安装TeamViewer的时候，认为你是以界面形式安装的，所以，会弹出一个对话框，提醒你接受license，但是，由于你用ssh登录的，所以，这个对话框你看不到，自然也不会去接受协议，从而导致在使用时连接失败。 
+登录 
+利用获取的账号id和设置的密码，在其他电脑上下载TeamViewer客户端，即可进行远程控制。 
+————————————————
+版权声明：本文为CSDN博主「jambeau」的原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/jambeau/article/details/79224767
