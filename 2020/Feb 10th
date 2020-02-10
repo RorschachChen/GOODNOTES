@@ -89,3 +89,81 @@ def countBattleships(self, board: List[List[str]]) -> int:
                     count += 1
         return count
 （BFS）
+“在Python中，数字、字符或者元组等不可变对象类型都属于值传递，而字典dict或者列表list等可变对象类型属于引用传递。”
+class Solution:
+    def countBattleships(self, board: List[List[str]]) -> int:
+        """
+        :type board: List[List[str]]
+        :rtype: int
+        """
+        if len(board) == 0 or len(board[0]) == 0:
+            return 0
+        self.rows, self.cols = len(board), len(board[0])
+        visited = [[False]*self.cols for _ in range(self.rows)]
+        res = 0
+        for i in range(self.rows):
+            for j in range(self.cols):
+                if board[i][j] == 'X' and not visited[i][j]:
+                    vertical, horizontal = [0], [0]
+                    self.dfs(board, visited,  vertical,horizontal, i, j)
+                    if vertical[0] == i or horizontal[0] == j:
+                        res += 1
+        return res
+    
+    def dfs(self, board, visited,  vertical,horizontal, i, j):
+        if i < 0 or i >= self.rows or j < 0 or j >= self.cols or visited[i][j] or board[i][j] == '.':
+            return
+        vertical[0] = vertical[0] or i 
+        horizontal[0] = horizontal[0] or j
+        visited[i][j] = True
+        self.dfs(board, visited,  vertical,horizontal, i-1, j)
+        self.dfs(board, visited,  vertical,horizontal, i+1, j)
+        self.dfs(board, visited,  vertical,horizontal, i, j-1)
+        self.dfs(board, visited,  vertical,horizontal, i, j+1)
+(BFS)
+def countBattleships(self, board: List[List[str]]) -> int:
+        """
+        :type board: List[List[str]]
+        :rtype: int
+        """
+        if len(board) == 0 or len(board[0]) == 0:
+            return 0
+        self.rows, self.cols = len(board), len(board[0])
+        visited = [[False]*self.cols for _ in range(self.rows)]
+        
+        directions = [[0, 1], [0, -1], [1, 0], [-1, 0]]
+        
+        res = 0
+        for i in range(self.rows):
+            for j in range(self.cols):
+                if board[i][j] == 'X' and not visited[i][j]:
+                    res += 1
+                    q = [(i, j)]
+                    while q:
+                        t = q.pop()
+                        visited[t[0]][t[1]] = True
+                        for direction in directions:
+                            x = t[0] + direction[0]
+                            y = t[1] + direction[1]
+                            if x<0 or x>=self.rows or y<0 or y>=self.cols or visited[x][y] or board[x][y] == '.':
+                                continue
+                            q.append((x, y))
+        return res
+
+1277. Count Square Submatrices with All Ones
+Solution:
+def countSquares(self, matrix: List[List[int]]) -> int:
+        rows, cols = len(matrix), len(matrix[0])
+        maxlen = max(rows, cols)
+        ans = 0
+        dp = [[0]*cols for _ in range(rows)]
+        for i in range(rows):
+            for j in range(cols):
+                dp[i][j] = matrix[i][j]
+                if i and j and matrix[i][j]:
+                    dp[i][j] = min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1]) + 1
+                ans += dp[i][j]
+        return ans   
+解析：
+            
+            
