@@ -1,1 +1,57 @@
 fafa
+1111. Maximum Nesting Depth of Two Valid Parentheses Strings
+Solution:
+这道题不一定要连续的，就是把整个seq分成两部分就行。让A和B的depth相近。
+def maxDepthAfterSplit(self, seq: str) -> List[int]:
+        """
+        :type seq: str
+        :rtype: List[int]
+        """
+        depths = [0, 0]
+        ans = []
+        
+        for se in seq:
+            if se == '(':
+                if depths[0] > depths[1]:
+                    depths[1] += 1
+                    ans.append(1)
+                else:
+                    depths[0] += 1
+                    ans.append(0)
+            else:
+                if depths[0] > depths[1]:
+                    depths[0] -= 1
+                    ans.append(0)
+                else:
+                    depths[1] -= 1
+                    ans.append(1)
+                    
+        return ans
+
+979. Distribute Coins in Binary Tree
+Analysis:
+借鉴的想法。首先是dfs，到叶节点的时候，判断是否需要转移资产，需要则把-1作为资产转移给父节点，多了就把正的多余部分交给父节点。回到上层父节点的时候需要
+考虑从左右子节点接受的资产，加上目前父节点自己的资产，然后再判断是否要把资产转移到上层父节点。
+Solution:
+def distributeCoins(self, root: TreeNode) -> int:
+        self.ans = 0
+        self.dfs(root)
+        return self.ans
+        
+        
+def dfs(self, root: TreeNode) -> int:
+    """
+    :type root: TreeNode
+    :rtype: int
+    """
+
+    if not root:
+        return 0
+    x = self.dfs(root.left) + self.dfs(root.right)
+    x += root.val
+    self.ans += abs(x - 1) # 向父节点转移次数，每次只能转1
+    return x - 1 #自己留1，其余上交
+
+1222. Queens That Can Attack the King
+Solution:
+8个方向
