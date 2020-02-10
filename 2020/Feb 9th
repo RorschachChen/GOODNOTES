@@ -31,3 +31,17 @@ def matrixBlockSum(self, mat: List[List[int]], K: int) -> List[List[int]]:
 
 1104. Path In Zigzag Labelled Binary Tree
 Solution:
+二叉树奇数从左到右，偶数从右到左。
+def pathInZigZagTree(self, label: int) -> List[int]:
+        ans = []
+        n = label
+        while n!=1:
+            ans.append(n)
+            level = int(math.log(n, 2)) + 1
+            if level%2==0:
+                n = 2**(level-1)-(n-2**(level-1))//2-1
+            else:
+                # (n-2**(level-1))%2+1
+                n = 2**(level-2)-((n-2**(level-1))//2+1) + 2**(level-2)
+        ans.append(1)
+        return ans[::-1]
