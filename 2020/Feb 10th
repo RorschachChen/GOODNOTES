@@ -167,3 +167,66 @@ def countSquares(self, matrix: List[List[int]]) -> int:
 解析：第一行和第一列最大可组成1的矩阵。我们考虑每个为1的点。它能不能和左，上，左上组成更大的矩阵，dp中装的是到这个点位置左上部分所能组成的最大矩阵大小。
 dp后面加1的意义是，这个点本身就等于1，就可以组成为1大小的矩阵。
 
+885. Spiral Matrix III
+Solution:
+def spiralMatrixIII(self, R: int, C: int, r0: int, c0: int) -> List[List[int]]:
+        directions = [[0, 1], [1, 0], [0, -1], [-1, 0]]
+        res = [[r0, c0]]
+        max_distance_to_boundary = max(r0, c0, R-1-r0, C-1-c0)
+        step = 1
+        # res = []
+        pos = [r0, c0]
+        for _ in range(max_distance_to_boundary+1):
+            for _ in range(step):
+                pos[0] += directions[0][0]
+                pos[1] += directions[0][1]
+                res.append([pos[0], pos[1]])
+            for _ in range(step):
+                pos[0] += directions[1][0]
+                pos[1] += directions[1][1]
+                res.append([pos[0], pos[1]])
+            step += 1
+            for _ in range(step):
+                pos[0] += directions[2][0]
+                pos[1] += directions[2][1]
+                res.append([pos[0], pos[1]])
+            for _ in range(step):
+                pos[0] += directions[3][0]
+                pos[1] += directions[3][1]
+                res.append([pos[0], pos[1]])
+            step += 1
+        ans = []
+        for i in range(len(res)):
+            if res[i][0] >= 0 and res[i][0]<=R-1 and res[i][1]>=0 and res[i][1]<=C-1:
+                ans.append([res[i][0], res[i][1]])
+        # assert len(ans)==R*C
+        return ans
+7% 50%
+
+1338. Reduce Array Size to The Half
+Solution:
+def minSetSize(self, arr: List[int]) -> int:
+        from collections import Counter
+        res = Counter(arr)
+        length = len(arr)
+        arrr = res.values()
+        arrr = sorted(arrr)[::-1]
+        ans = 1
+        summ = arrr[0]
+        while summ<length//2:
+            summ += arrr[ans]
+            ans += 1
+            
+        return ans
+
+338. Counting Bits
+Solution:
+def countBits(self, num: int) -> List[int]:
+        out = [0]
+        for i in range(1, num + 1):
+            out.append(out[i >> 1] + 1 if i & 1 else out[i >> 1])                   
+        return out
+解析: i>>1右移1位，如果i喝1按位与为0，说明i的二进制表示最后一位为0，那么它和右移一位的比它小的数一样的1的数量，不然则加1.
+
+1347. Minimum Number of Steps to Make Two Strings Anagram
+Solution:
