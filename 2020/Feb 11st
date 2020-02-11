@@ -55,3 +55,32 @@ P.S. c = a^b, a = c^b, b = c^a
 
 1123. Lowest Common Ancestor of Deepest Leaves
 Solution:
+没配图，光从list看不懂树的结构。。。吃了亏
+def lcaDeepestLeaves(self, root: TreeNode) -> TreeNode:
+        """
+        :type root: TreeNode
+        :rtype: TreeNode
+        """
+        def getMaxDepth(root: TreeNode) -> int:
+            if not root:
+                return 0
+            return max(getMaxDepth(root.left), getMaxDepth(root.left)) + 1
+        
+        self.maxDepth = getMaxDepth(root)
+        
+        def helper(root: TreeNode, depth: int) -> TreeNode:
+            if not root:
+                return 
+            if not root.left and not root.right and depth == self.maxDepth - 1:
+                return root
+            L = helper(root.left, depth + 1)
+            R = helper(root.right, depth + 1)
+            if not L:
+                return R
+            if not R:
+                return L
+            return root
+            
+
+        return helper(root, 0)
+解析:先递归得到最大深度。然后就找哪些等于最大深度的叶节点。如果在某深度没找到，就把depth加一，然后去下层找。
