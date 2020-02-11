@@ -1,0 +1,57 @@
+1342. Number of Steps to Reduce a Number to Zero
+Solution:
+def numberOfSteps (self, num: int) -> int:
+        temp = num
+        step = 0
+        while num!=0:
+            num = num//2 if num%2==0 else num-1
+            step += 1
+        return step
+
+1309. Decrypt String from Alphabet to Integer Mapping
+Solution:
+def freqAlphabets(self, s: str) -> str:
+        """
+        :type s: str
+        :rtype: str
+        """
+        ans = ""
+        i=0
+        while i < len(s):
+            if i+2<len(s) and s[i+2] == "#":
+                ans +=  chr(int(s[i:i+2])+96)
+                i+=3
+            else:
+                ans += chr(int(s[i])+96)
+                i+=1
+        return ans
+        
+537. Complex Number Multiplication
+Solution:
+def complexNumberMultiply(self, a: str, b: str) -> str:
+        a1, a2 = a.split('+')
+        b1, b2 = b.split('+')
+        real = int(a1)*int(b1) - int(a2.rstrip('i')) * int(b2.rstrip('i'))
+        image = int(a1) * int(b2.rstrip('i')) + int(b1) * int(a2.rstrip('i'))
+        ans = str(real)
+        ans += '+'
+        ans += str(image)
+        ans += 'i'
+        return ans
+
+1195. Fizz Buzz Multithreaded
+Solution:
+多线程
+
+1310. XOR Queries of a Subarray
+Solution:
+def xorQueries(self, arr: List[int], queries: List[List[int]]) -> List[int]:
+        prefix = [0]*(len(arr)+1)
+        for i in range(len(arr)):
+            prefix[i+1] = prefix[i]^arr[i]
+            
+        return [prefix[L]^prefix[R+1] for [L, R] in queries]
+P.S. c = a^b, a = c^b, b = c^a        
+
+1123. Lowest Common Ancestor of Deepest Leaves
+Solution:
