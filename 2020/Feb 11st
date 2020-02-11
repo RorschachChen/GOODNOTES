@@ -105,3 +105,66 @@ def flipEquiv(self, root1: TreeNode, root2: TreeNode) -> bool:
         return (self.flipEquiv(root1.left, root2.left) and self.flipEquiv(root1.right, root2.right)) or (self.flipEquiv(root1.left, root2.right) and self.flipEquiv(root1.right, root2.left))
         
 感觉
+
+1337. The K Weakest Rows in a Matrix
+Solution:
+仔细
+def kWeakestRows(self, mat: List[List[int]], k: int) -> List[int]:
+        res = [sum(row) for row in mat]
+        dict = {}
+        for i in range(len(res)):
+            if res[i] in dict.keys():
+                dict[res[i]].append(i)
+            else:
+                dict[res[i]] = [i]
+        ans = []
+        res2 = sorted(res)
+        kk = 0
+        while kk<=k-1:
+            ans.extend(dict[res2[kk]])
+            kk += len(dict[res2[kk]])
+        return ans[:k]
+
+1317. Convert Integer to the Sum of Two No-Zero Integers
+Solution:
+def getNoZeroIntegers(self, n: int) -> List[int]:
+        for i in range(1, n):
+            if "0" not in str(i) and "0" not in str(n-i):
+                return [i, n-i]
+
+1332. Remove Palindromic Subsequences
+Solution:
+def removePalindromeSub(self, s: str) -> int:
+        """
+        :type : string
+        :rtype : int
+        """
+        return 0 if s =="" else 2 - int(s==s[::-1])
+
+1346. Check If N and Its Double Exist
+Solution:
+def checkIfExist(self, arr: List[int]) -> bool:
+        from collections import Counter
+        res = Counter(arr)
+        if 0 in res.keys() and res[0] >=2:
+            return True
+        arr2 = [x*2 for x in arr]
+        for i in arr:
+            if i in arr2 and i!=0:
+                return True
+        return False
+        
+1331. Rank Transform of an Array
+Solution:
+def arrayRankTransform(self, arr: List[int]) -> List[int]:
+        from collections import Counter
+        res = Counter(arr)
+        lis = res.keys()
+        lis = sorted(lis)
+        dict = {}
+        for i in range(len(lis)):
+            dict[lis[i]] = i+1
+        ans = []
+        for i in range(len(arr)):
+            ans.append(dict[arr[i]])
+        return ans
