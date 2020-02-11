@@ -168,3 +168,25 @@ def arrayRankTransform(self, arr: List[int]) -> List[int]:
         for i in range(len(arr)):
             ans.append(dict[arr[i]])
         return ans
+
+986. Interval List Intersections
+Solution:
+def intervalIntersection(self, A: List[List[int]], B: List[List[int]]) -> List[List[int]]:
+        """
+        :type : List[List[int]], List[List[int]]
+        :rtype : List[List[int]]
+        """
+        i = 0
+        j = 0
+        ans = []
+        while i<len(A) and j<len(B):
+            start = max(A[i][0], B[j][0])
+            end = min(A[i][1], B[j][1])
+            if start <= end:
+                ans.append([start, end])
+            if A[i][1]<B[j][1]:
+                i += 1
+            else:
+                j += 1
+        return ans
+
