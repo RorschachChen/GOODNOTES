@@ -230,3 +230,22 @@ def countBits(self, num: int) -> List[int]:
 
 1347. Minimum Number of Steps to Make Two Strings Anagram
 Solution:
+def minSteps(self, s: str, t: str) -> int:
+        """
+        input_type: s: str, t: str
+        rtype: int
+        """
+        from collections import Counter
+        res1 = Counter(s)
+        res2 = Counter(t)
+        for ky in res1.keys():
+            if ky in res2:
+                res1[ky] -= res2[ky]
+                res1[ky] = abs(res1[ky])
+                
+        for ky in res2.keys():
+            if ky not in res1:
+                res1[ky] = res2[ky]
+                
+        return sum(res1.values())//2
+
