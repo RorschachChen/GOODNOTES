@@ -64,7 +64,7 @@ def lcaDeepestLeaves(self, root: TreeNode) -> TreeNode:
         def getMaxDepth(root: TreeNode) -> int:
             if not root:
                 return 0
-            return max(getMaxDepth(root.left), getMaxDepth(root.left)) + 1
+            return max(getMaxDepth(root.left), getMaxDepth(root.right)) + 1
         
         self.maxDepth = getMaxDepth(root)
         
@@ -84,3 +84,24 @@ def lcaDeepestLeaves(self, root: TreeNode) -> TreeNode:
 
         return helper(root, 0)
 解析:先递归得到最大深度。然后就找哪些等于最大深度的叶节点。如果在某深度没找到，就把depth加一，然后去下层找。
+
+951. Flip Equivalent Binary Trees
+Solution:
+解析：有两种可能。第一种是考虑同一个节点的，两棵树的左子树，要么不换，也就是光判断（左左，右右），另一种是交换了（左右，右左）。判断的条件就是在确认有
+子树之后看它们待确认的子树的值是否相等
+def flipEquiv(self, root1: TreeNode, root2: TreeNode) -> bool:
+        """
+        :type : TreeNode, TreeNode
+        :rtype : bool
+        """
+        if not root1 and not root2:
+            return True
+        if not root1 or not root2:
+            return False
+        
+        if root1.val != root2.val:
+            return False
+        
+        return (self.flipEquiv(root1.left, root2.left) and self.flipEquiv(root1.right, root2.right)) or (self.flipEquiv(root1.left, root2.right) and self.flipEquiv(root1.right, root2.left))
+        
+感觉
