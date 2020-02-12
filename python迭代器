@@ -1,0 +1,13 @@
+def __iter__(self)
+
+Iterators are objects that can be iterated upon.
+iterator object must implement two special methods, __iter__() and __next__(), collectively called the iterator protocol.
+
+__next__()
+We use the next() function to manually iterate through all the items of an iterator. 
+When we reach the end and there is no more data to be returned, it will raise StopIteration.
+调用iter()产生一个iterator
+每次调用next()就产生一个元素
+
+The __iter__() method returns the iterator object itself.
+The __next__() method must return the next item in the sequence. 
