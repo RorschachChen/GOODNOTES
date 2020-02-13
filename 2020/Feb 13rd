@@ -43,6 +43,7 @@ def regionsBySlashes(self, grid: List[str]) -> int:
 
 969. Pancake Sorting
 Solution:
+从最大的开始，找到每个元素，先翻转到这个元素，把它送到第一位，然后再翻转这个数量，让它到对应的位置
 def pancakeSort(self, A: List[int]) -> List[int]:
         N = len(A)
         res = []
