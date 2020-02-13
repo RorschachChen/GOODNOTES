@@ -4,3 +4,25 @@ __setattr__设置类实例属性 如s.name='tom'，自调用__setattr__
 __getitem__ 使用[]获取实例属性 如s['name']，自调用__getitem__
 __setitem__ 使用[]设置实例属性如 s['name'] = 'tom' ，自调用__setitem__
 __dict__ 为参数字典
+
+class Student:
+    def __getattr__(self, item):
+        return item + ' is not exits'
+
+    def __setattr__(self, key, value):
+        self.__dict__[key] = value
+
+    def __getitem__(self, item):
+        return self.__dict__[item]
+
+    def __setitem__(self, key, value):
+        self.__dict__[key] = value
+
+
+s = Student()
+print(s.name)  # 调用__getattr__方法 输出'name is not exits'
+s.age = 1  # 调用__setattr__ 方法
+print(s.age)  # 输出 1
+print(s['age'])  # 调用 __getitem__方法 输出1
+s['name'] = 'tom'  # 调用 __setitem__ 方法
+print(s['name'])  # 调用 __getitem__ 方法 输出 'tom'
