@@ -1,0 +1,53 @@
+959. Regions Cut By Slashes
+这题牵出了并查集的坑
+Solution:
+把每个box划分成4小块，先对box间进行连接，然后再对box里的块进行连接。
+def regionsBySlashes(self, grid: List[str]) -> int:
+        m, n = len(grid), len(grid[0])
+        N = 4 * m * n
+        pre = list(range(N))
+        
+        def find(i):
+            while i!=pre[i]:
+                i=pre[i]
+            return i
+        def union(i,j):
+            fi,fj=find(i),find(j)
+            pre[fi]=fj
+
+        
+        for i in range(m):
+            for j in range(n):
+                cur = i * n + j
+                if j!=n-1:
+                    union(4*cur+2, 4*cur+4)
+                if i!=m-1:
+                    down = cur + m
+                    union(4*cur+3, 4*down+1)
+        
+        for i in range(m):
+            for j in range(n):
+                cur = i*n+j
+                if grid[i][j] == " ":
+                    union(4*cur, 4*cur+1)
+                    union(4*cur+1, 4*cur+2)
+                    union(4*cur+2, 4*cur+3)
+                elif grid[i][j] == "/":
+                    union(4*cur, 4*cur+1)
+                    union(4*cur+2, 4*cur+3)
+                else:
+                    union(4*cur, 4*cur+3)
+                    union(4*cur+1, 4*cur+2)
+        
+        return len(set([find(i) for i in range(N)]))
+
+969. Pancake Sorting
+Solution:
+def pancakeSort(self, A: List[int]) -> List[int]:
+        N = len(A)
+        res = []
+        for x in range(N, 0, -1):
+            i = A.index(x)
+            res.extend([i + 1, x])
+            A = A[:i:-1] + A[:i]
+        return res 
