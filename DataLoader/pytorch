@@ -1,0 +1,15 @@
+torchvision.datasets.ImageFolder
+image（jpg)文件要按类放在文件夹中。
+传入参数有：root_path, transformation, 
+
+Attributes:
+classes (list): List of the class names.
+class_to_idx (dict): Dict with items (class_name, class_index).
+imgs (list): List of (image path, class_index) tuples
+
+
+torch.utils.data.DataLoader
+Data loader. Combines a dataset and a sampler, and provides an iterable over the given dataset.
+parameters:
+dataset: dataset from which to load the data.
+batch_sampler: returns a batch of indices at a time. 
