@@ -1,0 +1,41 @@
+1130. Minimum Cost Tree From Leaf Values
+给出了inorder的叶节点，非叶节点的val是左右子树最大的叶节点的product，求能使非叶sum最大的数。
+Solution:
+https://blog.csdn.net/LawFile/article/details/100171273
+def mctFromLeafValues(self, arr: List[int]) -> int:
+        """
+        :type : List[int]
+        :rtype : int
+        """
+        cost = 0
+        while len(arr)>=2:
+            min = 999999
+            index = 0
+            for i in range(len(arr)-1):
+                if arr[i]*arr[i+1] < min:
+                    min = arr[i]*arr[i+1]
+                    index = i
+            cost += min
+            arr[index] = max(arr[index], arr[index+1])
+            del arr[index+1]   
+        return cost
+
+791. Custom Sort String
+Solution:
+def customSortString(self, S: str, T: str) -> str:
+        from collections import Counter
+        res = Counter(T)
+        ans = ""
+        for i in range(len(S)):
+            if S[i] in res.keys():
+                ans += S[i]*res[S[i]]
+                res.pop(S[i])
+        for key in res.keys():
+            ans += key * res[key]
+        return ans
+
+889. Construct Binary Tree from Preorder and Postorder Traversal
+Solution:
+
+1343. Number of Sub-arrays of Size K and Average Greater than or Equal to Threshold
+Solution:
