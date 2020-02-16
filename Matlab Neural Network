@@ -1,0 +1,5 @@
+patternnet(hiddenSizes,trainFcn,performFcn)
+
+feedforwardnet(n)
+
+trainFcn
