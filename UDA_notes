@@ -1,0 +1,18 @@
+CIFAR10
+1. First preprocess. 
+  supervised: 4000，2000，1000，500，250数量labeled的train,
+  
+  原文件是data = load_dataset()，data是dict,key有['train', 'test'],其中每个又是dict,key有['images','labels']
+  # ['images'].dtype == uint8
+  # ['labels'].dtype == int64 非one-hot，是0-9的数
+  
+  trainingset: train-size_250.tfrecord.0等文件
+  testset: test.tfrecord.0
+  
+  unsupervised: 使用所有的train，50000张
+  aug_policies取得所有的augment policies，对每张图片随机应用一套policy得到aug_image，连同原图一并存储。
+  P.S. CIFAR10一共50000train，所以每隔4096张写入一个文件，所以unsup一份有13个文件
+  
+  unsup-0.tfrecord.0等文件
+  
+2.   
