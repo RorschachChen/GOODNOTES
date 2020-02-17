@@ -1,0 +1,47 @@
+1343. Number of Sub-arrays of Size K and Average Greater than or Equal to Threshold
+Solution:
+def numOfSubarrays(self, arr: List[int], k: int, threshold: int) -> int:
+        ans = 0
+        sum = 0
+        for i in range(len(arr)):
+            sum += arr[i]
+            if i+1>=k:
+                if sum>=threshold*k:
+                    ans += 1
+                sum -= arr[i+1-k]
+                
+        return ans
+
+889. Construct Binary Tree from Preorder and Postorder Traversal
+Solution:
+def constructFromPrePost(self, pre: List[int], post: List[int]) -> TreeNode:
+        if not post or not pre:
+            return None
+        root = TreeNode(post[-1])
+        if len(post)==1:
+            return root
+        ind = post.index(pre[1])
+        root.left = self.constructFromPrePost(pre[1:ind+2], post[:ind+1])
+        root.right = self.constructFromPrePost(pre[ind+2:], post[ind+1:-1])
+        return root442. Find All Duplicates in an Array
+        
+442. Find All Duplicates in an Array
+Solution:
+def findDuplicates(self, nums: List[int]) -> List[int]:
+        from collections import Counter
+        res = Counter(nums)
+        ans = []
+        for key in res.keys():
+            if res[key] == 2:
+                ans.append(key)
+        return ans
+
+def findDuplicates(self, nums: List[int]) -> List[int]:
+        for i in range(len(nums)):
+            if nums[abs(nums[i]) - 1] < 0:
+                yield abs(nums[i])
+            else:
+                nums[abs(nums[i]) - 1] *= -1
+
+1043. Partition Array for Maximum Sum
+Solution:
