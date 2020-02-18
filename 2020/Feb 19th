@@ -1,0 +1,19 @@
+912. Sort an Array
+Solution:
+冒泡超时。。。
+def sortArray(self, nums: List[int]) -> List[int]:
+        """
+        :type nums: List[int]
+        :rtype : List[int]
+        """
+        flag = 0
+        while not flag:
+            flag = 1
+            for i in range(len(nums)-1):
+                if nums[i]>nums[i+1]:
+                    nums[i], nums[i+1] = nums[i+1], nums[i]
+                    flag = 0
+        return nums
+(2)
+sorted()赢了
+(3)
