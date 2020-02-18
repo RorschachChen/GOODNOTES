@@ -1,0 +1,57 @@
+1219. Path with Maximum Gold
+Solution:
+
+def getMaximumGold(self, grid: List[List[int]]) -> int:
+        """
+        :type List[List[int]]
+        :rtype int
+        """
+        is_visited = set()
+        ans = 0
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if grid[i][j] != 0:
+                    ans = max(ans, self.dfs(i, j, is_visited, grid))
+        return ans
+    
+def dfs(self, i, j, is_visited, grid):
+    if i<0 or j<0 or i>=len(grid) or j>=len(grid[0]) or (i, j) in is_visited or grid[i][j] == 0:
+        return -1
+    is_visited.add((i, j))
+    rst = 0
+    for (a, b) in [[0, 1], [1, 0], [-1, 0], [0, -1]]:
+            rst = max(rst, self.dfs(i-a, j-b, is_visited, grid))
+    rst += grid[i][j]              
+    is_visited.remove((i, j))
+    return rst
+    
+(2)
+def getMaximumGold(self, grid: List[List[int]]) -> int:
+        """
+        :type List[List[int]]
+        :rtype int
+        """
+        self.ans = 0
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if grid[i][j] != 0:
+                    self.recur(i, j, 0, grid)
+        return self.ans
+                            
+def recur(self, i, j, path, grid):
+    gold = grid[i][j]
+    path += gold
+    flag = False
+    directions = [(1, 0), (0, 1), (0, -1), (-1, 0)]
+    for (x1, y1) in directions:
+        if i+x1>=0 and i+x1<len(grid) and j+y1>=0 and j+y1<len(grid[0]) and grid[i+x1][j+y1]!=0 and grid[i+x1][j+y1]!=-1 :
+            flag = True
+            grid[i][j] = -1
+            self.recur(i+x1, j+y1, path, grid)
+            grid[i][j] = gold
+    if not flag:
+        self.ans = max(path, self.ans)
+
+中心思想都是确定每个点都要遍历，而且每次遍历的时候都要记录这次遍历访问过的
+中心思想都是确定每个点都要遍历，而且每次遍历的时候都要记录这次遍历访问过的点
+        self.ans = max(path, self.ans)
