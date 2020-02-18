@@ -55,3 +55,6 @@ def recur(self, i, j, path, grid):
 中心思想都是确定每个点都要遍历，而且每次遍历的时候都要记录这次遍历访问过的
 中心思想都是确定每个点都要遍历，而且每次遍历的时候都要记录这次遍历访问过的点
         self.ans = max(path, self.ans)
+
+877. Stone Game
+Solution:
