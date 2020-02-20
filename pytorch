@@ -1,0 +1,15 @@
+class_criterion = nn.CrossEntropyLoss(size_average=False, ignore_index=NO_LABEL).cuda()
+class_criterion(logit, labels)
+logit必须是[N, C]， labels必须是[C]
+今天发现logit如果是一个的话，必须view成[1, C]
+
+torch.view(shape)改变形状
+
+torch.mul()已经默认了可以直接使用*在两个tensor之间，不一定要调用这个
+
+torch.ne(input, other)
+compute input!= other element-wise
+
+F.one_hot在torch1.0版本以上才出现，所以低版本需要自己写
+在做项目的时候用的最原始的方法
+
