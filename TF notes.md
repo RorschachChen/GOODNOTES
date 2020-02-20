@@ -74,7 +74,7 @@ CUDA_VISIBLE_DEVICES=XX可以在terminal就默认使用哪块GPU
 tf.cast(Tensor, dtype)转换类型
 
 tensorflow 
-dataset.shuffle:维持一个buffer size 大小的 shuffle buffer，图中所需的每个样本从shuffle buffer中获取，取得一个样本后，就从源数据集中加入一个样本到shuffle buffer中。
-dataset.batch:batch size
+dataset.shuffle:维持一个buffer size 大小的 shuffle buffer，图中所需的每个样本从shuffle buffer中获取，取得一个样本后，就从源数据集中加入一个样本到shuffle buffer中。将数据打乱，数值越大，混乱程度越大
+dataset.batch:batch size.repeat()在batch操作输出完毕后再执行,若在之前，相当于先把整个数据集复制两次 #为了配合输出次数，一般默认repeat()空
 dataset.repeat:epoch
 
