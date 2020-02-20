@@ -72,3 +72,9 @@ tf.train.Example有一个属性为features，我们只需要将上一步得到�
 CUDA_VISIBLE_DEVICES=XX可以在terminal就默认使用哪块GPU
 
 tf.cast(Tensor, dtype)转换类型
+
+tensorflow 
+dataset.shuffle:维持一个buffer size 大小的 shuffle buffer，图中所需的每个样本从shuffle buffer中获取，取得一个样本后，就从源数据集中加入一个样本到shuffle buffer中。
+dataset.batch:batch size
+dataset.repeat:epoch
+
