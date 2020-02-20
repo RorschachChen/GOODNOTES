@@ -70,3 +70,5 @@ tf.train.Features:
 tf.train.Example有一个属性为features，我们只需要将上一步得到的结果再次当做参数传进来即可。
 
 CUDA_VISIBLE_DEVICES=XX可以在terminal就默认使用哪块GPU
+
+tf.cast(Tensor, dtype)转换类型
