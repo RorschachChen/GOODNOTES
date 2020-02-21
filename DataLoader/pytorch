@@ -25,3 +25,4 @@ __len__
 RandomSampler， iter(randomSampler) 会返回一个可迭代对象，这个可迭代对象 每次 next 都会输出当前要采样的 index，SequentialSampler也是一样，
 只不过她产生的 index 是顺序的
 BatchSampler 是一个普通 Sampler 的  wrapper， 普通Sampler 一次仅产生一个 index， 而 BatchSampler 一次产生一个 batch 的 indices
+https://cloud.tencent.com/developer/article/1010247
