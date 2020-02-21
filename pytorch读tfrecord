@@ -9,3 +9,15 @@ pytorch 的数据加载到模型的操作顺序是这样的：
 ① 创建一个 Dataset 对象
 ② 创建一个 DataLoader 对象
 ③ 循环这个 DataLoader 对象，将img, label加载到模型中进行训练
+
+
+# 以下两个代码是等价的
+for data in dataloader:
+    ...
+# 等价与
+iterr = iter(dataloader)
+while True:
+    try:
+        next(iterr)
+    except:
+        break
