@@ -80,3 +80,5 @@ dataset.repeat:epoch
 
 用tf.estimator.Estimator会自动显示
 global_step/sec: A performance indicator showing how many batches (gradient updates) we processed per second as the model trains.
+log_step_count_steps=100默认值100，
+https://github.com/tensorflow/estimator/blob/master/tensorflow_estimator/python/estimator/run_config.py
