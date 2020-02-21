@@ -87,3 +87,7 @@ tf.estimator.LoggingTensorHook
 params: every_n_iter=None,
     every_n_secs=None,
 Prints the given tensors every N local steps, every N seconds, or at end.
+
+tf.contrib.tpu.TPUConfig
+params:
+iterations_per_loop: This is the number of train steps running in TPU system before returning to CPU host for each Session.run. This means global step is increased iterations_per_loop times in one Session.run.
