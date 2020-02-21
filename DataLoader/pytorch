@@ -13,3 +13,15 @@ Data loader. Combines a dataset and a sampler, and provides an iterable over the
 parameters:
 dataset: dataset from which to load the data.
 batch_sampler: returns a batch of indices at a time. 
+
+
+
+如果现有的 Dataset 不能够满足需求，我们也可以自定义 Dataset，通过继承 torch.utils.data.Dataset。在继承的时候，需要 override 三个方法。
+__init__： 用来初始化数据集
+__getitem__
+__len__
+
+
+RandomSampler， iter(randomSampler) 会返回一个可迭代对象，这个可迭代对象 每次 next 都会输出当前要采样的 index，SequentialSampler也是一样，
+只不过她产生的 index 是顺序的
+BatchSampler 是一个普通 Sampler 的  wrapper， 普通Sampler 一次仅产生一个 index， 而 BatchSampler 一次产生一个 batch 的 indices
