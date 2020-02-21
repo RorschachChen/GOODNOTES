@@ -1,3 +1,11 @@
 pip install tfrecord
 
 https://github.com/vahidk/tfrecord
+
+- dataloader本质是一个可迭代对象，使用iter()访问，不能使用next()访问；
+- 使用iter(dataloader)返回的是一个迭代器，然后可以使用next访问；
+
+pytorch 的数据加载到模型的操作顺序是这样的：
+① 创建一个 Dataset 对象
+② 创建一个 DataLoader 对象
+③ 循环这个 DataLoader 对象，将img, label加载到模型中进行训练
