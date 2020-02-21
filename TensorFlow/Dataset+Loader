@@ -1,0 +1,13 @@
+Dataset可以看作是相同类型“元素”的有序列表。
+
+如何将这个dataset中的元素取出呢？方法是从Dataset中示例化一个Iterator，然后对Iterator进行迭代
+iterator = dataset.make_one_shot_iterator() # 从dataset中实例化了一个Iterator, 只能从头到尾读取一次
+one_element = iterator.get_next() # 表示从iterator里取出一个元素。
+with tf.Session() as sess:
+  for i in range(number):
+    print(sess.run(one_element))
+    
+one_element只是一个Tensor，并不是一个实际的值。调用sess.run(one_element)后，才能真正地取出一个值
+
+在Eager模式中，创建Iterator的方式有所不同。是通过tfe.Iterator(dataset)的形式直接创建Iterator并迭代。迭代时可以直接取出值，
+不需要使用sess.run()：
