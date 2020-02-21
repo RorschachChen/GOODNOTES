@@ -1,0 +1,5 @@
+aug_image = aug_image*255.0
+im=Image.fromarray(aug_image.astype(np.uint8))
+im.save(path+name)
+
+当出现全黑的时候应该是值都是在0-1之间的值，应该乘255之后再保存就能正常了。
