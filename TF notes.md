@@ -82,3 +82,8 @@ dataset.repeat:epoch
 global_step/sec: A performance indicator showing how many batches (gradient updates) we processed per second as the model trains.
 log_step_count_steps=100默认值100，
 https://github.com/tensorflow/estimator/blob/master/tensorflow_estimator/python/estimator/run_config.py
+
+tf.estimator.LoggingTensorHook
+params: every_n_iter=None,
+    every_n_secs=None,
+Prints the given tensors every N local steps, every N seconds, or at end.
