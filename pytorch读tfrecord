@@ -5,6 +5,10 @@ https://github.com/vahidk/tfrecord
 - dataloader本质是一个可迭代对象，使用iter()访问，不能使用next()访问；
 - 使用iter(dataloader)返回的是一个迭代器，然后可以使用next访问；
 
+
+在 DataLoader 中，iter(dataloader) 返回的是一个 DataLoaderIter 对象， 这个才是我们一直 next的 对象。
+
+
 pytorch 的数据加载到模型的操作顺序是这样的：
 ① 创建一个 Dataset 对象
 ② 创建一个 DataLoader 对象
