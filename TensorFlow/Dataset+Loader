@@ -11,3 +11,16 @@ one_element只是一个Tensor，并不是一个实际的值。调用sess.run(one
 
 在Eager模式中，创建Iterator的方式有所不同。是通过tfe.Iterator(dataset)的形式直接创建Iterator并迭代。迭代时可以直接取出值，
 不需要使用sess.run()：
+
+tf.data.Dataset.from_tensor_slices
+它的真正作用是切分传入Tensor的第一个维度，生成相应的dataset
+
+4 Transformations:
+(1)map
+map接收一个函数，Dataset中的每个元素都会被当作这个函数的输入，并将函数返回值作为新的Dataset
+(2)batch
+batch就是将多个元素组合成batch
+(3)shuffle
+shuffle的功能为打乱dataset中的元素，它有一个参数buffersize，表示打乱时使用的buffer的大小
+(4)repeat
+repeat的功能就是将整个序列重复多次，主要用来处理机器学习中的epoch，假设原先的数据是一个epoch，使用repeat(5)就可以将之变成5个epoch
