@@ -78,3 +78,5 @@ dataset.shuffle:维持一个buffer size 大小的 shuffle buffer，图中所需�
 dataset.batch:batch size.repeat()在batch操作输出完毕后再执行,若在之前，相当于先把整个数据集复制两次 #为了配合输出次数，一般默认repeat()空
 dataset.repeat:epoch
 
+用tf.estimator.Estimator会自动显示
+global_step/sec: A performance indicator showing how many batches (gradient updates) we processed per second as the model trains.
