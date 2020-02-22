@@ -1,0 +1,6 @@
+print(len())
+print(type())
+print(np.shape())
+print(.dtype)
+print(.shape())
+print(.keys())
