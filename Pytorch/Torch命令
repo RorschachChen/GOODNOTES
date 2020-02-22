@@ -1,0 +1,1 @@
+torch.chunk(tensor, chunk_num, dim)与torch.cat()原理相反，它是将tensor按dim（行或列）分割成chunk_num个tensor块，返回的是一个元组。
