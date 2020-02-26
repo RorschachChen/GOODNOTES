@@ -6,3 +6,8 @@ pip install thop
 from thop import profile
 model = ...
 flops, params = profile(model, input_size=(1, 3, 224,224))
+
+from thop import clever_format
+Call thop.clever_format to give a better format of the output.
+用法:
+macs, params = clever_format([flops, params], "%.3f")
