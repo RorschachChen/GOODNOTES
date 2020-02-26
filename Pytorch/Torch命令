@@ -17,3 +17,11 @@ Returns cosine similarity between :math:`x_1` and :math:`x_2`, computed along di
 Input1: (∗1,D,∗2)(*, D, *2)(∗1​,D,∗2​) where D is at position dim
 Input2: (∗1,D,∗2)(*, D, *2)(∗1​,D,∗2​) where D is at position dim
 Output: (∗1,∗2)(∗1​,∗2​) 
+
+torch.gather
+torch.gather(input, dim, index, out=None, sparse_grad=False) → Tensor
+Gathers values along an axis specified by dim.
+
+
+expand(*sizes) → Tensor
+Returns a new view of the self tensor with singleton dimensions expanded to a larger size.
