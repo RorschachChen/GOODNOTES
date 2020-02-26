@@ -18,3 +18,4 @@ Performs a matrix multiplication of the matrices input and mat2.
 input1: [m, n]
 input2: [n, p]
 output: [m, p]
+This function does not broadcast. For broadcasting matrix products, see torch.matmul().
