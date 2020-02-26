@@ -25,3 +25,8 @@ Gathers values along an axis specified by dim.
 
 expand(*sizes) → Tensor
 Returns a new view of the self tensor with singleton dimensions expanded to a larger size.
+
+torch.norm()
+Returns the matrix norm or vector norm of a given tensor.
+参数
+p: the order of norm
