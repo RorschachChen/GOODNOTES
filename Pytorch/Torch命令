@@ -30,3 +30,4 @@ torch.norm()
 Returns the matrix norm or vector norm of a given tensor.
 参数
 p: the order of norm
+dim: 输入哪个维度，哪个维度就消失
