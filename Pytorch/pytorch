@@ -13,3 +13,8 @@ compute input!= other element-wise
 F.one_hot在torch1.0版本以上才出现，所以低版本需要自己写
 在做项目的时候用的最原始的方法
 
+torch.mm(input, mat2, out=None) → Tensor
+Performs a matrix multiplication of the matrices input and mat2.
+input1: [m, n]
+input2: [n, p]
+output: [m, p]
