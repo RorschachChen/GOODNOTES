@@ -11,3 +11,9 @@ Expects input to be <= 2-D tensor and transposes dimensions 0 and 1.
 import torch.nn.functional as F
 
 F.normalize(input, dim=1)
+
+torch.nn.CosineSimilarity
+Returns cosine similarity between :math:`x_1` and :math:`x_2`, computed along dim.
+Input1: (∗1,D,∗2)(*, D, *2)(∗1​,D,∗2​) where D is at position dim
+Input2: (∗1,D,∗2)(*, D, *2)(∗1​,D,∗2​) where D is at position dim
+Output: (∗1,∗2)(∗1​,∗2​) 
