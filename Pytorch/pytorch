@@ -28,3 +28,5 @@ this function returns the self tensor.
 
 torch.ones_like
 torch.eyes
+都懂吧
+device (torch.device, optional) – the desired device of returned tensor. Default: if None, defaults to the device of input.
