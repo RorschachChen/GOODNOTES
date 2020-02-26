@@ -30,3 +30,8 @@ torch.ones_like
 torch.eyes
 都懂吧
 device (torch.device, optional) – the desired device of returned tensor. Default: if None, defaults to the device of input.
+
+
+torch.masked_select(input, mask, out=None) → Tensor
+Returns a new 1-D tensor which indexes the input tensor according to the boolean mask mask which is a BoolTensor.
+broadcastable.
