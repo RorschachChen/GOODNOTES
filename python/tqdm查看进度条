@@ -1,0 +1,5 @@
+pip install tqdm
+
+import tqdm
+
+train_bar = tqdm(data_loader)
