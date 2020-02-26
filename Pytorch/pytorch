@@ -24,3 +24,7 @@ Tensor的性质
 .contiguous()
 Returns a contiguous tensor containing the same data as self tensor. If self tensor is contiguous, 
 this function returns the self tensor.
+
+
+torch.ones_like
+torch.eyes
