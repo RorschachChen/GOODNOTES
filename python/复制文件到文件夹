@@ -1,0 +1,4 @@
+from shutil import copyfile
+
+copyfile(src, dst)
+src和dst都要是路径加文件
