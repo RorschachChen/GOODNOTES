@@ -35,3 +35,6 @@ device (torch.device, optional) – the desired device of returned tensor. Defau
 torch.masked_select(input, mask, out=None) → Tensor
 Returns a new 1-D tensor which indexes the input tensor according to the boolean mask mask which is a BoolTensor.
 broadcastable.
+
+label转one-hot
+one_hot = torch.zeros(batch_size, class_num).scatter_(1, label, 1)
