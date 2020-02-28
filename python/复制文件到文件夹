@@ -2,3 +2,6 @@ from shutil import copyfile
 
 copyfile(src, dst)
 src和dst都要是路径加文件
+
+os.path.exits()
+os.mkdir()临场发挥
