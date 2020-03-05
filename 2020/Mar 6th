@@ -1,0 +1,41 @@
+1318. Minimum Flips to Make a OR b Equal to c
+Solution:
+def minFlips(self, a: int, b: int, c: int) -> int:
+        res=0
+        while any((a,b,c)):
+            a0,b0,c0=a&1,b&1,c&1
+            if c0!=a0|b0:
+                if c0:
+                    res+=1
+                else:
+                    res+=a0+b0
+            a>>=1
+            b>>=1
+            c>>=1
+        return res
+
+1306. Jump Game III
+)DFS(
+def canReach(self, arr: List[int], start: int) -> bool:
+        self.res = [0]*len(arr)
+        return self.helper(arr, start)
+        
+def helper(self, arr, start):
+    if start<0 or start>=len(arr):
+        return False
+    if arr[start]==0:
+        return True
+    if self.res[start]==1:
+        return False
+    self.res[start]=1
+    return self.helper(arr, start-arr[start]) or self.helper(arr, start+arr[start])
+
+931. Minimum Falling Path Sum
+Solution:
+DP
+把每一行加到下一行去，
+def minFallingPathSum(self, A: List[List[int]]) -> int:
+        for i in range(1, len(A)):
+            for j in range(len(A)):
+                A[i][j] += min(A[i-1][j-1] if j>0 else math.inf, A[i-1][j], A[i-1][j-1] if j<len(A)-1 else math.inf)
+        return min(A[-1])
