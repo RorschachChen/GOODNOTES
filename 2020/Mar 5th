@@ -101,6 +101,7 @@ def levelOrder(self, root: 'Node') -> List[List[int]]:
 406. Queue Reconstruction by Height
 Solution:
 (fuxuemingzhu)
+如果先把个子高的排好序，那么在任何位置插入数据都不会对已经排好序的数组造成影响
 def reconstructQueue(self, people: List[List[int]]) -> List[List[int]]:
         """
         :type people: List[List[int]]
@@ -111,3 +112,16 @@ def reconstructQueue(self, people: List[List[int]]) -> List[List[int]]:
         for p in people:
             res.insert(p[1], p)
         return res
+lambda先按第一位，-号表示从大到小，然后按第二位从小到大排7
+
+973. K Closest Points to Origin
+Solution:
+def kClosest(self, points: List[List[int]], K: int) -> List[List[int]]:
+        import heapq
+        max_heap = [( -1.0 * (pt[0]*pt[0] + pt[1]*pt[1]),pt) for pt in points[:K]]
+        heapq.heapify(max_heap)
+        
+        for pt in points[K:]:
+            heapq.heappushpop(max_heap,( -1.0 * (pt[0]*pt[0] + pt[1]*pt[1]),pt))
+            
+        return [i[1] for i in max_heap]
