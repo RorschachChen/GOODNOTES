@@ -142,6 +142,26 @@ def circularPermutation(self, n: int, start: int) -> List[int]:
 
 998. Maximum Binary Tree II
 Solution:
+注意条件是插在最后
+def insertIntoMaxTree(self, root: TreeNode, val: int) -> TreeNode:
+        if not root:
+            return TreeNode(val)
+        if root.val<val:
+            NODE = TreeNode(val)
+            NODE.left = root
+            return NODE
+        else:
+            root.right = self.insertIntoMaxTree(root.right, val)
+        return root
 
 739. Daily Temperatures
 Solution:
+def dailyTemperatures(self, T: List[int]) -> List[int]:
+        res = [0]*len(T)
+        stack = []
+        for i in range(len(T)):
+            while stack and T[stack[-1]]<T[i]:
+                popIdx = stack.pop()
+                res[popIdx] = i-popIdx
+            stack.append(i)
+        return res
