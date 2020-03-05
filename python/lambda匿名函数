@@ -1,0 +1,2 @@
+lambda [arg1 [, agr2,.....argn]] : expression
+冒号前面的x表示函数参数。
