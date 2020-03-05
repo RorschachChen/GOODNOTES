@@ -165,3 +165,18 @@ def dailyTemperatures(self, T: List[int]) -> List[int]:
                 res[popIdx] = i-popIdx
             stack.append(i)
         return res
+
+1288. Remove Covered Intervals
+Solution:
+https://leetcode.jp/leetcode-1288-remove-covered-intervals-%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF%E5%88%86%E6%9E%90/
+def removeCoveredIntervals(self, intervals: List[List[int]]) -> int:
+        intervals.sort(key= lambda x:(x[0]))
+        res = len(intervals)
+        for i in range(len(intervals)):
+            for j in range(i+1, len(intervals)):
+                if intervals[i][1]==100001:
+                    continue
+                if intervals[i][1]>=intervals[j][1]:
+                    res -= 1
+                    intervals[j][1] = 100001
+        return res
