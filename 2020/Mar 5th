@@ -1,4 +1,113 @@
 877. Stone Game
 Solution:
 Return True
+def stoneGame(self, piles: List[int]) -> bool:
+        """
+        :type piles: List[int]
+        :rtype :bool
+        """
+        # n = len(piles)//2
+        count1 = 0
+        count2 = 0
+        for i in range(len(piles)):
+            if i%2 == 0:
+                index = max(piles[0], piles[-1])==piles[0]
+                count1 += max(piles[0], piles[-1])
+                if index == 0:
+                    piles.pop(-1)
+                else:
+                    piles.pop(0)
+            else:
+                index = min(piles[0], piles[-1])==piles[0]
+                count2 += min(piles[0], piles[-1])
+                if index == 0:
+                    piles.pop(-1)
+                else:
+                    piles.pop(0)
+            
+                
+        return count1>count2
 
+1026. Maximum Difference Between Node and Ancestor
+Solution:
+叶节点返回min=无穷大，max无穷小。每到一个节点就更新一次ans，找current val和子树最大的差值，
+def maxAncestorDiff(self, root: TreeNode) -> int:
+        ans = 0
+        def helper(root):
+            if not root.left and not root.right and root:
+                return root.val, root.val
+            curr = root.val
+            if root.left:
+                lmin, lmax = helper(root.left)
+            else:
+                lmin, lmax = 9999, -9999
+            if root.right:
+                rmin, rmax = helper(root.right)
+            else:
+                rmin, rmax = 9999, -9999
+            nonlocal ans
+            ans = max(ans, curr-lmin, lmax-curr, curr-rmin, rmax-curr)
+            return min(lmin, rmin, curr), max(lmax, rmax, curr)
+        helper(root)
+        return ans
+
+841. Keys and Rooms
+Solution:
+def canVisitAllRooms(self, rooms: List[List[int]]) -> bool:
+        res = [1]*len(rooms)
+        res[0] = 0
+        from collections import deque
+        deque1 = deque()
+        deque1.append(0)
+        count = 0
+        while deque1:
+            node = rooms[deque1.popleft()]
+            flag = len(deque1)
+            for i in range(len(node)):
+                res[node[i]]=0
+                if sum(res)==0:
+                    return True
+                if node[i] not in deque1:
+                    deque1.append(node[i])
+            if len(deque1)==flag:
+                count += 1
+                if count >= 2000:
+                    return False
+            # lastlen = deque
+            
+        return sum(res)==0
+
+429. N-ary Tree Level Order Traversal
+Solution:
+(BFS)
+def levelOrder(self, root: 'Node') -> List[List[int]]:
+        res = []
+        que = collections.deque()
+        que.append(root)
+        while que:
+            level = []
+            size = len(que)
+            for _ in range(size):
+                node = que.popleft()
+                if not node:
+                    continue
+                level.append(node.val)
+                for child in node.children:
+                    que.append(child)
+            if level:
+                res.append(level)
+        return res
+
+406. Queue Reconstruction by Height
+Solution:
+(fuxuemingzhu)
+def reconstructQueue(self, people: List[List[int]]) -> List[List[int]]:
+        """
+        :type people: List[List[int]]
+        :rtype: List[List[int]]
+        """
+        people.sort(key= lambda x:(-x[0], x[1]))
+        res = []
+        for p in people:
+            res.insert(p[1], p)
+        return res
