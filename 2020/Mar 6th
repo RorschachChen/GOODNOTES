@@ -39,3 +39,33 @@ def minFallingPathSum(self, A: List[List[int]]) -> int:
             for j in range(len(A)):
                 A[i][j] += min(A[i-1][j-1] if j>0 else math.inf, A[i-1][j], A[i-1][j+1] if j<len(A)-1 else math.inf)
         return min(A[-1])
+
+1344. Angle Between Hands of a Clock
+Solution:
+不知道这破题意义在哪
+def angleClock(self, hour: int, minutes: int) -> float:
+        ans = abs((hour%12)*30+float(minutes)*30/60 -minutes*6 )
+        return ans if ans<=180 else 360-ans
+
+94. Binary Tree Inorder Traversal
+Solution:
+def inorderTraversal(self, root: TreeNode) -> List[int]:
+        res = []
+        # stack
+        # stack = collections.deque()
+        stack=[(root, False)]
+        # stack.extend()
+        while stack:
+            node, visited = stack.pop()
+            if node:
+                if visited:
+                    res.append(node.val)
+                # visited = 1
+                else:
+                    stack.append((node.right, False))
+                    stack.append((node, True))
+                    # 3的永远在2后面，所以3
+                    stack.append((node.left, False))
+        return res
+改变else后面就能换不同order
+
