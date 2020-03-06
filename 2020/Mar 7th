@@ -1,0 +1,21 @@
+1268. Search Suggestions System
+Solution:
+python里sort居然能对字符串作用
+def suggestedProducts(self, products: List[str], searchWord: str) -> List[List[str]]:
+        ans = []
+        temp = products
+        for i in range(len(searchWord)):
+            prefix = searchWord[:i+1]
+            tmp = []
+            for j in range(len(temp)):
+                if temp[j][:i+1] == prefix:
+                    tmp.append(temp[j])
+            tmp = sorted(tmp)
+            if len(tmp)>3:
+                tmp = tmp[:3]
+            ans.append(tmp)
+            # temp = tmp
+        return ans
+
+22. Generate Parentheses
+Solution:
