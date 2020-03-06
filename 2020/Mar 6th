@@ -183,3 +183,44 @@ def helper(self, nums, res, path):
 
 1072. Flip Columns For Maximum Number of Equal Rows
 Solution:
+def minRemoveToMakeValid(self, s: str) -> str:
+        count = 0
+        ans = ""
+        left_pos = []
+        right_pos = [] 
+        for i in range(len(s)):
+            if s[i].isalpha():
+                ans+=s[i]
+            elif s[i] == ')':
+                if count== 0:
+                    continue
+                else:
+                    ans+=')'
+                    right_pos.append(len(ans))
+                    count -= 1
+            else:
+                ans+='('
+                left_pos.append(len(ans))
+                count += 1
+        if count == 0:
+            return ans
+        # print(count)
+        # print(ans)
+        if count != 0:
+            temp = ans[::-1]
+            cc = 0
+            new = ""
+            for i in range(len(temp)):
+                if cc>=count:
+                    print(new)
+                    print(temp[i:])
+                    kk = new+temp[i:]
+                    return kk[::-1]
+                if temp[i].isalpha():
+                    new+=temp[i]
+                if temp[i] == '(':
+                    cc += 1
+                    continue
+                if temp[i] == ')':
+                    new+=')'
+            return new
