@@ -122,3 +122,31 @@ def construct(self, grid: List[List[int]]) -> 'Node':
                     return node
         return node
 
+513. Find Bottom Left Tree Value
+Solution:
+def findBottomLeftValue(self, root: TreeNode) -> int:
+        if not root:
+            return 
+        res = {}
+        stack = collections.deque()
+        stack.append(root)
+        depth = 0
+        while stack:
+            length = len(stack)
+            for i in range(length):
+                node = stack.popleft()
+                if depth not in res:
+                    res[depth] = [node.val]
+                else:
+                    res[depth].append(node.val)
+                if node.left:
+                    stack.append(node.left)
+                if node.right:
+                    stack.append(node.right)
+            depth += 1
+        maxdp = max(res.keys())
+        print(res)
+        return res[maxdp][0]
+
+1072. Flip Columns For Maximum Number of Equal Rows
+Solution:
