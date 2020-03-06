@@ -69,3 +69,40 @@ def inorderTraversal(self, root: TreeNode) -> List[int]:
         return res
 改变else后面就能换不同order
 
+695. Max Area of Island
+Solution:
+def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
+        rows, cols = len(grid), len(grid[0])
+        directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+        def helper(m,n):
+            if 0<=m<rows and 0<=n<cols and grid[m][n]==1:
+                temp = 1
+                grid[m][n] = 0
+                for a, b in directions:
+                    
+                    temp+=helper(m+a, n+b)
+                return temp
+            
+            return 0
+            
+        ans = [helper(m,n) for m in range(rows) for n in range(cols) if grid[m][n]==1]
+        return max(ans) if len(ans) else 0
+
+1140. Stone Game II
+Solution:
+(LEE215)
+def stoneGameII(self, piles: List[int]) -> int:
+        N = len(piles)
+        
+        for i in range(N-2, -1, -1):
+            piles[i] += piles[i+1]
+        from functools import lru_cache
+        @lru_cache(None)
+        def helper(i, m):
+            if i+2*m>=N:
+                return piles[i]
+            return piles[i] - min(helper(i+x, max(m, x)) for x in range(1, 2*m+1))
+        return helper(0, 1)
+解析: 先把piles每个数改成从当前位置累和到最后的和。min里面是当Alex取了i位置之后，Lee能取i+1到2*m+i位置的。helper得到的是从i开始，m为可选长度
+的最大可得到参数。那么选择Lee能得到的最小的和，用A[0]剪掉后就得到了剩下的元素的和。
+
