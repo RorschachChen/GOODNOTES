@@ -224,3 +224,50 @@ def minRemoveToMakeValid(self, s: str) -> str:
                 if temp[i] == ')':
                     new+=')'
             return new
+
+1072. Flip Columns For Maximum Number of Equal Rows
+Solution:
+    def maxEqualRowsAfterFlips(self, matrix: List[List[int]]) -> int:
+        """
+        :type matrix: List[List[int]]
+        :rtype: int
+        """
+        parent = [i for i in range(len(matrix))]
+        
+        def find(i):
+            while parent[i]!=i:
+                i = parent[i]
+            return i
+        
+        def union(i, j):
+            ip = find(i)
+            jp = find(j)
+            parent[j] = ip
+            
+        def to_string(input):
+            l = map(lambda x: str(x), input)
+            return "".join(l)
+        
+        l_rev = []
+        row = []
+        for i in range(len(matrix)):
+            l1 = to_string(matrix[i])
+            row.append(l1)
+            l1_reverse = ""
+            for j in range(len(l1)):
+                l1_reverse += '0' if l1[j]=='1' else '1'
+            l_rev.append(l1_reverse)
+            
+        for i in range(len(matrix)):
+            for j in range(i+1, len(matrix)):
+                if row[i]==row[j] or row[i]==l_rev[j]:
+                    union(i, j)        
+            
+            
+        pp = {}
+        for i in range(len(matrix)):
+            p = find(i)
+            pp[p] = pp.setdefault(p, 0) + 1
+        return max(pp.values())
+        
+        
