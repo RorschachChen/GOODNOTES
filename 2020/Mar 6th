@@ -106,3 +106,19 @@ def stoneGameII(self, piles: List[int]) -> int:
 解析: 先把piles每个数改成从当前位置累和到最后的和。min里面是当Alex取了i位置之后，Lee能取i+1到2*m+i位置的。helper得到的是从i开始，m为可选长度
 的最大可得到参数。那么选择Lee能得到的最小的和，用A[0]剪掉后就得到了剩下的元素的和。
 
+427. Construct Quad Tree
+Solution:
+def construct(self, grid: List[List[int]]) -> 'Node':
+        N = len(grid)
+        node = Node(grid[0][0], 1, None, None, None, None)
+        for i in range(N):
+            for j in range(N):
+                if grid[i][j]!=grid[0][0]:
+                    node.isLeaf = 0
+                    node.topLeft = self.construct([grid[i][:int(N/2)] for i in range(int(N/2))])
+                    node.topRight = self.construct([grid[i][int(N/2):] for i in range(int(N/2))])
+                    node.bottomLeft = self.construct([grid[i][:int(N/2)] for i in range(int(N/2), N)])
+                    node.bottomRight = self.construct([grid[i][int(N/2):] for i in range(int(N/2), N)])
+                    return node
+        return node
+
