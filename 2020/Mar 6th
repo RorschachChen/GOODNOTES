@@ -150,6 +150,7 @@ def findBottomLeftValue(self, root: TreeNode) -> int:
 
 46. permutations
 Solution:
+https://blog.csdn.net/fuxuemingzhu/article/details/79363903
 回朔法: 56.83% 100%
 分析：需要一个visited数组来查看当前数有么有被访问过，如果没有就一直加下去，知道path的长度和nums一样，说明找到了一组答案，append到res中。然后把倒数
 第二的vst恢复为没visited的状态。
