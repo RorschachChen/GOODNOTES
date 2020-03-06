@@ -1,0 +1,3 @@
+Python 字典 setdefault() 函数和 get()方法 类似, 如果键不存在于字典中，将会添加键并将值设为默认值。
+
+dict.setdefault(key, default=None)
