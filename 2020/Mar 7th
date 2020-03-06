@@ -19,3 +19,42 @@ def suggestedProducts(self, products: List[str], searchWord: str) -> List[List[s
 
 22. Generate Parentheses
 Solution:
+
+347. Top K Frequent Elements
+Solution:
+(1)56.45%  6.25%
+def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        if len(nums)==1:
+            return nums
+        left = 0
+        right = len(nums)-1
+        dict = {}
+        while left<=right:
+            tmp1 = nums[left]
+            tmp2 = nums[right]
+            dict[tmp1] = dict.setdefault(tmp1, 0) + 1
+            left += 1
+            dict[tmp2] = dict.setdefault(tmp2, 0) + 1
+            right -= 1
+        new = sorted(dict.items(), key=lambda d: d[1])[::-1]
+        ans = []
+        for i in range(k):
+            ans.append(new[i][0])
+(2)
+def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        freq = {}
+        freq_list=[]  
+        for num in nums:
+            freq[num] = freq.setdefault(num, 0) + 1
+                
+        for key in freq.keys():
+            freq_list.append((-freq[key], key))
+        heapq.heapify(freq_list)
+        topk = []
+        for i in range(0,k):
+            topk.append(heapq.heappop(freq_list)[1])
+        return topk
+        print(new)
+        # ans = [new.keys()][:k]
+        return ans
+
