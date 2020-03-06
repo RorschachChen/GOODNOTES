@@ -148,5 +148,37 @@ def findBottomLeftValue(self, root: TreeNode) -> int:
         print(res)
         return res[maxdp][0]
 
+46. permutations
+Solution:
+回朔法: 56.83% 100%
+分析：需要一个visited数组来查看当前数有么有被访问过，如果没有就一直加下去，知道path的长度和nums一样，说明找到了一组答案，append到res中。然后把倒数
+第二的vst恢复为没visited的状态。
+def permute(self, nums: List[int]) -> List[List[int]]:
+        vst = [0]*len(nums)
+        res = []
+        def helper(path):
+            if len(path) == len(nums):
+                res.append(path)
+            else:
+                for i in range(len(nums)):
+                    if not vst[i]:
+                        vst[i] = 1
+                        helper(path+[nums[i]])
+                        vst[i] = 0
+        helper([])
+        return res
+(经典递归)
+def permute(self, nums: List[int]) -> List[List[int]]:
+        res = []
+        self.helper(nums, res, [])
+        return res
+    
+def helper(self, nums, res, path):
+        if not nums:
+            res.append(path)
+        else:
+            for i in range(len(nums)):
+                self.helper(nums[:i] + nums[i + 1:], res, path + [nums[i]])
+
 1072. Flip Columns For Maximum Number of Equal Rows
 Solution:
