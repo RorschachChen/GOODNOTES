@@ -98,3 +98,26 @@ def baseNeg2(self, N: int) -> str:
             ans = str(num) + ans
             N = -(N>>1)
         return ans
+    
+609. Find Duplicate File in System
+Solution:
+def findDuplicate(self, paths: List[str]) -> List[List[str]]:
+        dd = {}
+        for i in range(len(paths)):
+            st = paths[i].split(' ')
+            path = st[0]
+            for j in range(1, len(st)):
+                tmp = st[j].rstrip(')').split('(')[1]
+                # print(tmp)
+                if tmp in dd.keys():
+                    dd[tmp].append(path+'/'+st[j].rstrip(')').split('(')[0])
+                else:
+                    dd[tmp] = [path+'/'+st[j].rstrip(')').split('(')[0]]
+        ans = []
+        for i in dd.keys():
+            if len(dd[i])>=2:
+                ans.append(dd[i])
+        return ans
+
+1090. Largest Values From Labels
+Solution:
