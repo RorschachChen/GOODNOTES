@@ -85,3 +85,16 @@ def longestCommonSubsequence(self, text1: str, text2: str) -> int:
 
         # L[m][n] contains the length of LCS of X[0..n-1] & Y[0..m-1] 
         return L[m][n] 
+
+1017. Convert to Base -2
+Solution:
+解析：待定
+def baseNeg2(self, N: int) -> str:
+        if N==0:
+            return "0"
+        ans = ""
+        while N!=0:
+            num = N & 1
+            ans = str(num) + ans
+            N = -(N>>1)
+        return ans
