@@ -121,3 +121,146 @@ def findDuplicate(self, paths: List[str]) -> List[List[str]]:
 
 1090. Largest Values From Labels
 Solution:
+def largestValsFromLabels(self, values: List[int], labels: List[int], num_wanted: int, use_limit: int) -> int:
+        res  = []
+        for i in range(len(values)):
+            res.append([values[i], labels[i]])
+        res.sort(key=lambda x: x[0], reverse=True)
+        freq = {}
+        i = 0
+        ans = 0
+        numSelected = 0
+        uniq = list(set(labels))
+        for i in range(len(uniq)):
+            freq[uniq[i]] = 0
+        # print(res)
+        i = 0
+        while numSelected<num_wanted and i<len(res):
+            if freq[res[i][1]]>=use_limit:
+                i+=1
+                continue
+            ans += res[i][0]
+            freq[res[i][1]] = freq.setdefault(res[i][1], 0) + 1
+            i+=1
+            numSelected += 1
+            # print(freq)    
+        return ans
+
+983. Minimum Cost For Tickets
+Solution:
+C++
+class Solution {
+public:
+    int mincostTickets(vector<int>& days, vector<int>& costs) {
+        vector<int> dp(366, INT_MAX);
+        for (int day: days) {
+            dp[day] = 0;
+        }
+        dp[0] = 0;
+        for (int i=1;i<366;i++) {
+            if (dp[i] == INT_MAX) {
+                dp[i] = dp[i-1];
+            }
+            else {
+                int cur = dp[i - 1] + costs[0];
+                cur = min(cur, costs[1] + dp[max(0, i - 7)]);
+                cur = min(cur, costs[2] + dp[max(0, i - 30)]);
+                dp[i] = cur;
+            }
+            
+        }
+        
+        return dp[days[days.size()-1]];
+    }
+};
+(python)
+def mincostTickets(self, days: List[int], costs: List[int]) -> int:
+        dp = [-1]*366
+        for day in days:
+            dp[day] = 0
+        dp[0] = 0
+        for i in range(1, 366):
+            if dp[i] == -1:
+                dp[i] = dp[i-1]
+            else:
+                dp[i] = min(dp[i-1]+costs[0], dp[max(i-7, 0)]+costs[1], dp[max(i-30, 0)]+costs[2])
+        return dp[days[-1]]
+
+1267. Count Servers that Communicate
+Solution:
+def countServers(self, grid: List[List[int]]) -> int:
+        rows, cols = len(grid), len(grid[0])
+        row = [0] * rows
+        col = [0] * cols
+        
+        for i in range(rows):
+            for j in range(cols):
+                if grid[i][j]==1:
+                    row[i] += 1
+                    col[j] += 1
+        count = 0
+        for i in range(rows):
+            for j in range(cols):
+                if grid[i][j]==1 and (row[i]>1 or col[j]>1):
+                    count += 1
+        return count
+查并集(未通过，不知道怎么把有共同链接点的parent设置为一样)
+def countServers(self, grid: List[List[int]]) -> int:
+        rows, cols = len(grid), len(grid[0])
+        # total = sum([sum(x) for x in grid])
+        parent = [0]*rows*cols
+        for i in range(rows):
+            for j in range(cols):
+                pixel = i*cols + j
+                if grid[i][j] == 1:
+                    # pixel = i*cols + j
+                    parent[pixel] = pixel
+                else:
+                    parent[pixel] = -1        
+        def find(i):
+            x = i
+            while parent[i] != i:
+                i = parent[i]
+                
+            while( x != i ):                                
+                j = parent[x]; 				
+                parent[x]= i ; 				
+                x=j;
+            return i
+        
+        def union(i, j):
+            pi = find(i)
+            pj = find(j)
+            if pi<=pj:
+                parent[i] = pj
+            else:
+                parent[j] = pi
+            
+        for i in range(rows):
+            flag = 0
+            for j in range(cols):
+                if flag == 0 and grid[i][j] == 1:
+                    flag = 1
+                    anchor = i*cols+j
+                    continue
+                if grid[i][j] == 1:
+                    tobe = i*cols+j
+                    union(anchor, tobe)    
+
+        for j in range(cols):
+            flag = 0
+            for i in range(rows):
+                if flag==0 and grid[i][j]==1:
+                    flag = 1
+                    anchor = i*cols+j
+                    continue
+                if grid[i][j]==1:
+                    tobe = i*cols+j
+                    union(anchor, tobe)
+        res = collections.Counter(parent)
+        sum = 0
+        for i in res.keys():
+            if i!=-1 and res[i]>=2:
+                sum+=res[i]
+        return sum
+
