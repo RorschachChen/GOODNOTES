@@ -71,3 +71,71 @@ def frequencySort(self, s: str) -> str:
             ans+=key[0]*key[1]
         return ans
 
+1324. Print Words Vertically
+Solution:
+def printVertically(self, s: str) -> List[str]:
+        s2 = s.split(' ')
+        rows = len(s2)
+        cols = max([len(x) for x in s2])
+        # print(cols)
+        ans = ["" for _ in range(cols)]
+        # print(ans)
+        for i in range(cols):
+            for j in range(rows):
+                if i>len(s2[j])-1:
+                    ans[i]+=" "
+                else:
+                    ans[i]+=s2[j][i]
+        # print(ans)
+        for i in range(len(ans)):
+            ans[i] = ans[i].rstrip(" ")
+        return ans
+
+1227. Airplane Seat Assignment Probability
+Solution:
+def nthPersonGetsNthSeat(self, n: int) -> float:
+        return 1 if n == 1 else 0.5
+
+260. Single Number III
+Solution:
+def singleNumber(self, nums: List[int]) -> List[int]:
+        left = 0
+        right = len(nums)-1
+        dd = {}
+        while left<right:
+            if nums[left] in dd:
+                dd.pop(nums[left])
+            else:
+                dd[nums[left]] = 0
+            if nums[right] in dd:
+                dd.pop(nums[right])
+            else:
+                dd[nums[right]] = 0
+            left += 1
+            right -= 1
+        return dd.keys()
+
+515. Find Largest Value in Each Tree Row
+Solution:
+def largestValues(self, root: TreeNode) -> List[int]:
+        if not root:
+            return
+        from collections import deque
+        stack = deque()
+        stack.append(root)
+        ans = []
+        while stack:
+            length = len(stack)
+            tmp = -math.inf
+            for _ in range(length):
+                node = stack.popleft()
+                tmp = max(tmp, node.val)
+                if node.left:
+                    stack.append(node.left)
+                if node.right:
+                    stack.append(node.right)
+            ans.append(tmp)
+        return ans
+
+865. Smallest Subtree with all the Deepest Nodes
+Solution:
