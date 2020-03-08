@@ -1,0 +1,5 @@
+“拿到一个问题，你感觉如果不穷举一下就没法知道答案，那就可以开始回溯了。”
+
+一般回溯的问题有三种：
+Find a path to success 有没有解
+Find all paths to success 求所有解
