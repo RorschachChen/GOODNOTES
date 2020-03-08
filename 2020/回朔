@@ -3,5 +3,11 @@
 一般回溯的问题有三种：
 Find a path to success 有没有解
 Find all paths to success 求所有解
+Find the best path to success 求最优解
 
 https://segmentfault.com/a/1190000006121957
+
+关于回溯的三种问题，模板略有不同，
+第一种，返回值是true/false。
+第二种，求个数，设全局counter（self.），返回值是void(self.func()只调用不返回)；求所有解信息，设result，返回值void。
+第三种，设个全局变量best，返回值是void。
