@@ -152,3 +152,27 @@ def scoreOfParentheses(self, S: str) -> int:
                 res+=(1<<cnt)
         return res
 
+22. Generate Parentheses
+Solution:
+回朔。helper需要知道左括号还剩多少，右括号还剩多少，如果都为0说明用完了，可以append进res了。而且每次都需要先用（，不能先用）。如果右括号一旦比左多
+了，就要立刻把右括号追加上去，让这两个。。。。
+先是把所有（用掉，然后这时候）还没用，第二个if不走了，一直在后面添加）。一直回朔
+example: n=4
+先添加的是(((()))),然后一路回朔到((()，继续往下走((()())),((())()),((()))())...
+def generateParenthesis(self, n: int):
+        """
+        :param n: 
+        :return: 
+        """
+        res = []
+        self.helper(res, n, n, "")
+        return res
+        
+def helper(self, res, left_left, right_left, path):
+        if left_left==0 and right_left==0:
+            res.append(path)
+            return
+        if left_left:
+            self.helper(res, left_left-1, right_left, path+"(")
+        if left_left<right_left:
+            self.helper(res, left_left, right_left-1, path+")")
