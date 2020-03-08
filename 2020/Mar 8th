@@ -176,3 +176,98 @@ def helper(self, res, left_left, right_left, path):
             self.helper(res, left_left-1, right_left, path+"(")
         if left_left<right_left:
             self.helper(res, left_left, right_left-1, path+")")
+
+1190. Reverse Substrings Between Each Pair of Parentheses
+Wrong Solution:
+MF--
+原本都能跑通，结果来了个这个规则"ta()usw((((a))))"，只要配对就消掉
+def reverseParentheses(self, s: str) -> str:
+        if '(' not in s:
+            return s
+        left = s.index('(')
+        for i in range(len(s)-1, -1, -1):
+            if s[i]==')':
+                break
+        ans = s[:left] + self.helper(s[left+1:i]) + s[i+1:]
+        return ans
+        
+        
+    def helper(self, strng):
+        if '(' not in strng:
+            return strng[::-1]
+        s = strng
+        for i in range(len(strng)):
+            if s[i]=="(":
+                break
+        left_pointer = i
+        for j in range(len(s)-1, -1, -1):
+            if s[j]==")":
+                break
+        right_pointer = j
+        tmp = s[:left_pointer] + self.helper(s[left_pointer+1:right_pointer]) + s[right_pointer+1:]
+        return tmp[::-1]
+(Wrong solution)
+这次是没想到应该和最近的进行消消乐
+def reverseParentheses(self, s: str) -> str:
+        # ans = ""
+        # count = 0
+        # for i in range(len(s)):
+        #     if s[i].isalpha():
+        #         if count == 0:
+        #             ans+=s[i]
+        #     else:
+        #         if s[i]=='(':
+        #             count+=1
+        #             if count==1:
+        #                 left = i
+        #         if s[i]==')':
+        #             count-=1
+        #             if count==0:
+        #                 ans+=self.helper(s[left+1:i])
+        # return ans
+                    
+        
+        
+    # def single(self, s:str) -> str:
+    #     if '(' not in s:
+    #         return s
+    #     left = s.index('(')
+    #     for i in range(len(s)-1, -1, -1):
+    #         if s[i]==')':
+    #             break
+    #     ans = s[:left] + self.helper(s[left+1:i]) + s[i+1:]
+    #     return ans
+        
+        
+    def helper(self, strng):
+        if '(' not in strng:
+            return strng[::-1]
+        s = strng
+        for i in range(len(strng)):
+            if s[i]=="(":
+                break
+        left_pointer = i
+        for j in range(len(s)-1, -1, -1):
+            if s[j]==")":
+                break
+        right_pointer = j
+        tmp = s[:left_pointer] + self.helper(s[left_pointer+1:right_pointer]) + s[right_pointer+1:]
+        return tmp[::-1]
+
+（Solution）
+https://www.cnblogs.com/seyjs/p/11532014.html
+def reverseParentheses(self, s: str) -> str:
+        left_inx = []
+        stack = []
+        for i in s:
+            if i == '(':
+                stack.append(i)
+                left_inx.append(len(stack)-1)
+            elif i == ')':
+                inx = left_inx.pop(-1)
+                sub = stack[inx + 1:]
+                sub.reverse()
+                stack = stack[:inx] + sub
+            else:
+                stack.append(i)
+        return ''.join(stack)
