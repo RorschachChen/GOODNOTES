@@ -139,3 +139,16 @@ def largestValues(self, root: TreeNode) -> List[int]:
 
 865. Smallest Subtree with all the Deepest Nodes
 Solution:
+分析：关键是找最深的"()"，这时候cnt代表外层有几层，因为里面是相加后再乘2的cnt倍，所以外层的"()"只有倍数的作用
+def scoreOfParentheses(self, S: str) -> int:
+        res = 0
+        cnt = 0
+        for i in range(len(S)):
+            if S[i]=='(':
+                cnt+=1
+            elif S[i]==')':
+                cnt-=1
+            if S[i]==')' and S[i-1]=='(':
+                res+=(1<<cnt)
+        return res
+
