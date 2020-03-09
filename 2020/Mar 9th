@@ -111,3 +111,5 @@ def minHeightShelves(self, books: List[List[int]], shelf_width: int) -> int:
             dp[i] = min(vault)
         return dp[-1]
         
+529. Minesweeper
+Solution:
