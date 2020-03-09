@@ -1,0 +1,35 @@
+865. Smallest Subtree with all the Deepest Nodes
+判断某节点的左右子树高度是否相等，如果不相等，recur那个更深的.
+具体点：dfs返回第一个是深度，第二个是节点
+Solution:
+https://blog.csdn.net/fuxuemingzhu/article/details/82432130
+def subtreeWithAllDeepest(self, root: TreeNode) -> TreeNode:
+        return self.dfs(root)[1]
+    
+def dfs(self, root):
+        if not root:
+            return 0, None
+        left = self.dfs(root.left)
+        right = self.dfs(root.right)
+        if left[0]>right[0]:
+            return left[0]+1, left[1]
+        elif left[0]<right[0]:
+            return right[0]+1, right[1]
+        else:
+            return left[0]+1, root
+
+647. Palindromic Substrings
+Solution:
+def countSubstrings(self, s: str) -> int:
+        self.ans = 0
+        for i in range(len(s)):
+            self.helper(s, i, i)
+            self.helper(s, i, i+1)
+        return self.ans
+            
+def helper(self, string, left, right):
+        while(left>=0 and right<=len(string)-1 and string[left]==string[right]):
+            left-=1
+            right+=1
+            self.ans+=
+
