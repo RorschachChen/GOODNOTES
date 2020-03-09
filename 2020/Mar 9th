@@ -33,3 +33,38 @@ def helper(self, string, left, right):
             right+=1
             self.ans+=
 
+78. Subsets
+Solution:
+(1)
+def subsets(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        res = [[]]
+        for num in nums :
+            for temp in res[:] :
+                x = temp[:]
+                x.append(num)
+                res.append(x)
+        return res
+(2)      
+分析：用三位表示从0到7的数，每个位从0到1都有，如果有1就取这个数到队列中。专程一个
+def subsets(self, nums: List[int]) -> List[List[int]]:
+        res = []
+        maxbit = 2**len(nums)
+        for i in range(maxbit):
+            tmp = self.convert(nums, i)
+            res.append(tmp)
+        return res
+def convert(self, nums, k):
+        tmp = []
+        i = k
+        idx =  0
+        while i>0:
+            if ((i & 1) == 1):
+                tmp.append(nums[idx]);
+            idx+=1
+            i = i>>1
+        return tmp
+        
