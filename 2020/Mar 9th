@@ -67,4 +67,24 @@ def convert(self, nums, k):
             idx+=1
             i = i>>1
         return tmp
-        
+
+540. Single Element in a Sorted Array
+Solution:
+(1)72 5
+def singleNonDuplicate(self, nums: List[int]) -> int:
+        if len(nums)==1:
+            return nums[0]
+        left = 0
+        while len(nums)-1>left>=0:
+            if nums[left]==nums[left+1]:
+                left += 2
+            else:
+                return nums[left]  
+        return nums[-1]
+(2)44 7
+def singleNonDuplicate(self, nums: List[int]) -> int:
+        result = 0
+        for i in nums:
+            result^=i
+        return result   
+
