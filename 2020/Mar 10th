@@ -77,3 +77,31 @@ def minimumDeleteSum(self, s1: str, s2: str) -> int:
 547. Friend Circles
 并查集
 Solution:
+def findCircleNum(self, M: List[List[int]]) -> int:
+        parent = [i for i in range(len(M))]
+        
+        def find(i):
+            while parent[i]!=i:
+                i = parent[i]
+            return i
+        
+        def union(i, j, m):
+            ip = find(i)
+            jp = find(j)
+            if ip!=jp:
+                parent[jp]  = ip
+                m-=1
+            return m
+            
+        NUM = len(M)
+        m = NUM
+        for i in range(NUM):
+            for j in range(NUM):
+                if M[i][j] == 1:
+                    m = union(i, j, m)
+        # print(m)
+        # print(parent)
+        # from collections import Counter
+        # res = Counter(parent)
+        return m
+奇怪的问题：        
