@@ -9,3 +9,53 @@ find需要路径压缩，还要进行权重压缩
 
 这道题还要考虑equations里没有的，queries里有的情况
 还需要考虑python中哪种结构能key是char，value也是char的，
+
+def calcEquation(self, equations: List[List[str]], values: List[float], queries: List[List[str]]) -> List[float]:
+        parent = {}
+        for i in range(len(equations)):
+            if equations[i][0] not in parent:
+                parent[equations[i][0]] = equations[i][0]
+            if equations[i][1] not in parent:
+                parent[equations[i][1]] = equations[i][1]
+                
+        val = {}
+        for key in parent:
+            if key not in val:
+                val[key] = 1.0
+        
+        def getFather(i):
+            if parent[i] == i:
+                return i
+            else:
+                tmp = getFather(parent[i])
+                val[i] = val[i] * val[parent[i]]
+                parent[i] = tmp
+                # print(parent[x])
+                return parent[i]
+            
+        def merge(i, j, value):
+            ii = getFather(i)
+            jj = getFather(j)
+            print(ii)
+            print(jj)
+            parent[jj] = ii;
+            val[jj] = val[i] * 1.0 / val[j] * value;
+            
+        def ask(i, j):
+            if i not in parent or j not in parent:
+                return -1
+            ii = getFather(i) 
+            jj = getFather(j)
+            if ii != jj:
+                return -1;
+            return val[j] * 1.0 / val[i]; 
+            
+        for i in range(len(equations)):
+            merge(equations[i][0], equations[i][1], values[i])
+            
+        print(parent)
+        print(val)
+        ans = []    
+        for i in range(len(queries)):
+            ans.append(ask(queries[i][0], queries[i][1]))     
+        return ans
