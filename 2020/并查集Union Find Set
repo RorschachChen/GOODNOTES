@@ -65,3 +65,7 @@ def calcEquation(self, equations: List[List[str]], values: List[float], queries:
         for i in range(len(queries)):
             ans.append(ask(queries[i][0], queries[i][1]))     
         return ans
+
+130. 
+
+200. Number of Islands
