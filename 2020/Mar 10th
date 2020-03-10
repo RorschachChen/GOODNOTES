@@ -228,3 +228,27 @@ def numIslands(self, grid: List[List[str]]) -> int:
             if pt == index:
                 res += 1
         return res
+
+1094. Car Pooling
+Solution:
+def carPooling(self, trips: List[List[int]], capacity: int) -> bool:
+        res = [0] * 1001
+        for i in range(len(trips)):
+            for j in range(trips[i][1], trips[i][2]):
+                res[j] += trips[i][0]
+                
+        return max(res)<=capacity
+(2)60 100
+def carPooling(self, trips: List[List[int]], capacity: int) -> bool:
+        res = [0] * 1001
+        for i in range(len(trips)):
+            res[trips[i][1]] += trips[i][0]
+            res[trips[i][2]] -= trips[i][0]
+        for i in range(len(res)):
+            if i==0:
+                res[i] = res[i]
+            else:
+                res[i] += res[i-1]
+            if res[i]>capacity:
+                return False
+        return True
