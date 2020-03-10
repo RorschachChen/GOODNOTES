@@ -180,3 +180,51 @@ def solve(self, board: List[List[str]]) -> None:
                 if board[i][j]=='O' and not isconnected(mat2vec(i, j), rows*cols):
                     board[i][j] ='X'
 
+200. Number of Islands
+Solution:
+并查表，太慢了
+def numIslands(self, grid: List[List[str]]) -> int:
+        board = grid
+        rows = len(board)
+        if rows==0:
+            return 0
+        cols = len(board[0])
+        
+        parent = [i for i in range(rows*cols+1)] 
+
+        def find(i):
+            p = i
+            while parent[p]!=p:
+                p = parent[p]
+            # 路径不压缩直接TLE
+            while parent[i]!=i:
+                temp = parent[i]
+                parent[i] = p
+                i = temp
+            return p
+
+        def union(i, j):
+            ip = find(i)
+            jp = find(j)
+            if ip!=jp:
+                parent[jp] = ip
+
+        def mat2vec(i, j):
+            return i*cols + j
+        
+        directions = [(1, 0), (0, 1)]
+        for i in range(rows):
+            for j in range(cols):
+                if board[i][j]=='0':
+                    union(mat2vec(i, j), rows*cols)
+                if board[i][j]=='1':
+                    for direction in directions:
+                        fx = i+direction[0]
+                        fy = j+direction[1]
+                        if fx<rows and fy<cols and board[fx][fy]=='1':
+                            union(mat2vec(i, j), mat2vec(fx, fy))
+        res = -1
+        for index, pt in enumerate(parent):
+            if pt == index:
+                res += 1
+        return res
