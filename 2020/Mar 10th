@@ -105,3 +105,12 @@ def findCircleNum(self, M: List[List[int]]) -> int:
         # res = Counter(parent)
         return m
 奇怪的问题：        
+每次改变的都是parent，而不是每个和parent相同的每个点。如果要用Counter的话，需要路径压缩
+
+1094. Car Pooling
+Solution:
+
+
+
+
+
