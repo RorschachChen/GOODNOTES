@@ -1,0 +1,7 @@
+#define ENABLE_DEBUG // comment out to disable debugging
+
+send debugging information to a log file
+
+例子
+#include <plog/Log.h> // Step 1: include the logger header
+LOGD << "getUserInput() called"; // LOGD is defined by the plog library
