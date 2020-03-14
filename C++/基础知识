@@ -1,0 +1,35 @@
+compile to object file .o
+Linking object files and libraries
+ A library file is a collection of precompiled code that has been “packaged up” for reuse in other programs.
+ "iostream" library: includes "input, output, print, ..."
+ 
+ makefile告知如何构建程序
+ 
+ In C++, direct memory access is not allowed
+ 
+ int width = 5--copy
+ int width( 5 )--direct initialization
+ 
+ insertion operator<<:send the text to the console
+ extraction operator>>
+ 
+ \n不刷新，endl刷新显示
+ 
+Initialization = The object is given a known value at the point of definition.
+Assignment = The object is given a known value beyond the point of definition.
+Uninitialized = The object has not been given a known value yet.
+
+variable starts with lowercase
+function also
+Identifier capital letter
+avoid identifiers start with _
+
+function= sequence of statements
+return-type identifier()
+{
+// Your code here
+}
+Nested functions not supported.
+
+can only return a single value
+函数中有未定义值时不会compile.
