@@ -1,0 +1,5 @@
+namespace中命名唯一
+C ++将标准库中的所有功能移到了名为“ std”（标准的缩写）的命名空间中。
+
+A using directive tells compiler check a namespace when resolve an identifier has no 
+namespace prefix.
