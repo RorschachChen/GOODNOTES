@@ -1,0 +1,9 @@
+二
+0b
+八
+012
+十六
+0x
+
+打印
+std::dec, std::oct, and std::hex:
