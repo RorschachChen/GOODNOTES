@@ -1,1 +1,10 @@
 Runtime constants是那些只能在运行时（程序正在运行时）解析其初始值的常量。
+constexpr must be a compile-time constant
+#define macro, debugger看不到值，影响debug
+Avoid using #define to create symbolic constants macros.
+constexpr可以看到值
+
+1）创建一个头文件来保存这些常量
+2）在此标头文件中，声明一个名称空间
+3）在您的命名空间中添加所有常量（确保它们在C ++ 11/14中为constexpr，或者在C ++ 17或更高版本中为内联constexpr）
+4）＃在需要的地方包含头文件
