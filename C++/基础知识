@@ -33,3 +33,26 @@ Nested functions not supported.
 
 can only return a single value
 函数中有未定义值时不会compile.
+
+parameter是函数定义部分传入名称
+argument是调用函数时传入的实例参数
+调用时，parameters of function created as variables,value是argument复制过来的“pass by value.“ 没有顺序
+函数内变量是局部变量
+
+main和func相同名字的参数无关
+
+compiler compile sequence, 
+（1）main放最后
+（2）forward declaration
+例子：
+function prototype： int add(int x, int y); 返回类型，名字，参数
+main
+真正func
+
+definition实例化
+one definition rule（ODR）TODO
+1. a function, object, type, or template can only have one definition
+2. 
+
+declaration只告诉有这样一个变量和类型，但是不一定赋值，没初始化
+all declarations are not definitions
