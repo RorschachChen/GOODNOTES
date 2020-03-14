@@ -84,3 +84,13 @@ header guard
 尖括号用于告诉预处理器我们包括编译器随附的头文件，因此它应在系统目录中查找该头文件。 
 双引号告诉预处理器这是我们提供的用户定义的头文件，因此它应在当前目录中查找包含我们源代码的头文件。 
 transitive includes：include会把include include
+
+头文件套娃：
+用guard来保护
+#ifndef SOME_UNIQUE_NAME_HERE
+#define SOME_UNIQUE_NAME_HERE
+// your declarations (and certain types of definitions) here
+#endif
+首先查看是否已经define来
+SOME_UNIQUE_NAME_HERE最好是全大写的该文件
+SOME_UNIQUE_NAME_HERE最好是全大写的改
