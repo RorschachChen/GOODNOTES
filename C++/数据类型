@@ -1,0 +1,30 @@
+void函数输入参数为空或不返回
+
+1byte
+bool, char, wchar_t
+
+2byte
+char16_t, char32_t(4 byte)
+
+2byte
+short, int, 
+
+4byte
+long, float
+
+8byte
+long long, double, 
+
+C99 defined many fixed-width integers
+std::int8_t, std::uint8_t, std::int16_t, std::uint16_t, std::int32_t, std::uint32_t	, std::int64_t, std::uint64_t
+
+注意int8_t和uint8_t有可能被转成char
+
+避免无符号
+避免8位固定宽度整数类型。
+
+sizeof返回std::sizeof
+
+cout只保留6位精度
+
+Inf NaN
