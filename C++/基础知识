@@ -56,3 +56,31 @@ one definition rule（ODR）TODO
 
 declaration只告诉有这样一个变量和类型，但是不一定赋值，没初始化
 all declarations are not definitions
+
+preprocessor可看作一个单独的程序
+当预处理器运行时，它将扫描代码文件（从上到下），以查找预处理器指令。
+Preprocessor directives以#开头换行结尾，不是分号
+#include directive 
+The included contents are then preprocessed (along with the rest of the file), and then compiled.
+#define macro
+没有替换text: any further occurrence of the identifier is removed and replaced by nothing!
+
+conditional preprocessor满足条件才compile
+#ifdef: whether an identifier has been previously #defined
+#ifndef: not
+#endif.the code between the #ifdef and matching #endif is compiled
+
+#if 0: exclude code from being compiled
+#endif
+
+#define identifiers outside of functions.
+
+HEADER FILE
+purpose of header is propagate declarations to code files.
+include把文件直接填充到该处
+头文件就是把前向声明全写在一个文件中，在需要调用的程序中需要include头文件
+header组成：
+header guard
+尖括号用于告诉预处理器我们包括编译器随附的头文件，因此它应在系统目录中查找该头文件。 
+双引号告诉预处理器这是我们提供的用户定义的头文件，因此它应在当前目录中查找包含我们源代码的头文件。 
+transitive includes：include会把include include
