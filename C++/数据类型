@@ -28,3 +28,10 @@ sizeof返回std::sizeof
 cout只保留6位精度
 
 Inf NaN
+
+
+type cast
+static_cast<new_type>(expression)
+原变量的值不变，相当于是调用
+
+当cin的时候输入了一段，但是只能保存一部分，剩下的会保存在缓冲区。
