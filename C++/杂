@@ -8,3 +8,8 @@ constexpr可以看到值
 2）在此标头文件中，声明一个名称空间
 3）在您的命名空间中添加所有常量（确保它们在C ++ 11/14中为constexpr，或者在C ++ 17或更高版本中为内联constexpr）
 4）＃在需要的地方包含头文件
+
+file scope一般指有internal的
+global scope指external
+
+全局变量在main之前initial
