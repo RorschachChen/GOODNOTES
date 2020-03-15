@@ -3,3 +3,33 @@ if (condition) {};
 if {}; else {};
 
 if else内定义的参数在最后一个}后被destroy，所以会显示未定义参数。
+
+comparing floating point using relational operators can be dangerous，浮点数不准。
+
+&&, ||, !逻辑
+&, |, ~按位运算，^xor
+
+按位运算std::bitset
+有时候八个位打包到一个字节，避免浪费
+
+bit flags
+std::bitset<8> mybitset {};
+Bit manipulation用unsigned
+
+bitset
+test()检查某位是不是1
+set()置1
+reset()置0
+flip()翻转
+
+bit masks
+C++14 0b0000'0001
+C++11 doesn’t support binary literals{ 0x1 } # hex for 0000 0001
+mask可一次性改变多位
+
+十进制二进制转换
+two compliment
+-5---> 0000 0101-----> 1111 1010----> 1111 1011
+加一的原因是避免出现正负0的情况
+
+如果符号位为1，则我们将这些位取反，加1，然后转换为十进制，使该十进制数为负
