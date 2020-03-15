@@ -3,3 +3,38 @@ C ++将标准库中的所有功能移到了名为“ std”（标准的缩写）
 
 A using directive tells compiler check a namespace when resolve an identifier has no 
 namespace prefix.
+
+namespace goo // define a namespace named goo
+{
+    在这定义的函数会留在这个namespace里
+}
+
+nested namespace
+space1::space2::space3
+
+namespace boo = foo::goo // boo now refers to foo::goo
+
+
+Scope is a compile-time property.
+
+global variable identifier start with 'g' or 'g_'
+
+This is called static duration. Variables with static duration are sometimes called static variables.
+
+同名the nested variable “hides” the outer variable in areas where they are both in scope.
+看再不再定义，最主要的还是根据destroy time
+
+identifier with internal linkage be seen within a single file
+external linkage all files
+
+用static来定义internal 变量
+Const and constexpr默认有internal 
+函数也可加static
+
+external 可通过forward declaration来访问
+函数默认external
+定义的时候加extern手动变external
+
+If you want to define an uninitialized non-const global variable, do not use the extern keyword, 
+otherwise C++ will think you’re trying to make a forward declaration for the variable.
+extern 
