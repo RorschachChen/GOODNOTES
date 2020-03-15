@@ -2,3 +2,4 @@ if (condition) {};
 
 if {}; else {};
 
+if else内定义的参数在最后一个}后被destroy，所以会显示未定义参数。
