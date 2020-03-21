@@ -25,3 +25,30 @@ AVG(要求的列的名称)
 分组聚合
 SELECT COUNT(*) num FROM students GROUP BY class_id;
 GROUP BY
+
+从多个表查询直接from后面把所有表全加进来就可以
+结果集的列数是students表和classes表的列数之和，行数是students表和classes表的行数之积。
+
+两个表中可能有重名的，可以利用投影查询的“设置列的别名”来给两个表各自的id和name列起别名
+SELECT 
+    students.id sid,
+    students.name,
+    students.gender,
+    students.score,
+    classes.id cid,
+    classes.name cname
+FROM students, classes;
+手动写别名，但是有点繁琐
+可以把表名也用别名，students s, classes c
+
+连接查询：
+根据students表的class_id，找到classes表对应的行，再取出name列
+注意INNER JOIN查询的写法是：
+1. 先确定主表，仍然使用FROM <表1>的语法；
+2. 再确定需要连接的表，使用INNER JOIN <表2>的语法；
+3. 然后确定连接条件，使用ON <条件...>，这里的条件是s.class_id = c.id，表示students表的class_id列与classes表的id列相同的行需要连接；
+4. 可选：加上WHERE子句、ORDER BY等子句。
+
+INNER JOIN只返回同时存在于两张表的行数据
+RIGHT OUTER JOIN返回右表都存在的行
+LEFT OUTER JOIN则返回左表都存在的行
