@@ -11,3 +11,12 @@ UPDATE <表名> SET 字段1=值1, 字段2=值2, ... WHERE ...;
 
 DELETE FROM <表名> WHERE ...;
 第二种方法：truncate table。 truncate table将删除表中的所有记录。
+
+REPLACE INTO和INSERT很像，有就改，没有就创建。是直接删除，INSERT是更新
+
+INSERT IGNORE INTO ...
+
+INSERT INTO ... ON DUPLICATE KEY UPDATE ...这是更新
+
+INSERT IGNORE INTO ...如果有就什么都不干
+
