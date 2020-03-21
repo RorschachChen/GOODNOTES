@@ -3,3 +3,25 @@
 SELECT * FROM <表名> WHERE <条件表达式>
 
 WHERE score BETWEEN 60 AND 90
+
+返回某些列的数据，而不是所有列的数据
+SELECT 要的列 FROM students;
+SELECT 列1 别名1, 列2 别名2, 列3 别名3 FROM ...
+
+
+ORDER BY score (DESC，递减);
+
+从结果集中“截取”出第M~N条记录。这个查询可以通过LIMIT <M> OFFSET <N>
+LIMIT 3表示的意思是“最多3条记录”
+
+SELECT COUNT(*) FROM students;
+COUNT(*)表示查询所有列的行数
+查询的结果是一个二维表，表头是COUNT(*)
+
+SUM, AVG, MAX, MIN
+
+AVG(要求的列的名称)
+
+分组聚合
+SELECT COUNT(*) num FROM students GROUP BY class_id;
+GROUP BY
