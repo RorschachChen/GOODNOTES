@@ -1,3 +1,5 @@
 因此，条件查询的语法就是：
 
 SELECT * FROM <表名> WHERE <条件表达式>
+
+WHERE score BETWEEN 60 AND 90
