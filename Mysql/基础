@@ -52,3 +52,6 @@ FROM students, classes;
 INNER JOIN只返回同时存在于两张表的行数据
 RIGHT OUTER JOIN返回右表都存在的行
 LEFT OUTER JOIN则返回左表都存在的行
+
+
+ALTER TABLE old_table_name RENAME new_table_name
