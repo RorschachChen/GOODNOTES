@@ -1,0 +1,57 @@
+42. Trapping Rain Water HARD
+Solution:
+（暴力超时）
+def trap(self, height: List[int]) -> int:
+        num = len(height)
+        ans = 0
+        for i in range(1, num-1):
+            lmax = 0
+            rmax = 0
+            for j in range(i, num):
+                rmax = max(rmax, height[j])
+            for j in range(i, -1, -1):
+                lmax = max(lmax, height[j])
+            ans += min(lmax, rmax) - height[i]
+        return ans
+
+(备忘录)
+def trap(self, height: List[int]) -> int:
+        if len(height)==0:
+            return 0
+        num = len(height)
+        ans = 0
+        lmax = [0]*num
+        rmax = [0]*num
+        lmax[0] = height[0]
+        rmax[-1] = height[-1] 
+        for i in range(1, num):
+            lmax[i] = max(lmax[i-1], height[i])
+        for i in range(num-2, -1, -1):
+            rmax[i] = max(rmax[i+1], height[i])
+            
+        print(lmax)
+        print(rmax)
+        for i in range(1, num-1):
+            ans += min(lmax[i], rmax[i]) - height[i]
+        return ans
+(再优化)
+def trap(self, height: List[int]) -> int:
+        if len(height)==0:
+            return 0
+        num = len(height)
+        ans = 0
+        left = 0
+        right = num -1 
+        l_max = height[0]
+        r_max = height[-1]
+        
+        while (left<=right):
+            l_max = max(l_max, height[left])
+            r_max = max(r_max, height[right])
+            if l_max<r_max:
+                ans += l_max - height[left]
+                left += 1
+            else:
+                ans += r_max - height[right]
+                right -= 1
+        return ans
