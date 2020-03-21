@@ -1,0 +1,22 @@
+列出所有数据库SHOW DATABASES；
+
+information_schema、mysql、performance_schema和sys是系统库
+
+创建新
+CREATE DATABASE test
+删除旧
+DROP DATABASE test;
+
+对一个数据库进行操作时，要首先将其切换为当前数据库：
+USE test;
+
+列出当前数据库的所有表，使用命令：
+SHOW TABLES
+
+要查看一个表的结构，使用命令：
+DESC students;
+
+CREATE TABLE
+DROP TABLE
+
+修改表
