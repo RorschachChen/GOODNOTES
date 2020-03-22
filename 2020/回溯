@@ -65,3 +65,37 @@ class Solution:
             self.helper(candidates, target-candidates[i], i+1, visited)
             self.path.pop()
             visited[i] = False
+
+79. Word Search
+Solution:
+class Solution:
+    def exist(self, board: List[List[str]], word: str) -> bool:
+        rows, cols = len(board), len(board[0])
+        # query = []
+        self.ans = False
+        for i in range(rows):
+            for j in range(cols):
+                if board[i][j]==word[0]:
+                    if self.ans==True:
+                        return True
+                    visited = [[False]*cols for _ in range(rows)]
+                    visited[i][j] = True
+                    self.dfs(i, j, board, word[1:], visited)
+        return self.ans
+        
+    def dfs(self, i, j, board, word, visited):
+        if self.ans==True:
+            return
+        directions = [(1, 0), (0, 1), (0, -1), (-1, 0)]
+        if not word:
+            self.ans = True
+            return
+        for direction in directions:
+            nx = i + direction[0]
+            ny = j + direction[1]
+            if 0<=nx<=len(board)-1 and 0<=ny<=len(board[0])-1 and not visited[nx][ny]:
+                if board[nx][ny]==word[0]:
+                    visited[nx][ny]=True
+                    self.dfs(nx, ny, board, word[1:], visited)
+                    visited[nx][ny]=False
+                
