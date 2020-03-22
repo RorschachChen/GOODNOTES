@@ -37,3 +37,30 @@ class Solution:
             self.helper(candidates, target-candidates[i], i)
             self.path.pop()
 
+40. Combination Sum II
+class Solution:
+    def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
+        self.ans = []
+        self.path = []
+        candidates.sort()
+        visited = [False]*len(candidates)
+        self.helper(candidates, target, 0, visited)
+        return self.ans
+    
+    def helper(self, candidates, target, level, visited):
+        if target==0:
+            self.ans.append(deepcopy(self.path))
+            return
+        for i in range(level, len(candidates)):
+            if i>level and candidates[i]==candidates[i-1]:
+                continue
+            关键就是同一层不能用两次，但是下一层可以继续用
+            if visited[i]:
+                continue
+            if target-candidates[i]<0:
+                break
+            self.path.append(candidates[i])
+            visited[i] = True
+            self.helper(candidates, target-candidates[i], i+1, visited)
+            self.path.pop()
+            visited[i] = False
