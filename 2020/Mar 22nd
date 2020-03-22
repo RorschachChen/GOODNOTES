@@ -46,3 +46,34 @@ def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
             else:
                 return True
         return False
+
+76. Minimum Window Substring
+(HARD)
+def minWindow(self, s: str, t: str) -> str:
+        """
+        :type s: str
+        :type t: str
+        :rtype: str
+        """
+        if not s or not t:
+            return ""
+        t_map = collections.Counter(t)
+        l, cnt, wanted = 0, 0, len(t)
+        min_window = len(s)+1
+        res = ""
+        for idx, c in enumerate(s):
+            if c in t_map:
+                if t_map[c] >0:
+                    cnt+=1
+                t_map[c] -=1
+                while cnt == wanted:#when we reach the right boundary
+                    if idx - l + 1 < min_window: #check the window size,update res if possible
+                        min_window = idx -l+1
+                        res = s[l:idx+1]
+                    if s[l] in t_map: #shrink the left boundary
+                        t_map[s[l]] +=1
+                        if t_map[s[l]] > 0:
+                            cnt-=1
+                    l+=1
+        return res
+
