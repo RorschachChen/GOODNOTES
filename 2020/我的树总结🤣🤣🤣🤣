@@ -1,0 +1,34 @@
+dfs模版代码
+def dfs(n):
+    if n > depth:
+        return 
+    for i in decisions:
+        do_decision(i)
+        dfs(n+1)
+        rollback(i)
+
+def dfs(node):
+    if node is None:
+        return
+    for child in node.childs:
+        print(child)
+        dfs(child)
+
+广度优先
+需要横向遍历的时候，显然递归就不适用了，但是我们同样需要一个数据结构来存储遍历时候的状态，就好像游戏存档一样。
+栈是先进后出的所以不满足，而队列是先进先出的，这正是我们需要的。
+模板代码：
+queue = Queue()
+while not queue.empty():
+    state = queue.front()
+    queue.pop()
+    print(state)
+    for new_state in state.new_states():
+        queue.put(new_state)
+
+在Python3版本当中是queue
+
+其实说起来只有一点差别，就是当我们搜索没有结束就找到答案时，bfs可以提前结束，而dfs往往不能。
+bfs实现通常是通过while循环，而不是使用递归。那么，当我们已经找到答案的时候，我们可以很简单地通过break跳出循环，提前结束遍历。
+
+que.push((S, []))
