@@ -1,0 +1,48 @@
+74. Search a 2D Matrix (Medium)
+Solution:
+def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
+        rows = len(matrix)
+        if rows==0:
+            return False
+        cols = len(matrix[0])
+        if cols==0:
+            return False
+        if rows==1:
+            #解决了只有一行
+            return self.binarysearch(matrix[0], target)
+        left = 0
+        right = rows - 1
+        if target<matrix[0][cols-1]:
+            return self.binarysearch(matrix[0], target)
+        if target>matrix[rows-1][cols-1]:
+            return False
+        if target==matrix[rows-1][cols-1] or target==matrix[0][cols-1]:
+            return True
+        while not (matrix[left][cols-1]<target<matrix[right][cols-1] and left+1==right):
+            #必须至少有两行
+            if left>=right:
+                break
+            mid = (left+right)//2
+            if target>matrix[mid][cols-1]:
+                left = mid
+            if target<matrix[mid][cols-1]:
+                right = mid
+            if target==matrix[mid][cols-1]:
+                return True
+        return self.binarysearch(matrix[right], target)
+
+
+    def binarysearch(self, arr, tar) -> bool:
+        if len(arr)==1:
+            return arr[0]==tar
+        left = 0
+        right = len(arr)-1
+        while left<=right:
+            mid = (left+right)//2
+            if arr[mid]<tar:
+                left = mid+1
+            elif arr[mid]>tar:
+                right = mid-1
+            else:
+                return True
+        return False
