@@ -11,3 +11,29 @@ https://segmentfault.com/a/1190000006121957
 第一种，返回值是true/false。
 第二种，求个数，设全局counter（self.），返回值是void(self.func()只调用不返回)；求所有解信息，设result，返回值void。
 第三种，设个全局变量best，返回值是void。
+
+
+39. Combination Sum
+Solution:
+from copy import deepcopy
+class Solution:
+    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+        self.ans = []
+        # if len(candidates)<=1:
+        # candidates
+        self.path = []
+        candidates.sort()
+        self.helper(candidates, target, 0)
+        return self.ans
+    
+    def helper(self, candidates, target, level):
+        if target==0:
+            self.ans.append(deepcopy(self.path))
+            return
+        for i in range(level, len(candidates)):
+            if target-candidates[i]<0:
+                break
+            self.path.append(candidates[i])
+            self.helper(candidates, target-candidates[i], i)
+            self.path.pop()
+
