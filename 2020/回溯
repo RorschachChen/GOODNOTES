@@ -174,4 +174,25 @@ class Solution:
         while level+1<len(nums) and nums[level+1]==nums[level]:
             level += 1
         self.helper(nums, path, visited, level+1)
-            
+
+78. Subsets
+Solution:
+from copy import deepcopy
+class Solution:
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        self.ans = []
+        if len(nums)==1:
+            return []
+        nums.sort()
+        visited = [False]*(len(nums))
+        self.helper(nums, [], visited, 0)
+        return self.ans
+        
+    def helper(self, nums, path, visited, index):
+        if index==len(nums):
+            self.ans.append(deepcopy(path))
+            return
+        visited[index]=True
+        self.helper(nums, path+[nums[index]], visited, index+1)
+        visited[index]=False
+        self.helper(nums, path, visited, index+1)
