@@ -119,3 +119,59 @@ def permute(self, nums: List[int]) -> List[List[int]]:
                 visited[i] = True
                 self.helper(nums, path+[nums[i]], visited)
                 visited[i] = False
+
+47. Permutations II
+Solution:
+from copy import deepcopy
+class Solution:
+    def permuteUnique(self, nums: List[int]) -> List[List[int]]:
+        self.ans = []
+        nums.sort()
+        # print(nums)
+        visited = [False]*len(nums)
+        self.helper(nums, [], visited)
+        return self.ans
+    
+    def helper(self, nums, path, visited):
+        if len(path)==len(nums):
+            self.ans.append(deepcopy(path))
+            return
+        for i in range(len(nums)):
+            if visited[i]:
+                continue
+            elif i>0 and nums[i-1]==nums[i] and visited[i-1]:
+                continue
+            else:
+                visited[i]=True
+                self.helper(nums, path+[nums[i]], visited)
+                visited[i]=False 
+
+90. Subsets II
+Solution:
+from copy import deepcopy
+class Solution:
+    def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
+        self.ans = []
+        nums.sort()
+        visited = [False]*len(nums)
+        self.helper(nums, [], visited, 0)
+        return self.ans
+    
+    def helper(self, nums, path, visited, level):
+        if level==len(nums):
+            self.ans.append(deepcopy(path))
+            return
+        # for i in range(len(nums)):
+        #     if visited[i]:
+        #         continue
+        #     if i>0 and nums[i-1]==nums[i] and visited[i-1]:
+        #         continue
+        #     visited[i]=True
+        #     self.helper(nums, path+[nums[i]], visited, level+1)
+        #     visited[i]=False
+        #     self.helper(nums, path, visited, level+1)
+        self.helper(nums, path+[nums[level]], visited, level+1)
+        while level+1<len(nums) and nums[level+1]==nums[level]:
+            level += 1
+        self.helper(nums, path, visited, level+1)
+            
