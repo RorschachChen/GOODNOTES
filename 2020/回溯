@@ -98,4 +98,24 @@ class Solution:
                     visited[nx][ny]=True
                     self.dfs(nx, ny, board, word[1:], visited)
                     visited[nx][ny]=False
-                
+
+46. Permutations
+Solution:
+def permute(self, nums: List[int]) -> List[List[int]]:
+        self.ans = []
+        if len(nums)<1:
+            return []
+        visited = [False]*len(nums)
+        # visited[0] = True
+        self.helper(nums, [], visited)
+        return self.ans
+    
+    def helper(self, nums, path, visited):
+        if len(path)==len(nums):
+            self.ans.append(deepcopy(path))
+            return
+        for i in range(len(nums)):
+            if not visited[i]:
+                visited[i] = True
+                self.helper(nums, path+[nums[i]], visited)
+                visited[i] = False
