@@ -167,6 +167,7 @@ class Solution:
 90. Subsets II
 Solution:
 (1)
+zt的方法第一个append的是最长的序列，然后再慢慢去掉后。
 from copy import deepcopy
 class Solution:
     def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
@@ -194,6 +195,7 @@ class Solution:
             level += 1
         self.helper(nums, path, visited, level+1)
 (2)
+这个方法是从【】开始里面加元素，理论上这个更快
 from copy import deepcopy
 class Solution:
     def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
