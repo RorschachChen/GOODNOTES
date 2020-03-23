@@ -16,7 +16,37 @@ class Solution:
                         dp[i][j] = dp[i - 1][j] + dp[i][j - 1]
         return dp[m - 1][n - 1]
 (回溯行吗)
-不行超时，详情看“回溯”文件
+不行超时，详情看“回溯”文件(当场打脸)
+（2）回溯
+class Solution:
+    def uniquePathsWithObstacles(self, obstacleGrid) -> int:
+        m, n = len(obstacleGrid), len(obstacleGrid[0])
+        paths = [[-1] * n for _ in range(m)]
+        return self.helper(obstacleGrid, paths, m-1, n-1)
+        
+    def helper(self, grid, paths, i, j):
+        if grid[i][j]==1:
+        # 墙在的点，应该是0种方式到达
+            return 0
+        if i==0 and j==0:
+        # 起始点如果为1，起始就为墙，直接就不行了
+            return 1^grid[0][0]
+        
+        P = 0
+        # 到达当前点上面一个点的路径数加到P上
+        if i>0 and grid[i-1][j]!=1:
+            if paths[i-1][j]==-1:
+                paths[i-1][j] = self.helper(grid, paths, i-1, j)
+            P += paths[i-1][j]
+            
+        # 到达当前点左边一个点的路径数加到P上
+        if j>0 and grid[i][j-1]!=1:
+            if paths[i][j-1]==-1:
+                paths[i][j-1] = self.helper(grid, paths, i, j-1)
+            P += paths[i][j-1]
+            
+        return P
+这道题有意思的是从最后一个点开始索要前面的点的个数，而不是以往的递归从头开始往后，再往前。
 
 62. Unique Paths
 Solution:
