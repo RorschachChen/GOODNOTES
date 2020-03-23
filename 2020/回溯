@@ -196,3 +196,30 @@ class Solution:
         self.helper(nums, path+[nums[index]], visited, index+1)
         visited[index]=False
         self.helper(nums, path, visited, index+1)
+
+22. Generate Parentheses
+Solution:
+from copy import deepcopy
+class Solution:
+    def generateParenthesis(self, n: int):
+        """
+        :param n: 
+        :return: 
+        """
+        self.ans = []
+        self.helper(n, n, "")
+        return self.ans
+    
+    def helper(self, ll, rl, path):
+        if ll==0 and rl==0:
+            self.ans.append(deepcopy(path))
+            return
+        if ll==0:
+            self.helper(ll, rl-1, path+")")
+        elif rl==0:
+            self.helper(ll-1, rl, path+"(")
+        elif ll==rl:
+            self.helper(ll-1, rl, path+"(")
+        else:
+            self.helper(ll-1, rl, path+"(")
+            self.helper(ll, rl-1, path+")")
