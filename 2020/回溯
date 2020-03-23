@@ -29,6 +29,9 @@ https://segmentfault.com/a/1190000006121957
 在permutation哪个题，在每次里面要确定这一层，或者说这一次可以遍历的个数
 而在subsets题中，每一层只有选中这个或者不选中这个点两种可能，所以没有for循环。？
 
+重要的事：
+如果每个solution path之间有关联，换句话说，要求数量，但是不同path之间的数量是可以利用起来的话，别用回溯，因为回溯一定是要找到每条path详细的路径
+采用。例子就是63. Unique Paths II。用回溯就直接TLE了。
 
 以下是leetcode里的例题
 39. Combination Sum
