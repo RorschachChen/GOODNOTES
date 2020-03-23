@@ -25,6 +25,10 @@ https://segmentfault.com/a/1190000006121957
 4. 已经拿过的数不再拿 if(s.contains(num)){continue;}
 5. 遍历过当前节点后，为了回溯到上一步，要去掉已经加入到结果list中的当前节点。
 
+思考🤔：
+在permutation哪个题，在每次里面要确定这一层，或者说这一次可以遍历的个数
+而在subsets题中，每一层只有选中这个或者不选中这个点两种可能，所以没有for循环。？
+
 
 以下是leetcode里的例题
 39. Combination Sum
@@ -149,6 +153,7 @@ class Solution:
         if len(path)==len(nums):
             self.ans.append(deepcopy(path))
             return
+        # 若当前元素未被选择且前一元素与当前元素值相等也未被选择则跳过，这一可能情况与先选小序号后选大序号的相同元素相同
         for i in range(len(nums)):
             if visited[i]:
                 continue
@@ -161,6 +166,7 @@ class Solution:
 
 90. Subsets II
 Solution:
+(1)
 from copy import deepcopy
 class Solution:
     def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
@@ -187,8 +193,25 @@ class Solution:
         while level+1<len(nums) and nums[level+1]==nums[level]:
             level += 1
         self.helper(nums, path, visited, level+1)
+(2)
+from copy import deepcopy
+class Solution:
+    def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
+        self.ans = []
+        nums.sort()
+        # visited = [False]*len(nums)
+        self.helper(nums, [], 0)
+        return self.ans
+    
+    def helper(self, nums, path, position):
+        self.ans.append(deepcopy(path))
+        for i in range(position, len(nums)):
+            if i>position and nums[i]==nums[i-1]:
+                continue
+            self.helper(nums, path+[nums[i]], i+1)
 
 78. Subsets
+（1）
 Solution:
 from copy import deepcopy
 class Solution:
@@ -209,6 +232,21 @@ class Solution:
         self.helper(nums, path+[nums[index]], visited, index+1)
         visited[index]=False
         self.helper(nums, path, visited, index+1)
+（2）
+第二种方法是每次递归刚开始就把path给加进答案中，记录用没用过的点就行了。
+from copy import deepcopy
+class Solution:
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        self.ans = []
+        if len(nums)<0:
+            return []
+        self.helper(nums, [], 0)
+        return self.ans
+        
+    def helper(self, nums, path, index):
+        self.ans.append(deepcopy(path))
+        for i in range(index, len(nums)):
+            self.helper(nums, path+[nums[i]], i+1)
 
 22. Generate Parentheses
 Solution:
