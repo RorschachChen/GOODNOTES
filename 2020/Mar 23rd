@@ -61,3 +61,26 @@ class Solution:
                 else:
                     dp[i][j] = dp[i-1][j]+dp[i][j-1]
         return dp[-1][-1]
+
+93. Restore IP Addresses
+Solution:
+（回溯）
+class Solution:
+    def restoreIpAddresses(self, s: str) -> List[str]:
+        self.ans = []
+        if len(s)==0:
+            return []
+        self.helper(s, '', 4)
+        return self.ans
+    
+    def helper(self, s, path, res):
+        if len(s)==0 and res==0:
+            self.ans.append(path[:-1])
+            return
+        if len(s)==0 or res==0:
+            return
+        for i in range(1, min(3, len(s))+1):
+            if 0<=int(s[:i])<=255:
+                self.helper(s[i:], path+s[:i]+'.', res-1)
+            if s[0]=='0':
+                break
