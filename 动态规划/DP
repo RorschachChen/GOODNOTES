@@ -7,5 +7,34 @@ dp设计多大是个问题
 746. Min Cost Climbing Stairs
 这题考察的是类和的数量，要最少。
 这道题如果把cost反向一下，会更快？为啥？
-121. Best Time to Buy and Sell Stock
 
+121. Best Time to Buy and Sell Stock(HARD)
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        if not prices:
+            return 0
+        n = len(prices)
+        min_pri = [999] * n
+        max_pro = [0] * n
+        min_pri[0] = prices[0]
+        res = [0]
+        for i in range(1, n):
+            min_pri[i] = min(min_pri[i - 1], prices[i])
+            max_pro[i] = max(max_pro[i - 1], prices[i] - min_pri[i])
+            res.append(max_pro[i])
+        # print(res)
+        # exit()
+        # if len(prices)<=3:
+        #     if len(prices)==1:
+        #         return 0
+        #     return res[-1]
+
+        max_pri = [0] * n
+        total = 0
+        max_pro2 = [0] * n
+        max_pri[-1] = prices[-1]
+        for i in range(n-2, -1, -1):
+            max_pri[i] = max(max_pri[i+1], prices[i])
+            max_pro2[i] = max(max_pro2[i+1], max_pri[i+1] - prices[i])
+            total = max(total, max_pro2[i] + res[i])
+        return total
