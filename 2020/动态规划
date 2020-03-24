@@ -1,3 +1,8 @@
 dp设计多大是个问题
 
 数目很小的时候是单独写出来还是可以和状态转移方程一起写。
+
+70. Climbing Stairs
+这题考察steps数量，要最少
+746. Min Cost Climbing Stairs
+这题考察的是类和的数量，要最少。
