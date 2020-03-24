@@ -12,3 +12,19 @@ class Solution:
         return w
 解析：到当前位置，所能达到的数目，应该是看当前位置是否为0，为0说明和上一个一样。再看组两位数的，p+d，如果两位数在10到26之间，说明可以把前前轮的也考虑
 进来。
+
+120. Triangle
+Solution:
+class Solution:
+    def minimumTotal(self, triangle: List[List[int]]) -> int:
+        t = triangle
+        if not t:
+            return 0
+        from collections import defaultdict
+        dp = defaultdict(lambda: defaultdict(lambda: float('inf')))
+        dp[0][0] = t[0][0]
+        for i,row in enumerate(t[1:], 1):
+            for j,num in enumerate(row):
+                dp[i][j] = min(dp[i-1][j-1], dp[i-1][j]) + t[i][j]
+            
+        return min(dp[len(t)-1].values())
