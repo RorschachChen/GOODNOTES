@@ -1,0 +1,11 @@
+TensorFlow的日志级别分为以下三种：
+TF_CPP_MIN_LOG_LEVEL = 1         //默认设置，为显示所有信息                
+TF_CPP_MIN_LOG_LEVEL = 2         //只显示error和warining信息                
+TF_CPP_MIN_LOG_LEVEL = 3         //只显示error信息
+
+import os
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
+
+
+import os
+os.environ["CUDA_VISIBLE_DEVICES"] = "0, 1, 2, 3"
