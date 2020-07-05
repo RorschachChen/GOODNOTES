@@ -15,3 +15,6 @@ function proxy_off(){
     echo -e "已关闭代理"
 }
 source ~/.bash_profile
+
+terminal查看ip
+curl ip.gs
