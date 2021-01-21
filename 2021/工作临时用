@@ -1,0 +1,52 @@
+private static Map<String, Map<Long, Float>> mapQuantile = new HashMap<>();
+
+private static Map<Long, Float> getQuantile(String key) {
+    if (!mapQuantile.containsKey(key)) {
+        List<String> keys = new ArrayList<>();
+        double i = 0.0;
+        while (i <= 1.0) {
+            keys.add(key + ":" + i);
+            i += 0.01;
+        }
+        mapQuantile.put(key, RedisMethod.hGet(keys));
+    }
+    return mapQuantile.get(key);
+}
+
+public Map<JavaProtocolData, Float> query(String key, Map<JavaProtocolData, String> ips) {
+    Map<Long, Float> quantile = getQuantile(key+"_quantile");
+    Map<JavaProtocolData, Long> retScores = RedisMethod.hGet2(key, ips);
+    Map<JavaProtocolData, Float> ret = new HashMap<>(10);
+    retScores.forEach((k, v) -> {
+        long nearest = getNearestScore(quantile.keySet(), v);
+        ret.put(k, quantile.get(nearest));
+    });
+    return ret;
+}
+
+private Long getNearestScore(Set<Long> scores, Long target) {
+    return 1L;
+}
+
+public static Map<Long, Float> hGet(List<String> keys) {
+        // key是数值，Float是0-1之间的百分数
+        // 需要hget后1-quantile
+        Map<Long, Float> ret = new HashMap<>();
+        Map<String, Response<Long>> sim = new HashMap<>(); // 这里通过pipeline获取
+        sim.forEach((k, v) -> {
+            try {
+                // approx获取的是数量越多越小，这里用1减去是为了得到实际稀有度
+                ret.put(1L - v.get(), Float.parseFloat(k.substring(k.lastIndexOf(":")+1)));
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+        });
+        return new HashMap<>();
+    }
+
+    public static Map<JavaProtocolData, Long> hGet2(String key, Map<JavaProtocolData, String> ips) {
+        // key是数值，Float是0-1之间的百分数
+        return new HashMap<>();
+    }
