@@ -1,0 +1,35 @@
+docker ps | grep xxxxxx
+
+docker start xxxxxxx
+
+docker build -t 仓库:镜像名 .
+// 例子docker build -t runoob/ubuntu:v1 . 
+
+docker pull 仓库:镜像名
+// 镜像名可以是latest
+
+docker push 仓库:镜像名
+// docker push myapache:v1
+
+// 用bash进入某个pod
+dcoker exec -it xxxxxx bash
+-i 标准输入
+-t 终端
+
+docker run -name xxxxxx -d -p 8080:80 nginx -v /data:/usr/share/nginx/html
+-d:后台启动
+-p:端口号
+8080是宿主机的端口
+-v: 文件挂载。前面是宿主机的目录，后面是docker里文件的目录，比如日志就可以通过这种方式进行挂载
+
+docker logs -f xxxxx
+实时查看xxxx的日志
+
+docker rm -f xxxxx
+不需要停止就可以删除docker
+
+查看容器详细信息
+docker inspect xxxxxx
+
+镜像busy-box 工具>??
+docker run -it --name xxxxx --link xxxxx busybox sh
