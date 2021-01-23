@@ -1,0 +1,10 @@
+helm和k8s有版本兼容
+ 
+将打包的tgz文件分发到任意的服务器上，通过helm fetch就可以获取到该 Chart 了。
+ 
+helm create newChart
+helm package newChart/
+
+helm install -n namespace app-name ./path/to/file/
+
+helm uninstall -n namespace
