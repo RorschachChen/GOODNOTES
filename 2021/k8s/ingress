@@ -1,0 +1,1 @@
+Kubernetes Ingress 用于添加规则，以将流量从外部路由到 Kubernetes 集群的服务中。
