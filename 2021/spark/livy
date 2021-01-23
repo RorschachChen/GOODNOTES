@@ -1,0 +1,7 @@
+什么是livy
+Livy通过提供REST服务来简化与Spark集群的交互。它可以通过job或者代码片段的方式来提交Spark任务，并同步或者异步地获得任务的结果，以及管理spark context，上述功能通过简单的REST接口或者RPC服务来实现。
+更多的功能包括：
+拥有长期运行的Spark Contexts供多用户提交各种的Spark job；
+不同的任务和用户可以共享cached RDD或者DataFrames；
+多个SC可以按计划同时运行，为了使得SC具有更好的容错性和并发性，可以将SC运行在yarn/Mesos等集群中；
+可以通过java/scala客户端的API来提交预编译好的jar包或代码片段；
