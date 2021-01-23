@@ -1,0 +1,6 @@
+collect_list（）
+将某一列的数据搜集成Array
+collect_list for多列
+collect_list(array("table_name", "status")))
+collect_list(struct($"food", $"price")).as("foods")
+
