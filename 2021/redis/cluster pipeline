@@ -11,3 +11,6 @@ Jedis connection = jedisClusterConnectionHandler.getConnectionFromSlot(slot);
 Pipeline pipeline = connection.pipelined();
 pipeline.somecommand....
 pipeline.sync();
+
+
+注意：由上面的测试推断RedisTemplate的executePipelined()方法是假的Pipeline执行方法，使用RedisTemplate的时候请务必注意这一点。
