@@ -1,3 +1,11 @@
+RedisConnectionFactory factory = redisTemplate.getConnectionFactory();
+RedisConnection redisConnection = factory.getConnection();
+JedisClusterConnection jedisClusterConnection = (JedisClusterConnection) redisConnection;
+// 获取到原始到JedisCluster连接
+JedisCluster jedisCluster = jedisClusterConnection.getNativeConnection();
+// 通过key获取到具体的Jedis实例
+// 计算hash slot，根据特定的slot可以获取到特定的Jedis实例
+int slot = JedisClusterCRC16.getSlot(key);
 JedisSlotBasedConnectionHandler jedisClusterConnectionHandler = jedisCluster.getConnectionHandler();
 Jedis connection = jedisClusterConnectionHandler.getConnectionFromSlot(slot);
 Pipeline pipeline = connection.pipelined();
