@@ -1,0 +1,5 @@
+JedisSlotBasedConnectionHandler jedisClusterConnectionHandler = jedisCluster.getConnectionHandler();
+Jedis connection = jedisClusterConnectionHandler.getConnectionFromSlot(slot);
+Pipeline pipeline = connection.pipelined();
+pipeline.somecommand....
+pipeline.sync();
