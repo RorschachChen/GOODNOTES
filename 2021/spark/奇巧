@@ -1,0 +1,1 @@
+spark udf 参数只能用seq，不能用array，无法运行，本身不支持
