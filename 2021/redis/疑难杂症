@@ -1,0 +1,2 @@
+redis slopMap
+TreeMap。lowerentry根据slot id 获取资源机的时候，必须把slot id加1，不然会让槽点5461的机器分到1号上
