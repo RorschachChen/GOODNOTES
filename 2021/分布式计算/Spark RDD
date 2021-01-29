@@ -1,0 +1,30 @@
+RDD are immutable (Read Only) data structure. But can transform.
+
+创建RDD的方式
+1. Parallelizing existing collection.
+2. Loading external dataset from HDFS (or any other HDFS supported file types).
+
+先创建SparkContext类
+A SparkContext class represents the connection to our existing Spark cluster and provides the entry point for interacting with Spark.
+
+
+sc.textFile("path to/file")
+
+persist将data存在memory中
+
+spark sql使用
+import org.apache.spark.sql.SQLContext
+val sqlContext = new org.apache.spark.sql.SQLContext(sc)
+val employeeDF = sqlContext.read.json(
+
+Querying CSV data using temporary tables:
+scala> airportDF.registerTempTable("airports")
+
+
+Cluster Manager Types
+Spark supports below cluster managers:
+Standalone – a simple cluster manager included with Spark that makes it easy to set up a cluster.
+Apache Mesos – Mesons is a Cluster manager that can also run Hadoop MapReduce and Spark applications.
+Hadoop YARN – the resource manager in Hadoop 2. This is mostly used, cluster manager.
+Kubernetes – an open-source system for automating deployment, scaling, and management of containerized applications.
+local – which is not really a cluster manager but still I wanted to mention as we use “local” for master() in order to run Spark on your laptop/computer.
