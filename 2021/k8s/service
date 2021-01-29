@@ -2,3 +2,6 @@
  type可以哟过来定义service的模式
  targetPort对内的接口
  port对外的接口
+
+
+可以通过dns域名的方式，将一个服务暴露给另一个服务，第二个服务通过域名来访问这个服务。需要用到dns类型的service，service要指定第一个服务的，selector
