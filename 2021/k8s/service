@@ -1,4 +1,4 @@
- service里selector可以用来选择pod
+ service里selector可以用来选择pod，这里的是pod在deployment的时候定义的labels
  type可以哟过来定义service的模式
  targetPort对内的接口
  port对外的接口
