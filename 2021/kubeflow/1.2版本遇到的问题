@@ -1,0 +1,7 @@
+1. 1.2版本默认开启多用户，如果想使用单用户。
+如果还没进行安装，则需要修改manifest-1.2.0的pipeline文件夹manifests-1.2.0\pipeline\installs\multi-user\api-service\params.env
+里面有一个MULTIUSER的bool变量，设置。
+如果已经安装，kk edit cm pipeline-api-server-config-f4t72426kt，可以修改该量
+
+2. 多用户下，查询jobs的状态，不允许单个查询，如果实在要查，有一个可行的办法。下载go源码，修改pipeline-master/backend/src/apiserver/server/run_server.go大约200行左右。
+默认多用户，获取runlist只能用namespace和experiment来查，可以添加允许通过job id来查的。
