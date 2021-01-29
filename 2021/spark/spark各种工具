@@ -1,0 +1,5 @@
+Spark Web UI
+
+Spark-submit用于提交任务给spark cluster
+
+Spark History Server，保存日志
