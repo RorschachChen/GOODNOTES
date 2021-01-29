@@ -1,0 +1,24 @@
+Hadoop framework works as below:
+
+1. Breaks large data files into smaller chunks to be processed by individual machines (Distributing Storage).
+2. Divides longer job into smaller tasks to be executed in parallel way (Parallel Computation).
+3. Handles failures automatically.
+
+In MapReduce job,
+
+1. All map tasks output gets dumped on local disks (or HDFS).
+2. Hadoop merges all spill files into a bigger file which is sorted and partitioned according to number of reducers.
+3. And reduce tasks have to load it again into memory.  
+:由于Disk I/O和network I/O，会很慢
+
+Spark尽可能往内存中放dataset，减少了disk I/O。"it makes best use of LRU cache to process it faster."
+
+Spark怎么实现fault tolerance？
+If a partition of an RDD is lost, the RDD has enough information about how it was derived from other RDDs to be able to rebuild just that partition.
+Spark也有MapReduce。Mapper输出放在OS缓冲cache里，Reducer从里面pull出来，放到内存中。
+
+Spark比Hadoop更适合机器学习，因为同样的中间数据频繁使用。
+
+Spark是用Scala写的。跑在JVM中。
+
+Spark Streaming利用Dstreams == sequence of RDDs
