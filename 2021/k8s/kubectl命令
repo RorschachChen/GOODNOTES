@@ -1,0 +1,16 @@
+kubectl get nodes
+获取集群信息机器
+
+kubectl get pods --all-namespaces
+--all-namespaces表示所有命名空间下的。
+
+
+查看集群中的Deployment信息。通过增加一个 -o wide参数，可以输出更多的信息。包括一次部署期望的RS数量，当前的数量，可以数量。对应的容器，容器使用的Docker镜像等等信息。
+kubectl get deployment --all-namespaces -o wide
+
+kubectl get service --all-namespaces -o wide
+查看集群中的Service信息。其中TYPE列表示了服务的类型。
+
+
+kubectl create -f pod.yaml
+然后指定kubectl create命令就可创建出一个Pod了。
