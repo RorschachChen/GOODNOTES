@@ -1,0 +1,9 @@
+Spark History Server
+Spark History server, keep a log of all completed Spark application you submit by spark-submit, spark-shell. before you start, first you need to set the below config on spark-defaults.conf
+spark.eventLog.enabled true
+spark.history.fs.logDirectory file:///c:/logs/path
+Linux or mac启动命令
+$SPARK_HOME/sbin/start-history-server.sh
+如果在window上使用, 通过以下命令启动
+$SPARK_HOME/bin/spark-class.cmd org.apache.spark.deploy.history.HistoryServer
+通过http://localhost:18080/访问
