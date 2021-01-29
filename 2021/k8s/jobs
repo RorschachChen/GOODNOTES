@@ -1,0 +1,3 @@
+那就是机器学习的训练是Job/作业类型，类似于MapReduce或者Spark，Job是有结束时间的任务。为此，K8S设计了一种名为Jobs的Controller类型。
+K8S会跟踪Job的状态，如果没有正常结束，K8S可以再次把任务调度起来。当Job正常结束之后，K8S会把刚刚的Job清理掉。这个特性非常适合用来执行机器学习的训练任务。
+yaml里面Kind: Job
