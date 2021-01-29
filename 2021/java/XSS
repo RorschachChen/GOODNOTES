@@ -1,0 +1,3 @@
+XssFilter是过滤XSS请求的入口，在这里通过XssHttpServletRequestWrapper将HttpServletRequest进行了封装，filterChain.doFilter(xssRequest, response);
+保证了后续代码执行request.getParameter，request.getParameterValues，request.getHeader时调用的都是XssHttpServletRequestWrapper内重写的方法，获取到的参数是已经进行过标签过滤的内容，
+从而消除了敏感信息。
