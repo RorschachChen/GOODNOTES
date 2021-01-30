@@ -1,0 +1,18 @@
+args.headOption:
+The scala collections API provides a function called “headOption”, which returns a Some(value) if there is an item in a list, and a “None” otherwise.
+
+swrite: Functions to serialize and deserialize a case class.
+
+ProducerRecord: create a record ti be sent to Kafa
+ProducerRecord(String topicm K key, V value)
+
+awaitTermination: Wait for the execution to stop. Any exceptions that occurs during the execution
+流式，由SparkContext实例调用
+
+new StreamingContext(sparkConf, Seconds(1))
+second parameter -> time duration, interval at which streaming data will be divided into batches
+
+createDirectStream
+Create an input stream that directly pulls messages from Kafka Brokers without using any receiver.
+
+DStream.cache(): Persist RDDs of this DStream with the default storage level (MEMORY_ONLY_SER) */
