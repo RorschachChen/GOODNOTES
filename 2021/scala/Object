@@ -5,3 +5,13 @@ Object属性和方法都是静态的
 scala没有static，可以写在Object里
 
 写在class里的main是无法运行的， 只有写在Object里的main可以运行
+
+
+伴生
+在一个Scala文件中，如果class和object的名字一样，则互为伴生和伴生对象，可以直接访问到互相的私有成员变量
+
+Object是单例对象
+
+class类自带getter，setter方法
+
+使用Object时，不用new，使用class时要new
