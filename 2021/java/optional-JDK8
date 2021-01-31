@@ -1,3 +1,52 @@
 代码有太多的null检查，整个代码结构变得非常丑陋。
 
 和null引用相比Optional类迫使你在你要做值是否相关处理，从而避免了空指针异常。
+
+
+通过使用ofNullable，你可以创建一个可能包含null引用的Optional对象：
+Optional<Soundcard> sc = Optional.ofNullable(soundcard);
+
+
+接下来是创建一个包含非null值的Optional：
+SoundCard soundcard = new Soundcard();
+Optional<Soundcard> sc = Optional.of(soundcard); //报错
+如果声卡null，空指针异常会立即被抛出（这比在获取声卡属性时才抛出要好）。不会在访问声卡量的时候报错
+
+需要调用相应的方法来处理Optional对象中的值是否存在？？？
+ifPresent()方法
+
+如果存在的话。可以用get()来获取值
+否则会抛出一个NoSuchElementException异常。
+
+使用的时候：
+使用Optional对象的话，你可以orElse()使用重写,当Optional是空的时候orElse()可以返回一个默认值：
+Soundcard soundcard = maybeSoundcard.orElse(new Soundcard("defaut"));
+
+
+需要检测USB端口号是否是某个特定值。为了安全起见，你需要检查指向USB的医用是否是null，然后再调用getVersion()方法
+if (xxx != null && xxx.get == some)
+
+如果使用Optional的话可以使用filter函数重写：
+Optional<USB> maybeUSB = ...;
+maybeUSB.filter(usb -> "3.0".equals(usb.getVersion())
+                    .ifPresent(() -> System.out.println("ok"));
+如果Optional中的值存在并且满足predicate,那么filter函数将会返回满足条件的值；否则，会返回一个空的Optional对象。
+
+重写这种检测null，然后再提取对象类型的对象。
+Optional<USB> usb = maybeSoundcard.map(Soundcard::getUSB);
+
+
+
+String version = computer.getSoundcard().getUSB().getVersion();改写
+Optional提供了flatMap这个函数，它的设计意图是当对Optional对象的值进行转化（就像map操作）然后一个两级Optional压缩成一个。
+String version = computer.flatMap(Computer::getSoundcard)
+                   .flatMap(Soundcard::getUSB)
+                   .map(USB::getVersion)
+                   .orElse("UNKNOWN");
+第一个flatMap保证了返回的是Optional而不是Optional<Optional>，第二个flatMap实现了同样的功能从而返回的是 Optional。注意第三次调用了map(),
+因为getVersion()返回的是一个String对象而不是一个Optional对象。
+
+如果函数的返回值是集合类型，当结果为空时，不要返回 null 值，而是返回一个空的集合；如果返回值类型是对象，则可以选择抛出异常。
+
+
+http://shzhangji.com/cnblogs/2018/09/22/how-to-avoid-null-pointer-exception/
