@@ -1,0 +1,22 @@
+1) 从已知的String对象中调用equals()和equalsIgnoreCase()方法，而非未知对象。
+"常量".equals
+
+2) 当valueOf()和toString()返回相同的结果时，宁愿使用前者。
+因为调用null对象的toString()会抛出空指针异常，如果我们能够使用valueOf()获得相同的值，那宁愿使用valueOf()，传递一个null给valueOf()将会返回“null”，
+尤其是在那些包装类，像Integer、Float、Double和BigDecimal。
+
+3) 使用null安全的方法和库 有很多开源库已经为您做了繁重的空指针检查工作。其中最常用的一个的是Apache commons 中的StringUtils。
+你可以使用StringUtils.isBlank()，isNumeric()，isWhiteSpace()以及其他的工具方法而不用担心空指针异常。
+
+4) 避免从方法中返回空指针，而是返回空collection或者空数组。
+这个Java最佳实践或技巧由Joshua Bloch在他的书Effective Java中提到。这是另外一个可以更好的使用Java编程的技巧。通过返回一个空collection或者空数组，
+你可以确保在调用如size(),length()的时候不会因为空指针异常崩溃。
+Collections类提供了方便的空List，Set和Map: Collections.EMPTY_LIST，Collections.EMPTY_SET，Collections.EMPTY_MAP。这里是实例。
+public List getOrders(Customer customer){
+   List result = Collections.EMPTY_LIST;
+   return result;
+}
+
+5) 使用annotation@NotNull 和 @Nullable
+
+6) 避免你的代码中不必要的自动包装和自动解包。
