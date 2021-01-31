@@ -20,3 +20,12 @@ public List getOrders(Customer customer){
 5) 使用annotation@NotNull 和 @Nullable
 
 6) 避免你的代码中不必要的自动包装和自动解包。
+
+7) 遵从Contract并定义合理的默认值。
+在Java中避免空指针异常的一个最好的方法是简单的定义contract并遵从它们。大部分空指针异常的出现是因为使用不完整的信息创建对象或者未提供所有的依赖项。
+如果你不允许创建不完整的对象并优雅地拒绝这些请求，你可以在接下来的工作者预防大量的空指针异常。
+
+9) 使用空对象模式（Null Object Pattern）
+如果一个方法返回对象，在调用者中执行一些操作，例如Collection.iterator()方法返回迭代器，其调用者执行遍历。
+假设如果一个调用者并没有任何迭代器，其可以返回空对象（Null object）而非null。空对象是一个特殊的对象，其在不同的上下文中有不同的意义。
+例如一个空的迭代器调用hasNext()返回false时，可以是一个空对象。同样的在返回Container和Collection类型方法的例子中，空对象可以被用来代替null作为返回值。
