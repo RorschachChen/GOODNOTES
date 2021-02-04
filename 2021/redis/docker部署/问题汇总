@@ -5,3 +5,5 @@
 所以改redis.windows.conf中的cluster-config-file nodes.conf为cluster-config-file nodes-7000.conf也就是没上各自的端口保证nodes.conf
 
 2. 配置文件bind 127.0.0.1一定要关，而且protected mode也要关闭
+
+3. 使用主机网络模式--net host,不再使用-p 6379:6379进行映射端口，不起作用。需要在配置文件中把端口改为6380等，相当于容器里的redis现在是在6380端口，并且外部和内部保持一致。
