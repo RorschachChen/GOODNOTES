@@ -1,0 +1,5 @@
+1. docker搭建redis cluster 一直等待节点加入集群 （ Waiting for the cluster to join ）
+在创建容器时 添加 --net host 即可
+因为使用docker搭建redis cluster必须要用docker的主机联网模式 也就是 --net host ，redis官网有讲
+
+2. 配置文件bind 127.0.0.1一定要关，而且protected mode也要关闭
