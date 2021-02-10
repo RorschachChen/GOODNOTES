@@ -1,0 +1,3 @@
+遍历tuple的
+val iterator = tuple.productIterator
+while (iterator.hasNext)
