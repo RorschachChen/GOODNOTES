@@ -1,0 +1,13 @@
+以下即为运行单测时执行顺序
+@BeforeAll - executes once before all test methods in this class
+@BeforeEach - executes before each test method in this class
+本身测试
+@AfterEach - executed after each test method.
+@AfterAll - executed after all test methods.
+
+
+同一个测试重复多遍
+@RepeatedTest(value = 3, name = "{displayName} 第 {currentRepetition} 次")
+
+可以导入csv源作为单元测试输入
+@CsvFileSource(resources = {"/data.csv"})
