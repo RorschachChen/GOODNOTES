@@ -1,0 +1,25 @@
+先创建NativeSearchQueryBuilder
+再调用withQuery, withFilter, withPageable, withSort等函数，分别传入FunctionScoreQueryBuilder, BoolQueryBuilder, SortBuilders等
+
+withQuery => FunctionScoreQueryBuilder
+具体：
+
+
+withFilter => BoolQueryBuilder
+具体：
+BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
+boolQueryBuilder.must(QueryBuilders.termQuery("brandId", brandId));
+
+withSort => SortBuilders
+具体：
+//按id从新到旧
+nativeSearchQueryBuilder.withSort(SortBuilders.fieldSort("id").order(SortOrder.DESC));
+
+再对nativeSearchQueryBuilder.build()操作，生成NativeSearchQuery（searchQuery）
+最后再调用elasticsearchRestTemplate.search(searchQuery, EsProduct.class);
+
+
+QueryBuilders可调用的方法很多
+
+参考：
+https://www.cnblogs.com/a-du/p/10724395.html
