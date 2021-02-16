@@ -1,0 +1,7 @@
+熟悉Spark编程的朋友们应该知道，Spark中有SqlContext与HiveContext，其中SqlContext默认是大小写敏感，如果DataFrame中有字段相同只是大小写不同，在使用字段的时候不会引发歧义；
+HiveContext提供了更多的Hive预置函数，可以更高效的进行数据开发，但是默认为大小不敏感，也就是说当数据中存在类似name和NAME两个字段时，这个时候如果编写代码:
+logs.select("name")
+则会引发HiveContext的异常，因为HiveContext此时不知道该选择name还是NAME。
+
+此时我们可以使用如下配置，指定HiveContext大小写为敏感的，从而解决这个问题：
+hiveSqlContext.sql("set spark.sql.caseSensitive=true")
