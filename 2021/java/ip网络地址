@@ -1,1 +1,44 @@
 https://blog.csdn.net/shudaqi2010/article/details/78182618
+
+
+/**
+   * 获取网络ID，即也是CIDR表示的最小IP
+   *
+   * @param ipCidr
+   * @return
+   */
+  public static String getNetworkId(String ipCidr) {
+      String[] ipMaskLen = ipCidr.split("\\/");
+      String mask = getMask(Integer.parseInt(ipMaskLen[1]));
+      String[] ips = ipMaskLen[0].split("\\.");
+      String[] masks = mask.split("\\.");
+      StringBuffer sb = new StringBuffer();
+      int maxIpSection = 4;
+      for (int i = 0; i < maxIpSection; i++) {
+          sb.append(Integer.parseInt(ips[i]) & Integer.parseInt(masks[i]));
+          int lastIpSectionPosition = 3;
+          if (i != lastIpSectionPosition) {
+              sb.append(".");
+          }
+      }
+      return sb.toString() + "/" + ipMaskLen[1];
+  }
+
+  /**
+   * 获取掩码
+   *
+   * @param maskLength
+   * @return
+   */
+  public static String getMask(int maskLength) {
+      int binaryMask = 0xFFFFFFFF << (32 - maskLength);
+      StringBuffer sb = new StringBuffer();
+      int startShiftPosition = 24;
+      int shiftSize = 8;
+      for (int shift = startShiftPosition; shift > 0; shift -= shiftSize) {
+          sb.append((binaryMask >>> shift) & 0xFF);
+          sb.append(".");
+      }
+      sb.append(binaryMask & 0xFF);
+      return sb.toString();
+  }
