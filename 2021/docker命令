@@ -33,3 +33,9 @@ docker inspect xxxxxx
 
 镜像busy-box 工具>??
 docker run -it --name xxxxx --link xxxxx busybox sh
+
+修改docker镜像
+1. 用docker run -it -u root 镜像名 /bin/bash之类的命令进去改
+2. 改好了后exit退出来
+3. 然后docker commit <container ID> 新的镜像名来提交你的镜像
+
