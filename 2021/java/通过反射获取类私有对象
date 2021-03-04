@@ -1,0 +1,9 @@
+PrivateObject privateObject = new PrivateObject("The Private Value");//实例化对象
+
+Field privateStringField = PrivateObject.class.
+            getDeclaredField("privateString");
+
+privateStringField.setAccessible(true);//允许访问私有字段
+
+String fieldValue = (String) privateStringField.get(privateObject);//获得私有字段值
+System.out.println("fieldValue = " + fieldValue);
