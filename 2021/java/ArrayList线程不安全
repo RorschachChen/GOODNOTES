@@ -1,0 +1,4 @@
+不建议使用Collections.synchronizedList是因为这个比较慢different threads are waiting each other.
+改用LinkedBlockingQueue(Multi Thread Issue)
+
+多线程下ArrayList调用add会有机会出现ArrayIndexOutOfBound的异常
