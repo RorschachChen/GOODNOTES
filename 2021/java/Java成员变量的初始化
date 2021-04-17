@@ -1,0 +1,24 @@
+Java中的成员变量（Member Variable or Field）根据是否有static修饰可分为两类，分别是： 
+- static field (class variable): 类所有，所有类的实例在内存中共享一份 
+- non-static field (instance variable): 每个类的实例独享一份
+
+
+Java中通过类来构造实例时，涉及到初始化的部分主要有以下几个方面： 
+- 在声明 fields 的地方进行初始化 private static str = "abc";
+- 初始化块(instance and static initializers)中语句的执行 static {}
+- 构造函数(constructor)的执行 @AllArgsConstructor
+
+
+初始化块根据是否使用 static 修饰也可分为静态初始化块和非静态初始化块，在静态初始化块中不能对 instance variable 进行赋值操作。
+
+
+例如，在匿名类中的初始化（因匿名类无构造方法），或者类中包含了多个 constructor，而它们有公共的一些复杂初始化操作，此时可以考虑将这些操作提取到 instance initialization block 里。
+JVM 可以保证使用同一个 ClassLoader 加载的类中静态初始化块只被执行一次，因而它是线程安全的。
+
+1. 进入构造函数 
+2. 为成员变量分配内存 
+3. 执行父类中静态成员变量和静态初始化块相关的操作 
+4. 执行子类中静态成员变量和静态初始化块相关的操作 
+5. 执行父类中非静态成员变量和非静态初始化块中的相关操作 
+6. 执行父类构造函数体中的操作（总是会调用父类构造函数，隐式super()或显示调用。父类构造函数的调用必须是构造器中的第一个语句。） 
+7. 执行子类中非静态成员变量和非静态初始化块中的相关操作 7. 执行子类构造函数主体中的操作
