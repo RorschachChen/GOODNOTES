@@ -1,0 +1,12 @@
+在JVM中，每加载一个类，就会在堆内存中为这个类生成一个java.lang.Class 对象。
+
+Class类并没有提供public的构造方法，在类加载完成后，JVM会自动为其生成相应的Class对象。要使用反射，首先就必须获取到Class对象。
+
+getField() get Inherited members
+getDeclaredField() get Private members
+
+通过反射来生成对象的方法有两种： 
+1. 使用Class对象的newInstance()方法来创建该Class对象对应类的实例(使用默认的无参构造方法)。 
+2. 先获取指定的Constructor(构造方法)对象，再调用该构造方法的newInstance()方法来生成相应的实例(可使用指定参数的构造方法)。
+
+Java的反射API提供了对泛型的支持。通过反射依然能获取到泛型信息。
