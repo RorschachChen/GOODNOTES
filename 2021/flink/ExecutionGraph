@@ -1,0 +1,30 @@
+在 ExecutionGraph 中，节点对应的类是 ExecutionJobVertex，与之对应的就是 JobGraph 中的 JobVertex。每一个 ExexutionJobVertex 都是由一个 JobVertex 生成的。
+
+Flink Job 是可以指定任务的并行度的，在实际运行时，会有多个并行的任务同时在执行，对应到这里就是 ExecutionVertex。
+ExecutionVertex 是并行任务的一个子任务，算子的并行度是多少，那么就会有多少个 ExecutionVertex。
+
+Execution 是对 ExecutionVertex 的一次执行，通过 ExecutionAttemptId 来唯一标识。
+
+在 JobGraph 中用 IntermediateDataSet 表示 JobVertex 的对外输出，
+在 ExecutionGraph 中，与此对应的就是 IntermediateResult。
+
+
+由于 ExecutionJobVertex 有 numParallelProducers 个并行的子任务，自然对应的每一个 IntermediateResult 就有 numParallelProducers 个生产者，
+每个生产者的在相应的 IntermediateResult 上的输出对应一个 IntermediateResultPartition。
+IntermediateResultPartition 表示的是 ExecutionVertex 的一个输出分区
+
+IntermediateResultPartition 的生产者是 ExecutionVertex，消费者是一个或若干个 ExecutionEdge。
+
+ExecutionEdge 表示 ExecutionVertex 的输入，通过 ExecutionEdge 将 ExecutionVertex 和 IntermediateResultPartition 连接起来，进而在不同的 ExecutionVertex 之间建立联系。
+
+JobVertex 在 Master 上进行初始化，主要关注OutputFormatVertex 和 InputFormatVertex
+
+每一个 JobVertex 对应一个 ExecutionJobVertex,
+每一个 ExecutionJobVertex 有 parallelism 个 ExecutionVertex
+每一个 JobVertex 可能有 n(n>=0) 个 IntermediateDataSet，在 ExecutionJobVertex 中，一个 IntermediateDataSet 对应一个 IntermediateResult, 每一个 IntermediateResult 都有 parallelism 个生产者, 对应 parallelism 个IntermediateResultPartition
+每一个 ExecutionJobVertex 都会和前向的 IntermediateResult 连接，实际上是 
+
+ExecutionVertex 和 IntermediateResult 建立连接，生成 ExecutionEdge
+
+按照拓扑顺序为所有的 ExecutionJobVertex 分配资源，其中每一个 ExecutionVertex 都需要分配一个 slot，
+ExecutionVertex 的一次执行对应一个 Execution，在分配资源的时候会依照 SlotSharingGroup 和 CoLocationConstraint 确定，分配的时候会考虑 slot 重用的情况。
