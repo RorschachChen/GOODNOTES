@@ -1,0 +1,5 @@
+StreamGraph 会被进一步优化，将多个符合条件的节点串联（Chain） 在一起形成一个节点，从而减少数据在不同节点之间流动所产生的序列化、反序列化、网络传输的开销。
+多个算子被 chain 在一起的形成的节点在 JobGraph 中对应的就是 JobVertex。
+
+JobGraph 的关键在于将多个 StreamNode 优化为一个 JobVertex, 对应的 StreamEdge 则转化为 JobEdge, 
+并且 JobVertex 和 JobEdge 之间通过 IntermediateDataSet 形成一个生产者和消费者的连接关系。
