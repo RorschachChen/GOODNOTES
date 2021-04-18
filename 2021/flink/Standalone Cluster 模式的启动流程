@@ -1,1 +1,1 @@
-Standalone Cluster 有两种启动方式， 即 standalonesession 模式和 standalonejob 方式
+Standalone Cluster 有两种启动方式， 即 standalonesession 模式和 standalonejob 方式.它们区别在于 Dispatcher 的实现方式不同。
