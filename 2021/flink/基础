@@ -1,0 +1,11 @@
+在 DataStream 上面通过 map 等算子不断进行转换，就得到了由 StreamTransformation 构成的图。当需要执行的时候，底层的这个图就会被转换成 StreamGraph。
+
+一个 DataStream 就表征了由同一种类型元素构成的数据流。
+
+StreamOperator
+在操作 DataStream 的时候，比如 DataStream#map 等，会要求我们提供一个自定义的处理函数。那么这些信息时如何保存在 StreamTransformation 中的呢？这里就要引入一个新的接口 StreamOperator。
+
+AbstractInvokable 是所有可以在 TaskManager 中运行的任务的抽象基础类，包括流式任务和批任务。
+StreamTask 是所有流式任务的基础类，其具体的子类包括 SourceStreamTask, OneInputStreamTask, TwoInputStreamTask 等。
+
+在每一个物理节点的转换上，会调用 StreamGraph#addEdge 在输入节点和当前节点之间建立边的连接：
