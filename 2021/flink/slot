@@ -1,0 +1,1 @@
+AllocationID 是用来区分物理内存的分配，它总是和 AllocatedSlot 向关联的；而 SlotRequestID 是任务调度执行的时候请求 LogicalSlot，是和 LogicalSlot 关联的。
