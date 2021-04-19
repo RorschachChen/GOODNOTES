@@ -1,3 +1,5 @@
 AllocationID 是用来区分物理内存的分配，它总是和 AllocatedSlot 向关联的；而 SlotRequestID 是任务调度执行的时候请求 LogicalSlot，是和 LogicalSlot 关联的。
 
 为了实现 slot 资源的共享，我们需要把多个 LogicalSlot 映射到同一个 PhysicalSlot 上
+
+SlotPool 主要负责的是分配给当前 JobMaster 的 PhysicalSlot 的管理。
