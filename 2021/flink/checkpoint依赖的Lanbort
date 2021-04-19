@@ -1,0 +1,30 @@
+在Flink中实现语义“Exactly once”，采用的是checkpoint,使用的是Asynchronous barrier snapshots 算法，而该算法是根据Chandy Lamport Algorithm进行了一些轻微的变种。
+用来在缺乏类似全局时钟或者全局时钟不可靠的分布式系统中来确定一种全局状态。
+Chandy Lamport Algorithm 算法是一个采用分布式快照算法来解决记录分布式全局状态一致的算法。
+这个算法的核心，就是创造出一个maker来记录整个分布式链的状态，当链上的节点出现异常需要恢复的时候就根据当前状态找到之前的maker，然后重新计算，保证分布式状态一致。
+
+一个分布式系统的全局状态就是有进程的状态和 channel 中的 message 组成，这个也是分布式快照算法需要记录的。
+Chandy-Lamport 分布式快照算法通过记录每个进程的 local state 和它的 input channel 中有序的 message，我们可以认为这是一个局部快照。那么全局快照就可以通过将所有的进程的局部快照合并起来得到。
+
+Initiating a snapshot
+1. 进程 Pi 发起: 记录自己的进程状态，同时生产一个标识信息 marker，marker 和进程通信的 message 不同
+2. 将 marker 信息通过 ouput channel 发送给系统里面的其他进程
+3. 开始记录所有 input channel 接收到的 message
+
+Propagating a snapshot
+1. 对于进程 Pj 从 input channel Ckj 接收到 marker 信息:
+  if Pj 还没有记录自己的进程状态 {
+    Pj 记录自己的进程状态，同时将 channel Ckj 置为空     (表示自己已经记录自己的进程状态，下次Ckj就不会有maker来了)
+    向 output channel 发送 marker 信息       （交接传递marker的工作，通知其他的进程自己搞定了）
+    记录 input channel Clk (l != k && l != j)收到的所有 msg    （记下其他channel的所有进程）
+  } else {
+    (说明已经做过备份了，现在相当于是同步)
+    记录在收到 marker 之前的 channel 中收到所有 message
+  }
+  
+take完本地snapshot，广播一个marker给所有下游
+
+
+所以这里的 marker 其实是充当一个分隔符，分隔进程做 local snapshot （记录进程状态）的 message。
+比如 Pj 做完 local snapshot 之后 Ckj 中发送过来的 message 为 [a,b,c,marker,x,y,z] 
+那么 a, b, c 就是进程 Pk 做 local snapshot 前的数据，Pj 对于这部分数据需要记录下来，比如记录在 log 里面。而 marker 后面 message 正常处理掉就可以了。
