@@ -28,3 +28,6 @@ take完本地snapshot，广播一个marker给所有下游
 所以这里的 marker 其实是充当一个分隔符，分隔进程做 local snapshot （记录进程状态）的 message。
 比如 Pj 做完 local snapshot 之后 Ckj 中发送过来的 message 为 [a,b,c,marker,x,y,z] 
 那么 a, b, c 就是进程 Pk 做 local snapshot 前的数据，Pj 对于这部分数据需要记录下来，比如记录在 log 里面。而 marker 后面 message 正常处理掉就可以了。
+
+当所有回环input channel都收到barrier-n. 此时在Step3 take的本地snapshot，加上所有回环input channel的msg log一起，成为此节点在barrier-n的本地snapshot
+Failover，failover的时候，除了从本地snapshot恢复状态之外，还需要replay所有input channel的msg。
