@@ -31,3 +31,8 @@ take完本地snapshot，广播一个marker给所有下游
 
 当所有回环input channel都收到barrier-n. 此时在Step3 take的本地snapshot，加上所有回环input channel的msg log一起，成为此节点在barrier-n的本地snapshot
 Failover，failover的时候，除了从本地snapshot恢复状态之外，还需要replay所有input channel的msg。
+
+
+源码中CheckpointCoordinator，负责
+1. 触发checkpoint通过发送messages to the relevant tasks，并且收集ckpt acknowledge
+2. 维护 Ack 中附带的状态句柄（state-handle）的全局视图
