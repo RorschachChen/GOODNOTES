@@ -1,0 +1,5 @@
+1. Catalog - Defines metadata and namespaces that can be accessed in SQL queries
+2. SQL parser - Parses valid SQL queries into an abstract syntax tree (AST)
+3. SQL validator - Validates abstract syntax trees against metadata provided by the catalog
+4. Query optimizer - Converts AST into logical plans, optimizes logical plans, and converts logical expressions into physical plans
+5. SQL generator - Converts physical plans to SQL
