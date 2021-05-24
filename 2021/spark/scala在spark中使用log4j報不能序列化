@@ -1,0 +1,2 @@
+原因是因為在foreachRDD中是分割槽並行執行的，及時logsupport實現序列化也會報錯，解決方案是在
+@transient lazy val log = Logger.getLogger(this.getClass)
