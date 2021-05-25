@@ -1,2 +1,6 @@
 redis slopMap
 TreeMap。lowerentry根据slot id 获取资源机的时候，必须把slot id加1，不然会让槽点5461的机器分到1号上
+
+
+20210525
+host,port,auth,dbNum,timeout这五个参数如果用option设置了，那么在初始化spark的时候的所有redis的参数都会失效。
