@@ -1,0 +1,3 @@
+mapValues是lazy的，不能被序列化
+
+实在要用，请在之后添加.map(identity)
