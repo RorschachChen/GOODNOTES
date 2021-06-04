@@ -1,0 +1,5 @@
+1. DropTimestamps - Drops element timestamps, as only the window is relevant from here on out9.
+2. GroupByKey - Groups (value;window) tuples by key.
+3. MergeWindows - Merges the set of currently buffered windows for a key. The actual merge logic is defined by the windowing strategy. 
+4. GroupAlsoByWindow - For each key, groups values by window.
+5. ExpandToElements - Expands per-key, per-window groups of values into (key; value; event time; window) tuples, with new per-window timestamps.
