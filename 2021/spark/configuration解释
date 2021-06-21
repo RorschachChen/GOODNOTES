@@ -1,0 +1,5 @@
+可以使用 spark.kubernetes.driver.limit.cores 和 spark.kubernetes.executor.limit.cores 来设置 CPU的 hard limit。
+
+memory limit 的值是根据 memory request 的值加上 spark.kubernetes.executor.memoryOverhead 的值计算而来的，该配置项用于设置分配给每个 executor 的超过 heap 内存的值（可以使用k、m、g单位）。
+该值用于虚拟机的开销、其他本地服务开销。根据 executor 的大小设置（通常是 6%到10%）。
+driver 的内存 limit 值为 request 值的 110%）。
