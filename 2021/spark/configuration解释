@@ -6,3 +6,10 @@ driver 的内存 limit 值为 request 值的 110%）。
 
 spark.kubernetes.executor.request.cores是容器启动时申请的核数
 spark.driver.cores是driver这个进程使用的核数。executor同
+
+executorMemory : 对应executor-memory，每个executor进程使用的内存数
+executorCores : 对应executor-cores，每个executor进程使用的CPU核数
+
+livy post请求configuration有最高权限
+Then , at $LIVY_HOME/conf，you can set spark parameters like 'spark.driver.memory' at spark-defaults.conf or livy-client.conf;
+Livy will also use configuration at $SPARK_HOME/conf/spark-defaults.conf,但是权限最低
