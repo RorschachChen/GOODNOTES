@@ -1,0 +1,17 @@
+Adds a persistent buffer to the module.向模块添加持久缓冲区。
+
+This is typically used to register a buffer that should not to be considered a model parameter.
+
+就是在内存中定一个常量，同时，模型保存和加载的时候可以写入和读出。
+
+pytorch一般情况下，是将网络中的参数保存成orderedDict形式的，这里的参数其实包含两种，一种是模型中各种module含的参数，
+即nn.Parameter,我们当然可以在网络中定义其他的nn.Parameter参数，另一种就是buffer,前者每次optim.step会得到更新，而不会更新后者。
+
+P.S.
+1.定义parameter和buffer都只需要传入Tensor即可。也不需要将其转成gpu,这是因为，当网络进行.cuda时候，会自动将里面的层的参数，buffer等转换成相应的GPU上。
+
+2. self.register_buffer可以将tensor注册成buffer,在forward中使用self.mybuffer,而不是self.mybuffer_tmp
+
+3.网络存储时也会将buffer存下，当网络load模型时，会将存储的模型的buffer也进行赋值。
+
+4.buffer的更新在forward中，optim.step只能更新nn.parameter类型的参数。
