@@ -1,0 +1,15 @@
+Affine grid AND grid_sample
+
+
+affine grid需要的theta是N*2*3的，其中的这个2*3就是仿射矩阵的前两行
+（因为第三行是涉及到透视变换的，和仿射变换无关，pytorch维护者就不管最后一行）。
+前两列涉及到旋转和缩放
+最后一列涉及到平移
+这6个自由度，就组成了平面2d图像的仿射变换需要的变换矩阵。而affine grid，就是通过用户设置仿射变换的参数（theta），并且指定仿射变换之后得到的图像的size，
+得到了一个grid。这个grid输入到grid sample中，就完成了仿射变换。grid用来指定，新图像的每个位置，需要去源图像的哪个位置采样。
+
+
+grid_sample底层是应用双线性插值，把输入的tensor转换为指定大小。那它和interpolate有啥区别呢？
+interpolate是规则采样（uniform)，但是grid_sample的转换方式，内部采点的方式并不是规则的，是一种更为灵活的方式。
+input : 输入tensor， shape为 [N, C, H_in, W_in]
+grid: 一个field flow， shape为[N, H_out, W_out, 2]，最后一个维度是每个grid（H_out_i, W_out_i)在input的哪个位置的邻域去采点。数值范围被归一化到[-1,1]。
