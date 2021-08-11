@@ -16,3 +16,6 @@ Reads the contents of file.
 
 "tf.image.decode_jpeg(img, channels=channels)"
 Decode a JPEG-encoded image to a uint8 tensor.
+
+"tf.roll(t, shift=2, axis=0)"
+Rolls the elements of a tensor along an axis.
