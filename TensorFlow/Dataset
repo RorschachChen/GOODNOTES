@@ -10,3 +10,9 @@ Repeats this dataset so each original value is seen count times.
 
 "my_dataset.cache()"
 Caches the elements in this dataset.
+
+"tf.io.read_file(file_path)"
+Reads the contents of file.
+
+"tf.image.decode_jpeg(img, channels=channels)"
+Decode a JPEG-encoded image to a uint8 tensor.
