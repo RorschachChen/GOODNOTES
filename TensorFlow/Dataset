@@ -1,0 +1,12 @@
+"my_dataset.prefetch(buffer_size=tf.data.experimental.AUTOTUNE)"
+This allows later elements to be prepared while the current element is being processed. 
+This often improves latency and throughput, at the cost of using additional memory to store prefetched elements.
+
+"my_dataset.batch(batch_size)"
+Combines consecutive elements of this dataset into batches.
+
+"my_dataset.repeat(epochs)"
+Repeats this dataset so each original value is seen count times.
+
+"my_dataset.cache()"
+Caches the elements in this dataset.
