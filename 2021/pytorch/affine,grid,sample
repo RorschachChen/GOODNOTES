@@ -1,6 +1,8 @@
 Affine grid AND grid_sample
 
 
+F.affine_grid 根据形变参数产生sampling grid，F.grid_sample根据sampling grid对图像进行变形。
+
 affine grid需要的theta是N*2*3的，其中的这个2*3就是仿射矩阵的前两行
 （因为第三行是涉及到透视变换的，和仿射变换无关，pytorch维护者就不管最后一行）。
 前两列涉及到旋转和缩放
