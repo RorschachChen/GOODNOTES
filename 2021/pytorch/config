@@ -1,0 +1,1 @@
+config should distinguish class by class. Input config should not be integreted with the private config. Otherwise, don't know the which is inputed, which is infered.
