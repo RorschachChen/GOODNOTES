@@ -2,3 +2,6 @@ During test(or inference) time, the BN layer doesn’t calculate the mean and va
 mini-batch(steps 1 and 2 from the algorithm table above) but uses the fixed mean and variance calculated from the training data.
 In pytorch model.eval() makes sure to set the model in evaluation model and hence the BN layer leverages this to use fixed mean and variance from 
 pre-calculated from training data.
+
+
+如果affine=False则γ=1,β=0，并且不能学习被更新。一般都会设置成affine=True。
