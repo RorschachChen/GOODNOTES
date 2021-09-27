@@ -1,0 +1,12 @@
+1. 
+for i, image, label in enumerate(train_loader):
+    if i > nsamples:
+        break
+        
+2. 
+for image, label in itertools.islice(train_loader, stop=10000):
+
+3. 
+import torch.utils.data as data_utils
+indices = torch.arange(10000)
+tr_10k = data_utils.Subset(tr, indices)
