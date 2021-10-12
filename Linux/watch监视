@@ -1,1 +1,5 @@
 watch -n 10 nvidia-smi
+
+
+windows下动态监控
+nvidia-smi -l 1
