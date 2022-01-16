@@ -1,0 +1,20 @@
+下载这两个文件
+tar xvf ILSVRC2012_img_train.tar -C ./train
+tar xvf ILSVRC2012_img_val.tar -C ./val
+
+数据解压后
+tar xvf ILSVRC2012_img_train.tar -C ./train
+tar xvf ILSVRC2012_img_val.tar -C ./val
+
+训练集
+dir=/data/srd/data/Image/ImageNet/train
+for x in `ls $dir/*tar`
+do
+    filename=`basename $x .tar`
+    mkdir $dir/$filename
+    tar -xvf $x -C $dir/$filename
+done
+rm *.tar
+
+
+测试集如果要按1000类分文件夹用valprep脚本
