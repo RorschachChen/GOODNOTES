@@ -1,0 +1,4 @@
+nvidia-smi显示某个gpu没有进程但依然占有显存
+
+sudo fuser -v /dev/nvidia*
+查看所有gpu的进程，然后找到对应索引2的GPU的进程，kill所有对应进程，如下图就是sudo kill 6810
