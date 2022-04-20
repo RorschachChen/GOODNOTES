@@ -1,0 +1,7 @@
+tf.keras.backend.in_train_phase(
+    x,
+    alt,
+    training=None
+)
+
+Selects x in train phase, and alt otherwise.
