@@ -1,0 +1,11 @@
+Theorem：定理。是文章中重要的数学化的论述，一般有严格的数学证明。
+Proposition：可以翻译为命题，经过证明且interesting，但没有Theorem重要，比较常用。
+Lemma：一种比较小的定理，通常lemma的提出是为了来逐步辅助证明Theorem，有时候可以将Theorem拆分成多个小的Lemma来逐步证明，以使得证明的思路更加清晰。
+很少情况下Lemma会以其自身的形式存在。
+Corollary：推论，由Theorem推出来的结论，通常我们会直接说this is a corollary of Theorem A。
+Property：性质，结果值得一记，但是没有Theorem深刻。
+Claim：陈述，先论述然后会在后面进行论证，可以看作非正式的lemma。
+Note：就是注解。
+Remark：涉及到一些结论，相对而言，Note像是说明，而Remark则是非正式的定理。
+Conjecture：猜测。一个未经证明的论述，但是被认为是真。
+Axiom/Postulate：公理。不需要证明的论述，是所有其他Theorem的基础。
