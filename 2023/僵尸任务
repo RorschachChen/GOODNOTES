@@ -1,0 +1,2 @@
+fuser -v /dev/nvidia0 | awk '{print $0}' |  xargs kill -9
+这行指令能够自动清理编号为0的显卡上当前用户的所有调用GPU进程。对已经取消的任务但是仍占用GPU显存或者memory的僵尸任务有奇效
