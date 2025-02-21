@@ -1,0 +1,2 @@
+运行即可。这里要注意max_seq_length和train_batch_size这两个参数，设置过大是很容易爆掉显存的，一般来说运行bert需要11G左右的显存。
+
