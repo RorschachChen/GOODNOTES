@@ -1,0 +1,2 @@
+tokenizer.pad_token = tokenizer.eos_token 这个设置的意思是指定填充标记(pad_token)使用结束标记(eos_token)。pad_token 是 tokenizer 中用于补足输入序列长度的填充标记,默认是 [PAD]。
+eos_token 是 tokenizer 中用于表示序列结束的标记,默认是 [SEP]。所以,这个设置就是指定我们使用 [SEP] 标记来进行补充填充,而不是默认的 [PAD] 标记。
